@@ -193,8 +193,10 @@ main {
   display: block;
 }
 .home-mascot-fallback {
-  font-size: 64px;
-  line-height: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 0;
   margin-bottom: 8px;
 }
 .home-shop-name {

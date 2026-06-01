@@ -1,6 +1,8 @@
 <div align="center">
 
-# 🐶 BOO-POS
+<img src="icons/icon.svg" width="84" alt="BOO-POS" />
+
+# BOO-POS
 
 **開源・離線優先・可自訂的同人 / 手作擺攤收銀台**
 *Open-source, offline-first, customizable POS for doujin & craft-market sellers*
