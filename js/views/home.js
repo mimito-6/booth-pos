@@ -8,12 +8,10 @@
 
   const STALL_SVG =
     '<svg viewBox="0 0 512 512" width="92" height="92" style="fill:var(--accent)" aria-hidden="true">' +
-    '<rect x="250" y="116" width="12" height="60" rx="4"/>' +
-    '<path d="M262 124 L308 137 L262 150 Z"/>' +
-    '<path d="M104 176 H408 V236 q-25.33 30 -50.67 0 q-25.33 30 -50.67 0 q-25.33 30 -50.67 0 q-25.33 30 -50.67 0 q-25.33 30 -50.67 0 q-25.33 30 -50.67 0 Z"/>' +
-    '<rect x="138" y="236" width="20" height="184" rx="6"/>' +
-    '<rect x="354" y="236" width="20" height="184" rx="6"/>' +
-    '<rect x="116" y="352" width="280" height="28" rx="10"/>' +
+    '<path d="M104 134 H408 V194 q-25.33 30 -50.67 0 q-25.33 30 -50.67 0 q-25.33 30 -50.67 0 q-25.33 30 -50.67 0 q-25.33 30 -50.67 0 q-25.33 30 -50.67 0 Z"/>' +
+    '<rect x="138" y="194" width="20" height="184" rx="6"/>' +
+    '<rect x="354" y="194" width="20" height="184" rx="6"/>' +
+    '<rect x="116" y="308" width="280" height="28" rx="10"/>' +
     "</svg>";
 
   const NAV = [
