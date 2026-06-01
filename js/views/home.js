@@ -87,8 +87,34 @@
       ]),
     ]);
 
+    // language switcher — each button shows its own language's name, so
+    // a visitor who can't read the current UI can still find their language.
+    const LANGS = [
+      { code: "zh-Hant", label: "繁體中文" },
+      { code: "ja", label: "日本語" },
+      { code: "en", label: "English" },
+    ];
+    const cur = OB.i18n.getLocale();
+    const langRow = el("div", { class: "lang-row" });
+    LANGS.forEach((l) => {
+      langRow.appendChild(
+        el("button", {
+          class: "lang-btn" + (cur === l.code ? " active" : ""),
+          lang: l.code,
+          text: l.label,
+          onclick: () => {
+            const s = OB.store.get().settings;
+            if (s.locale === l.code) return;
+            s.locale = l.code;
+            OB.i18n.setLocale(l.code);
+            OB.store.commit(); // persists + re-renders via app subscriber
+          },
+        })
+      );
+    });
+
     const view = el("div", { class: "view active" });
-    view.append(hero, openBtn, statWrap, grid, log);
+    view.append(hero, openBtn, statWrap, grid, log, langRow);
     root.appendChild(view);
   }
 
