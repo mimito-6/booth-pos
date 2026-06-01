@@ -7,7 +7,7 @@
 **開源・離線優先・可自訂的同人 / 手作擺攤收銀台**
 *Open-source, offline-first, customizable POS for doujin & craft-market sellers*
 
-繁體中文 · 日本語 · English
+[**繁體中文**](README.md) · [English](README.en.md) · [日本語](README.ja.md)
 
 [**▶ 線上 Demo**](https://mimito-6.github.io/booth-pos/) · [快速開始](#-快速開始) · [功能](#-功能) · [設計理念](DESIGN.md) · [貢獻](CONTRIBUTING.md)
 
@@ -81,8 +81,4 @@ npx serve .        # 或 python -m http.server
 ## 📄 授權
 
 程式碼 [MIT](LICENSE)。社群投稿的設定包 / 美術建議以 CC0 / CC BY 標示。
-範例為原創 / 泛用品項；請勿在公開設定包中散布第三方 IP（二創）素材。
-
-## 🙏 致謝
-
-介面靈感參考同人即賣會收銀工具（如日本的「即売レジ」）。歡迎 PR、翻譯與設定包投稿，見 [CONTRIBUTING.md](CONTRIBUTING.md)。
+範例為原創 / 泛用品項；請勿在公開設定包中散布第三方 IP（二創）素材。歡迎 PR、翻譯與設定包投稿，見 [CONTRIBUTING.md](CONTRIBUTING.md)。
