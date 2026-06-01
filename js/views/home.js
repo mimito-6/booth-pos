@@ -71,7 +71,6 @@
       if (n.badge && pendingPre) card.appendChild(el("span", { class: "nav-badge", text: pendingPre }));
       card.appendChild(el("span", { class: "nav-emoji", text: n.emoji }));
       card.appendChild(el("span", { class: "nav-name", text: t(n.name) }));
-      card.appendChild(el("span", { class: "nav-code", text: n.code }));
       grid.appendChild(card);
     });
 
