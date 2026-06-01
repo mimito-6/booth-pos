@@ -1,9 +1,9 @@
 /* ============================================================
-   BOO-POS — PICKUP view (pre-orders + CSV import/export)
+   OpenBooth — PICKUP view (pre-orders + CSV import/export)
    ============================================================ */
 (function () {
-  window.BOO = window.BOO || {};
-  const U = BOO.util;
+  window.OB = window.OB || {};
+  const U = OB.util;
   const { el, esc, fmtMoney, toast, confirmDialog, copyText } = U;
   const t = window.t;
 
@@ -11,14 +11,14 @@
   let filter = "all";
 
   function render(root) {
-    const st = BOO.store.get();
+    const st = OB.store.get();
     search = "";
     filter = "all";
     const view = el("div", { class: "view active" });
     view.appendChild(
-      BOO.ui.header({
+      OB.ui.header({
         title: t("nav_pickup"),
-        onBack: () => BOO.router.go("home"),
+        onBack: () => OB.router.go("home"),
         right: [
           { icon: "＋", label: t("add_preorder"), onClick: () => edit(null) },
           { icon: "📥", label: t("import_csv"), onClick: importCsv },
@@ -54,13 +54,13 @@
     root.appendChild(view);
 
     function renderList() {
-      const st2 = BOO.store.get();
+      const st2 = OB.store.get();
       listEl.innerHTML = "";
       let items = st2.preorders.slice().sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
       if (filter !== "all") items = items.filter((p) => p.status === filter);
       if (search) items = items.filter((p) => (p.customerName + " " + p.itemsText + " " + (p.contact || "")).toLowerCase().includes(search));
       if (!items.length) {
-        listEl.appendChild(BOO.ui.emptyState("📋", t("no_preorders")));
+        listEl.appendChild(OB.ui.emptyState("📋", t("no_preorders")));
         return;
       }
       items.forEach((p) => listEl.appendChild(row(p)));
@@ -90,10 +90,10 @@
 
     function mark(p, status) {
       p.status = status;
-      BOO.store.upsertPreorder(p);
+      OB.store.upsertPreorder(p);
       renderList();
       // refresh pill counts
-      BOO.router.refresh();
+      OB.router.refresh();
     }
 
     function copyNotify(p) {
@@ -114,7 +114,7 @@
       for (let i = start; i < rows.length; i++) {
         const r = rows[i];
         if (!r[0] && !r[2]) continue;
-        BOO.store.upsertPreorder({
+        OB.store.upsertPreorder({
           customerName: (r[0] || "").trim(),
           contact: (r[1] || "").trim(),
           itemsText: (r[2] || "").trim(),
@@ -125,11 +125,11 @@
         n++;
       }
       toast(t("imported") + " " + n, "success");
-      BOO.router.refresh();
+      OB.router.refresh();
     }
 
     function exportCsv() {
-      const st2 = BOO.store.get();
+      const st2 = OB.store.get();
       const rows = [[t("customer_name"), t("contact"), t("items_text"), t("amount"), t("deposit"), "status"]];
       st2.preorders.forEach((p) => rows.push([p.customerName, p.contact, p.itemsText, p.amount, p.deposit || 0, p.status]));
       U.downloadFile("preorders.csv", U.toCSV(rows), "text/csv");
@@ -142,19 +142,19 @@
   function edit(po) {
     const isNew = !po;
     const data = po ? Object.assign({}, po) : { customerName: "", contact: "", itemsText: "", amount: 0, deposit: 0, status: "pending" };
-    const sh = BOO.ui.sheet({ title: isNew ? t("add_preorder") : t("nav_pickup") });
+    const sh = OB.ui.sheet({ title: isNew ? t("add_preorder") : t("nav_pickup") });
 
-    const nameI = BOO.ui.input({ value: data.customerName });
-    const contactI = BOO.ui.input({ value: data.contact || "", placeholder: "Twitter / Plurk / Line…" });
+    const nameI = OB.ui.input({ value: data.customerName });
+    const contactI = OB.ui.input({ value: data.contact || "", placeholder: "Twitter / Plurk / Line…" });
     const itemsI = el("textarea", { rows: 2 });
     itemsI.value = data.itemsText || "";
-    const amountI = BOO.ui.input({ type: "number", inputmode: "numeric", value: data.amount });
-    const depositI = BOO.ui.input({ type: "number", inputmode: "numeric", value: data.deposit || 0 });
+    const amountI = OB.ui.input({ type: "number", inputmode: "numeric", value: data.amount });
+    const depositI = OB.ui.input({ type: "number", inputmode: "numeric", value: data.deposit || 0 });
 
-    sh.body.appendChild(BOO.ui.field(t("customer_name"), nameI));
-    sh.body.appendChild(BOO.ui.field(t("contact"), contactI));
-    sh.body.appendChild(BOO.ui.field(t("items_text"), itemsI));
-    sh.body.appendChild(el("div", { class: "field-row" }, [BOO.ui.field(t("amount"), amountI), BOO.ui.field(t("deposit"), depositI)]));
+    sh.body.appendChild(OB.ui.field(t("customer_name"), nameI));
+    sh.body.appendChild(OB.ui.field(t("contact"), contactI));
+    sh.body.appendChild(OB.ui.field(t("items_text"), itemsI));
+    sh.body.appendChild(el("div", { class: "field-row" }, [OB.ui.field(t("amount"), amountI), OB.ui.field(t("deposit"), depositI)]));
 
     const saveBtn = el("button", { class: "btn btn-primary", text: t("save"), onclick: save });
     const actions = el("div", { class: "actions" }, [saveBtn]);
@@ -171,19 +171,19 @@
       data.itemsText = itemsI.value.trim();
       data.amount = Math.round(Number(amountI.value)) || 0;
       data.deposit = Math.round(Number(depositI.value)) || 0;
-      BOO.store.upsertPreorder(data);
+      OB.store.upsertPreorder(data);
       sh.close();
-      BOO.router.refresh();
+      OB.router.refresh();
     }
     function del() {
       confirmDialog(t("confirm_delete", { name: data.customerName || "—" }), { danger: true }).then((ok) => {
         if (!ok) return;
-        BOO.store.deletePreorder(data.id);
+        OB.store.deletePreorder(data.id);
         sh.close();
-        BOO.router.refresh();
+        OB.router.refresh();
       });
     }
   }
 
-  BOO.router.register("pickup", render);
+  OB.router.register("pickup", render);
 })();

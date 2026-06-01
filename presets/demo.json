@@ -1,9 +1,9 @@
 {
   "schemaVersion": 3,
-  "kind": "boopos-preset",
+  "kind": "openbooth-preset",
   "meta": {
     "name": "示範攤位 / Demo Stall",
-    "author": "BOO-POS",
+    "author": "OpenBooth",
     "locale": "zh-Hant",
     "license": "CC0",
     "description": "原創 / 泛用範例品項，供新使用者上手與截圖展示。"

@@ -1,15 +1,15 @@
 <div align="center">
 
-<img src="icons/icon.svg" width="84" alt="BOO-POS" />
+<img src="icons/icon.svg" width="84" alt="OpenBooth" />
 
-# BOO-POS
+# OpenBooth
 
 **オープンソース・オフライン優先・カスタマイズ自在の同人／ハンドメイド即売レジ**
 *Open-source, offline-first, customizable POS for doujin & craft-market sellers*
 
 [繁體中文](README.md) · [English](README.en.md) · [**日本語**](README.ja.md)
 
-[**▶ オンラインデモ**](https://mimito-6.github.io/booth-pos/) · [はじめに](#-はじめに) · [機能](#-機能) · [設計](DESIGN.md) · [貢献](CONTRIBUTING.md)
+[**▶ オンラインデモ**](https://mimito-6.github.io/openbooth/) · [はじめに](#-はじめに) · [機能](#-機能) · [設計](DESIGN.md) · [貢献](CONTRIBUTING.md)
 
 </div>
 
@@ -18,11 +18,11 @@
 > スマホ一台でブース運営。商品をタップ → 会計、2 ステップで完了。
 > あなたの売上データは**スマホの外に出ません** — アカウント不要・クラウド不要・オフライン動作・ソースは自分で確認可能。
 
-BOO-POS は同人即売会やハンドメイドマーケット（コミケ、CWT、FF、各種マルシェ…）の出店者向けレジです。出品物がハードコードされた小さなツールを、**誰でも設定画面からカスタマイズできる**オープンなシステムに作り直しました。コーディング不要、登録不要、会場の電波がなくても動きます。
+OpenBooth は同人即売会やハンドメイドマーケット（コミケ、CWT、FF、各種マルシェ…）の出店者向けレジです。出品物がハードコードされた小さなツールを、**誰でも設定画面からカスタマイズできる**オープンなシステムに作り直しました。コーディング不要、登録不要、会場の電波がなくても動きます。
 
 ## ✨ 選ばれる理由
 
-| | BOO-POS | 汎用クラウド POS (Square…) | 紙 + 電卓 |
+| | OpenBooth | 汎用クラウド POS (Square…) | 紙 + 電卓 |
 |---|:---:|:---:|:---:|
 | 会場の電波がなくても動く | ✅ オフライン優先 | ⚠️ 接続が必要 | ✅ |
 | おつり自動計算 | ✅ | ✅ | ❌ ミスしやすい |
@@ -49,15 +49,15 @@ BOO-POS は同人即売会やハンドメイドマーケット（コミケ、CWT
 ## 🚀 はじめに
 
 **A. ホスト版をそのまま使う**（一番かんたん）
-[デモ](https://mimito-6.github.io/booth-pos/)を開き、右上の ⚙ →「サンプルを読込」でお試し。スマホで「ホーム画面に追加」すれば、アプリのようにオフラインで使えます。
+[デモ](https://mimito-6.github.io/openbooth/)を開き、右上の ⚙ →「サンプルを読込」でお試し。スマホで「ホーム画面に追加」すれば、アプリのようにオフラインで使えます。
 
 **B. オフライン単体版をダウンロード**
 プロジェクトをダウンロードし、ブラウザで `index.html` を開くだけ（インストール・サーバー不要）。
 
 **C. 開発 / 自分でホスティング**
 ```bash
-git clone https://github.com/mimito-6/booth-pos.git
-cd booth-pos
+git clone https://github.com/mimito-6/openbooth.git
+cd openbooth
 # ビルド不要 — 任意の静的サーバーでOK
 npx serve .        # または: python -m http.server
 # http://localhost:3000 を開く

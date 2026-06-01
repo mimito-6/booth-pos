@@ -1,15 +1,15 @@
 /* ============================================================
-   BOO-POS — Store
+   OpenBooth — Store
    Single source of truth. Persists to localStorage.
    Catalog (settings/products/combos/...) is editable data.
    Transactions are immutable facts with PRICE SNAPSHOTS.
    ============================================================ */
 (function () {
-  window.BOO = window.BOO || {};
-  const U = () => window.BOO.util;
+  window.OB = window.OB || {};
+  const U = () => window.OB.util;
 
-  const KEY = "boopos_v3";
-  const CART_KEY = "boopos_cart_v3";
+  const KEY = "openbooth_v3";
+  const CART_KEY = "openbooth_cart_v3";
   const LEGACY_KEY = "booth_register_v1";
   const SCHEMA_VERSION = 3;
 
@@ -27,10 +27,10 @@
     return {
       schemaVersion: SCHEMA_VERSION,
       settings: {
-        shopName: "BOO-POS",
+        shopName: "OpenBooth",
         currencyCode: "TWD",
         currencySymbol: "NT$",
-        locale: window.BOO.i18n.detect(),
+        locale: window.OB.i18n.detect(),
         theme: "warm",
         lowStockThreshold: 5,
         showStock: true,
@@ -372,7 +372,7 @@
   function exportPreset() {
     return {
       schemaVersion: SCHEMA_VERSION,
-      kind: "boopos-preset",
+      kind: "openbooth-preset",
       meta: { name: state.settings.shopName, exportedAt: Date.now() },
       settings: Object.assign({}, state.settings),
       categories: state.categories,
@@ -482,7 +482,7 @@
       },
     ];
     state.giftThresholds = [{ id: uuid(), minAmount: 500, rewardText: "限定小卡 ×1", enabled: true }];
-    if (!state.settings.shopName || state.settings.shopName === "BOO-POS") state.settings.shopName = "我的攤位";
+    if (!state.settings.shopName || state.settings.shopName === "OpenBooth") state.settings.shopName = "我的攤位";
     commit();
   }
 
@@ -491,7 +491,7 @@
     return !!localStorage.getItem(LEGACY_KEY);
   }
 
-  BOO.store = {
+  OB.store = {
     load,
     save,
     saveCart,

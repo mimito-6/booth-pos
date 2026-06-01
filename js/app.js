@@ -1,27 +1,27 @@
 /* ============================================================
-   BOO-POS — App bootstrap
+   OpenBooth — App bootstrap
    ============================================================ */
 (function () {
-  window.BOO = window.BOO || {};
-  BOO.app = BOO.app || {};
-  const CACHE_NAME = "boopos-v1";
+  window.OB = window.OB || {};
+  OB.app = OB.app || {};
+  const CACHE_NAME = "openbooth-v1";
 
   // ---- customer-facing display ----
   let cfd = null;
   function ensureCfd() {
     if (cfd) return cfd;
-    cfd = BOO.util.el("div", { class: "cfd" }, [
-      BOO.util.el("button", { class: "cfd-close", html: "×", onclick: hideCustomerDisplay }),
-      BOO.util.el("div", { class: "cfd-label", text: BOO.i18n.t("total_due") }),
-      BOO.util.el("div", { class: "cfd-amount", id: "cfdAmount" }),
-      BOO.util.el("img", { class: "cfd-qr hidden", id: "cfdQr", alt: "QR" }),
+    cfd = OB.util.el("div", { class: "cfd" }, [
+      OB.util.el("button", { class: "cfd-close", html: "×", onclick: hideCustomerDisplay }),
+      OB.util.el("div", { class: "cfd-label", text: OB.i18n.t("total_due") }),
+      OB.util.el("div", { class: "cfd-amount", id: "cfdAmount" }),
+      OB.util.el("img", { class: "cfd-qr hidden", id: "cfdQr", alt: "QR" }),
     ]);
     document.body.appendChild(cfd);
     return cfd;
   }
   function showCustomerDisplay(amount, qr) {
     ensureCfd();
-    document.getElementById("cfdAmount").textContent = BOO.util.fmtMoney(amount);
+    document.getElementById("cfdAmount").textContent = OB.util.fmtMoney(amount);
     const q = document.getElementById("cfdQr");
     if (qr) {
       q.src = qr;
@@ -29,7 +29,7 @@
     } else {
       q.classList.add("hidden");
     }
-    cfd.querySelector(".cfd-label").textContent = BOO.i18n.t("total_due");
+    cfd.querySelector(".cfd-label").textContent = OB.i18n.t("total_due");
     cfd.classList.add("show");
   }
   function hideCustomerDisplay() {
@@ -51,19 +51,19 @@
     const code = params.get("config");
     if (!code) return Promise.resolve(false);
     try {
-      const preset = BOO.store.decodePreset(code);
-      return BOO.util
+      const preset = OB.store.decodePreset(code);
+      return OB.util
         .confirmDialog("匯入分享的攤位設定包「" + (preset.meta && preset.meta.name ? preset.meta.name : "?") + "」？\n(會取代目前的商品設定，交易紀錄保留)")
         .then((ok) => {
           if (ok) {
-            BOO.store.applyPreset(preset);
-            BOO.util.toast(BOO.i18n.t("imported"), "success");
+            OB.store.applyPreset(preset);
+            OB.util.toast(OB.i18n.t("imported"), "success");
           }
           history.replaceState(null, "", location.pathname);
           return ok;
         });
     } catch (e) {
-      BOO.util.toast("⚠ 分享連結無效", "danger");
+      OB.util.toast("⚠ 分享連結無效", "danger");
       return Promise.resolve(false);
     }
   }
@@ -78,21 +78,21 @@
   }
 
   function applyChrome() {
-    const s = BOO.store.get().settings;
+    const s = OB.store.get().settings;
     document.documentElement.dataset.theme = s.theme || "warm";
     document.documentElement.lang = s.locale === "ja" ? "ja" : s.locale === "en" ? "en" : "zh-Hant";
-    BOO.i18n.setLocale(s.locale);
+    OB.i18n.setLocale(s.locale);
   }
 
   function init() {
-    BOO.store.load();
+    OB.store.load();
     // first-run locale detect (only if never set explicitly is hard to know; keep stored)
     applyChrome();
 
     // re-render current view on any data change
-    BOO.store.subscribe(() => {
+    OB.store.subscribe(() => {
       applyChrome();
-      BOO.router.refresh();
+      OB.router.refresh();
     });
 
     registerSW();
@@ -100,15 +100,15 @@
     handleShareLink().then(() => {
       // initial route from hash
       const h = (location.hash || "").replace(/^#\//, "");
-      BOO.router.go(h && h !== "home" ? h : "home", {}, { replace: true });
+      OB.router.go(h && h !== "home" ? h : "home", {}, { replace: true });
     });
   }
 
-  BOO.app.checkOfflineReady = checkOfflineReady;
-  BOO.app.showCustomerDisplay = showCustomerDisplay;
-  BOO.app.hideCustomerDisplay = hideCustomerDisplay;
-  BOO.app.init = init;
-  BOO.app.CACHE_NAME = CACHE_NAME;
+  OB.app.checkOfflineReady = checkOfflineReady;
+  OB.app.showCustomerDisplay = showCustomerDisplay;
+  OB.app.hideCustomerDisplay = hideCustomerDisplay;
+  OB.app.init = init;
+  OB.app.CACHE_NAME = CACHE_NAME;
 
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", init);

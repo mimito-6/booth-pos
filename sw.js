@@ -1,10 +1,10 @@
 /* ============================================================
-   BOO-POS — Service Worker
+   OpenBooth — Service Worker
    Precache app shell, serve cache-first so the app cold-starts
    with no network (venue Wi-Fi is unreliable). Bump CACHE on
    each release; old caches are purged on activate.
    ============================================================ */
-const CACHE = "boopos-v1";
+const CACHE = "openbooth-v1";
 const ASSETS = [
   "./",
   "index.html",

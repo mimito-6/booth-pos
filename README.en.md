@@ -1,14 +1,14 @@
 <div align="center">
 
-<img src="icons/icon.svg" width="84" alt="BOO-POS" />
+<img src="icons/icon.svg" width="84" alt="OpenBooth" />
 
-# BOO-POS
+# OpenBooth
 
 **Open-source, offline-first, customizable POS for doujin & craft-market sellers**
 
 [繁體中文](README.md) · [**English**](README.en.md) · [日本語](README.ja.md)
 
-[**▶ Live Demo**](https://mimito-6.github.io/booth-pos/) · [Quick start](#-quick-start) · [Features](#-features) · [Design](DESIGN.md) · [Contributing](CONTRIBUTING.md)
+[**▶ Live Demo**](https://mimito-6.github.io/openbooth/) · [Quick start](#-quick-start) · [Features](#-features) · [Design](DESIGN.md) · [Contributing](CONTRIBUTING.md)
 
 </div>
 
@@ -17,11 +17,11 @@
 > One phone runs your whole booth. Tap items → check out, done in two steps.
 > Your sales data **never leaves your phone** — no account, no cloud, fully offline, source you can audit.
 
-BOO-POS is a point-of-sale for sellers at doujin / fan conventions and craft markets (CWT, FF, Comiket, flea markets…). It takes a tiny tool that had one seller's goods hardcoded and rebuilds it into an open system **anyone can customize from the UI** — no coding, no sign-up, works with no venue Wi-Fi.
+OpenBooth is a point-of-sale for sellers at doujin / fan conventions and craft markets (CWT, FF, Comiket, flea markets…). It takes a tiny tool that had one seller's goods hardcoded and rebuilds it into an open system **anyone can customize from the UI** — no coding, no sign-up, works with no venue Wi-Fi.
 
-## ✨ Why BOO-POS
+## ✨ Why OpenBooth
 
-| | BOO-POS | Generic cloud POS (Square…) | Paper + calculator |
+| | OpenBooth | Generic cloud POS (Square…) | Paper + calculator |
 |---|:---:|:---:|:---:|
 | Works with no venue network | ✅ offline-first | ⚠️ needs connection | ✅ |
 | Automatic change calculation | ✅ | ✅ | ❌ error-prone |
@@ -48,15 +48,15 @@ Plus: full JSON backup / restore, **one-link stall preset sharing**, customer-fa
 ## 🚀 Quick start
 
 **A. Use the hosted version** (easiest)
-Open the [demo](https://mimito-6.github.io/booth-pos/), tap ⚙ (top-right) → "Load demo products" to try it. On a phone, "Add to Home Screen" to use it offline like an app.
+Open the [demo](https://mimito-6.github.io/openbooth/), tap ⚙ (top-right) → "Load demo products" to try it. On a phone, "Add to Home Screen" to use it offline like an app.
 
 **B. Download the offline single build**
 Download the project and open `index.html` in any browser — no install, no server.
 
 **C. Develop / self-host**
 ```bash
-git clone https://github.com/mimito-6/booth-pos.git
-cd booth-pos
+git clone https://github.com/mimito-6/openbooth.git
+cd openbooth
 # Zero build step — any static server works
 npx serve .        # or: python -m http.server
 # open http://localhost:3000

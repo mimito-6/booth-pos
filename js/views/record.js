@@ -1,24 +1,24 @@
 /* ============================================================
-   BOO-POS — RECORD view (transactions, stats, cash-up)
+   OpenBooth — RECORD view (transactions, stats, cash-up)
    ============================================================ */
 (function () {
-  window.BOO = window.BOO || {};
-  const U = BOO.util;
+  window.OB = window.OB || {};
+  const U = OB.util;
   const { el, esc, fmtMoney, fmtTime, toast, confirmDialog } = U;
   const t = window.t;
 
   function render(root) {
-    const st = BOO.store.get();
-    const ev = BOO.store.currentEvent();
-    const stats = BOO.stats.eventStats(st);
+    const st = OB.store.get();
+    const ev = OB.store.currentEvent();
+    const stats = OB.stats.eventStats(st);
     const txs = stats.txs.slice().reverse();
 
     const view = el("div", { class: "view active" });
     view.appendChild(
-      BOO.ui.header({
+      OB.ui.header({
         title: t("nav_record"),
         subtitle: ev.name || t("no_event"),
-        onBack: () => BOO.router.go("home"),
+        onBack: () => OB.router.go("home"),
         right: [
           { icon: "📊", label: t("cashup"), onClick: openCashup },
           { icon: "📤", label: t("export_csv"), onClick: exportCsv },
@@ -28,7 +28,7 @@
     const main = el("main");
 
     main.appendChild(
-      BOO.ui.statsRow([
+      OB.ui.statsRow([
         { label: t("stat_revenue"), value: fmtMoney(stats.revenue) },
         { label: t("stat_tx"), value: stats.count, unit: t("unit_tx"), small: true },
         { label: t("stat_items"), value: stats.pieces, unit: t("unit_pcs"), small: true },
@@ -52,7 +52,7 @@
 
     // product ranking (top 5)
     const ranking = Object.entries(stats.byProduct)
-      .map(([pid, qty]) => ({ p: BOO.store.product(pid), qty }))
+      .map(([pid, qty]) => ({ p: OB.store.product(pid), qty }))
       .filter((x) => x.p)
       .sort((a, b) => b.qty - a.qty)
       .slice(0, 5);
@@ -67,7 +67,7 @@
     // transaction list
     const sec = el("section", { class: "section" }, [el("h2", { class: "section-title", text: t("records") })]);
     if (!txs.length) {
-      sec.appendChild(BOO.ui.emptyState("🧾", t("no_records")));
+      sec.appendChild(OB.ui.emptyState("🧾", t("no_records")));
     } else {
       txs.forEach((tx) => {
         const parts = (tx.lines || []).map((l) => l.name + "×" + l.qty + (l.isTokuten ? "🎁" : ""));
@@ -106,7 +106,7 @@
       const msg = isCash ? t("confirm_undo_cash", { amount: fmtMoney(tx.grandTotal) }) : t("confirm_undo", { amount: fmtMoney(tx.grandTotal) });
       confirmDialog(msg, { danger: true }).then((ok) => {
         if (!ok) return;
-        BOO.store.voidTransaction(tx.id);
+        OB.store.voidTransaction(tx.id);
         toast(t("undone"), "success");
       });
     }
@@ -116,9 +116,9 @@
         if (!ok) return;
         confirmDialog(t("confirm_reset2"), { danger: true }).then((ok2) => {
           if (!ok2) return;
-          const s = BOO.store.get();
+          const s = OB.store.get();
           s.transactions = s.transactions.filter((x) => x.eventId !== s.currentEventId);
-          BOO.store.commit();
+          OB.store.commit();
           toast(t("reset_done"));
         });
       });
@@ -151,10 +151,10 @@
 
   // ---------- cash-up ----------
   function openCashup() {
-    const st = BOO.store.get();
-    const ev = BOO.store.currentEvent();
-    const stats = BOO.stats.eventStats(st);
-    const sh = BOO.ui.sheet({ title: t("cashup"), tall: true });
+    const st = OB.store.get();
+    const ev = OB.store.currentEvent();
+    const stats = OB.stats.eventStats(st);
+    const sh = OB.ui.sheet({ title: t("cashup"), tall: true });
 
     const startFloat = ev.startFloat || 0;
     const expectedCash = startFloat + stats.cashRevenue;
@@ -201,8 +201,8 @@
 
     // remaining stock
     sh.body.appendChild(el("div", { class: "section-title", text: t("remaining_stock") }));
-    BOO.store.activeProducts().forEach((p) => {
-      const rem = BOO.inventory.committedRemaining(st, p.id);
+    OB.store.activeProducts().forEach((p) => {
+      const rem = OB.inventory.committedRemaining(st, p.id);
       if (!isFinite(rem)) return;
       sh.body.appendChild(el("div", { class: "summary-row" }, [el("span", { text: p.name }), el("span", { class: rem <= 0 ? "" : "", text: (rem <= 0 ? "✅ " : "") + Math.max(0, rem) })]));
     });
@@ -212,5 +212,5 @@
     }
   }
 
-  BOO.router.register("record", render);
+  OB.router.register("record", render);
 })();

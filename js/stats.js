@@ -1,8 +1,8 @@
 /* ============================================================
-   BOO-POS — Sales statistics (per event)
+   OpenBooth — Sales statistics (per event)
    ============================================================ */
 (function () {
-  window.BOO = window.BOO || {};
+  window.OB = window.OB || {};
 
   function eventStats(state, eventId) {
     const txs = state.transactions.filter((t) => t.eventId === (eventId || state.currentEventId) && !t.voided);
@@ -34,5 +34,5 @@
     return { count: txs.length, revenue, pieces, cashRevenue, giftsGiven, byPayment, byProduct, txs };
   }
 
-  BOO.stats = { eventStats };
+  OB.stats = { eventStats };
 })();

@@ -1,9 +1,9 @@
 /* ============================================================
-   BOO-POS — Shared UI components
+   OpenBooth — Shared UI components
    ============================================================ */
 (function () {
-  window.BOO = window.BOO || {};
-  const { el } = BOO.util;
+  window.OB = window.OB || {};
+  const { el } = OB.util;
   const t = window.t;
 
   function header(opts) {
@@ -36,7 +36,7 @@
       row.appendChild(
         el("div", { class: "stat" }, [
           el("div", { class: "stat-label", text: s.label }),
-          el("div", { class: "stat-value " + (s.small ? "small" : ""), html: s.value + (s.unit ? ' <span class="unit">' + BOO.util.esc(s.unit) + "</span>" : "") }),
+          el("div", { class: "stat-value " + (s.small ? "small" : ""), html: s.value + (s.unit ? ' <span class="unit">' + OB.util.esc(s.unit) + "</span>" : "") }),
         ])
       );
     });
@@ -102,5 +102,5 @@
     return tg;
   }
 
-  BOO.ui = { header, statsRow, emptyState, sheet, field, input, toggle };
+  OB.ui = { header, statsRow, emptyState, sheet, field, input, toggle };
 })();
