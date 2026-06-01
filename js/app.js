@@ -1,0 +1,118 @@
+/* ============================================================
+   BOO-POS — App bootstrap
+   ============================================================ */
+(function () {
+  window.BOO = window.BOO || {};
+  BOO.app = BOO.app || {};
+  const CACHE_NAME = "boopos-v1";
+
+  // ---- customer-facing display ----
+  let cfd = null;
+  function ensureCfd() {
+    if (cfd) return cfd;
+    cfd = BOO.util.el("div", { class: "cfd" }, [
+      BOO.util.el("button", { class: "cfd-close", html: "×", onclick: hideCustomerDisplay }),
+      BOO.util.el("div", { class: "cfd-label", text: BOO.i18n.t("total_due") }),
+      BOO.util.el("div", { class: "cfd-amount", id: "cfdAmount" }),
+      BOO.util.el("img", { class: "cfd-qr hidden", id: "cfdQr", alt: "QR" }),
+    ]);
+    document.body.appendChild(cfd);
+    return cfd;
+  }
+  function showCustomerDisplay(amount, qr) {
+    ensureCfd();
+    document.getElementById("cfdAmount").textContent = BOO.util.fmtMoney(amount);
+    const q = document.getElementById("cfdQr");
+    if (qr) {
+      q.src = qr;
+      q.classList.remove("hidden");
+    } else {
+      q.classList.add("hidden");
+    }
+    cfd.querySelector(".cfd-label").textContent = BOO.i18n.t("total_due");
+    cfd.classList.add("show");
+  }
+  function hideCustomerDisplay() {
+    if (cfd) cfd.classList.remove("show");
+  }
+
+  // ---- offline readiness ----
+  function checkOfflineReady() {
+    return new Promise((resolve) => {
+      if (location.protocol === "file:") return resolve(true);
+      if (!("caches" in window)) return resolve(false);
+      caches.has(CACHE_NAME).then((has) => resolve(has && !!navigator.serviceWorker && !!navigator.serviceWorker.controller)).catch(() => resolve(false));
+    });
+  }
+
+  // ---- share link import (?config=) ----
+  function handleShareLink() {
+    const params = new URLSearchParams(location.search);
+    const code = params.get("config");
+    if (!code) return Promise.resolve(false);
+    try {
+      const preset = BOO.store.decodePreset(code);
+      return BOO.util
+        .confirmDialog("匯入分享的攤位設定包「" + (preset.meta && preset.meta.name ? preset.meta.name : "?") + "」？\n(會取代目前的商品設定，交易紀錄保留)")
+        .then((ok) => {
+          if (ok) {
+            BOO.store.applyPreset(preset);
+            BOO.util.toast(BOO.i18n.t("imported"), "success");
+          }
+          history.replaceState(null, "", location.pathname);
+          return ok;
+        });
+    } catch (e) {
+      BOO.util.toast("⚠ 分享連結無效", "danger");
+      return Promise.resolve(false);
+    }
+  }
+
+  // ---- service worker ----
+  function registerSW() {
+    if (location.protocol === "file:") return;
+    if (!("serviceWorker" in navigator)) return;
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("sw.js").catch((e) => console.warn("SW register failed", e));
+    });
+  }
+
+  function applyChrome() {
+    const s = BOO.store.get().settings;
+    document.documentElement.dataset.theme = s.theme || "warm";
+    document.documentElement.lang = s.locale === "ja" ? "ja" : s.locale === "en" ? "en" : "zh-Hant";
+    BOO.i18n.setLocale(s.locale);
+  }
+
+  function init() {
+    BOO.store.load();
+    // first-run locale detect (only if never set explicitly is hard to know; keep stored)
+    applyChrome();
+
+    // re-render current view on any data change
+    BOO.store.subscribe(() => {
+      applyChrome();
+      BOO.router.refresh();
+    });
+
+    registerSW();
+
+    handleShareLink().then(() => {
+      // initial route from hash
+      const h = (location.hash || "").replace(/^#\//, "");
+      BOO.router.go(h && h !== "home" ? h : "home", {}, { replace: true });
+    });
+  }
+
+  BOO.app.checkOfflineReady = checkOfflineReady;
+  BOO.app.showCustomerDisplay = showCustomerDisplay;
+  BOO.app.hideCustomerDisplay = hideCustomerDisplay;
+  BOO.app.init = init;
+  BOO.app.CACHE_NAME = CACHE_NAME;
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();

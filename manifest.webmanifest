@@ -1,0 +1,19 @@
+{
+  "name": "BOO-POS 擺攤收銀台",
+  "short_name": "BOO-POS",
+  "description": "開源、離線優先、可自訂的同人/手作擺攤收銀台 POS。",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#faf6f0",
+  "theme_color": "#c46b43",
+  "icons": [
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

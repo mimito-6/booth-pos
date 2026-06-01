@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 3,
+  "kind": "boopos-preset",
+  "meta": {
+    "name": "示範攤位 / Demo Stall",
+    "author": "BOO-POS",
+    "locale": "zh-Hant",
+    "license": "CC0",
+    "description": "原創 / 泛用範例品項，供新使用者上手與截圖展示。"
+  },
+  "settings": {
+    "shopName": "我的攤位",
+    "currencyCode": "TWD",
+    "currencySymbol": "NT$",
+    "locale": "zh-Hant",
+    "theme": "warm",
+    "lowStockThreshold": 5,
+    "showStock": true,
+    "enableCombos": true,
+    "requireCash": true,
+    "mascot": null
+  },
+  "categories": [
+    { "id": "cat-sticker", "name": "貼紙", "color": "#c46b43", "sortOrder": 0 },
+    { "id": "cat-acrylic", "name": "壓克力", "color": "#6b5b95", "sortOrder": 1 },
+    { "id": "cat-charm", "name": "吊飾", "color": "#4a8b5c", "sortOrder": 2 },
+    { "id": "cat-print", "name": "明信片", "color": "#c98a1e", "sortOrder": 3 }
+  ],
+  "products": [
+    { "id": "p-stk-a", "name": "原創角色貼紙 A", "categoryId": "cat-sticker", "price": 40, "stockInitial": 100, "bundleRules": [{ "qty": 3, "price": 100, "label": "3張100" }], "sortOrder": 0 },
+    { "id": "p-stk-b", "name": "原創角色貼紙 B", "categoryId": "cat-sticker", "price": 40, "stockInitial": 100, "bundleRules": [{ "qty": 3, "price": 100, "label": "3張100" }], "sortOrder": 1 },
+    { "id": "p-stk-c", "name": "透明小貼紙", "categoryId": "cat-sticker", "price": 30, "stockInitial": 120, "bundleRules": [], "sortOrder": 2 },
+    { "id": "p-acr-charm", "name": "壓克力吊飾", "categoryId": "cat-acrylic", "price": 150, "stockInitial": 40, "bundleRules": [], "sortOrder": 3 },
+    { "id": "p-acr-stand", "name": "壓克力立牌", "categoryId": "cat-acrylic", "price": 250, "stockInitial": 30, "bundleRules": [], "sortOrder": 4 },
+    { "id": "p-chr-ribbon", "name": "緞帶吊飾", "categoryId": "cat-charm", "price": 120, "stockInitial": 50, "bundleRules": [], "sortOrder": 5 },
+    { "id": "p-prt-pearl", "name": "珠光明信片", "categoryId": "cat-print", "price": 30, "stockInitial": 200, "bundleRules": [{ "qty": 4, "price": 100, "label": "4張100" }], "sortOrder": 6 },
+    { "id": "p-prt-craft", "name": "特殊工藝明信片", "categoryId": "cat-print", "price": 50, "stockInitial": 80, "bundleRules": [{ "qty": 3, "price": 130, "label": "3張130" }], "sortOrder": 7 }
+  ],
+  "combos": [
+    { "id": "c-print", "name": "明信片全收組", "description": "珠光 + 特殊工藝各 1", "price": 70, "uses": [{ "productId": "p-prt-pearl", "qty": 1 }, { "productId": "p-prt-craft", "qty": 1 }], "sortOrder": 0 },
+    { "id": "c-acrylic", "name": "壓克力組合", "description": "吊飾 + 立牌", "price": 360, "uses": [{ "productId": "p-acr-charm", "qty": 1 }, { "productId": "p-acr-stand", "qty": 1 }], "sortOrder": 1 }
+  ],
+  "paymentMethods": [
+    { "id": "pm-cash", "name": "現金", "type": "cash", "enabled": true, "isDefault": true, "sortOrder": 0 },
+    { "id": "pm-line", "name": "Line Pay", "type": "external", "enabled": true, "isDefault": false, "sortOrder": 1 },
+    { "id": "pm-other", "name": "其他", "type": "external", "enabled": true, "isDefault": false, "sortOrder": 2 }
+  ],
+  "giftThresholds": [
+    { "id": "g-500", "minAmount": 500, "rewardText": "限定小卡 ×1", "enabled": true }
+  ]
+}

@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="112" fill="#c46b43" />
+  <g fill="#faf6f0">
+    <!-- dog face -->
+    <ellipse cx="256" cy="270" rx="120" ry="110" />
+    <!-- ears -->
+    <path d="M150 150c-30 10-44 60-30 104 24-18 54-30 84-34-26-22-42-50-54-70z" />
+    <path d="M362 150c30 10 44 60 30 104-24-18-54-30-84-34 26-22 42-50 54-70z" />
+  </g>
+  <g fill="#2d2a26">
+    <circle cx="212" cy="252" r="16" />
+    <circle cx="300" cy="252" r="16" />
+    <ellipse cx="256" cy="300" rx="22" ry="16" />
+  </g>
+  <!-- receipt accent -->
+  <rect x="196" y="338" width="120" height="70" rx="10" fill="#faf6f0" />
+  <g stroke="#c46b43" stroke-width="8" stroke-linecap="round">
+    <line x1="214" y1="360" x2="298" y2="360" />
+    <line x1="214" y1="380" x2="270" y2="380" />
+  </g>
+</svg>
