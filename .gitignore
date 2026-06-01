@@ -1,6 +1,7 @@
 # dev / local
 .devserver.js
 .playwright-mcp/
+.preview*.png
 *.log
 
 # node (only if dev tooling is added later)

@@ -6,6 +6,16 @@
   const { el, esc, fmtMoney } = BOO.util;
   const t = window.t;
 
+  const STALL_SVG =
+    '<svg viewBox="0 0 512 512" width="92" height="92" style="fill:var(--accent)" aria-hidden="true">' +
+    '<rect x="250" y="116" width="12" height="60" rx="4"/>' +
+    '<path d="M262 124 L308 137 L262 150 Z"/>' +
+    '<path d="M104 176 H408 V236 q-25.33 30 -50.67 0 q-25.33 30 -50.67 0 q-25.33 30 -50.67 0 q-25.33 30 -50.67 0 q-25.33 30 -50.67 0 q-25.33 30 -50.67 0 Z"/>' +
+    '<rect x="138" y="236" width="20" height="184" rx="6"/>' +
+    '<rect x="354" y="236" width="20" height="184" rx="6"/>' +
+    '<rect x="116" y="352" width="280" height="28" rx="10"/>' +
+    "</svg>";
+
   const NAV = [
     { name: "nav_front", code: "FRONT", emoji: "🛒", route: "front", accent: true },
     { name: "nav_stock", code: "STOCK", emoji: "📦", route: "stock" },
@@ -25,7 +35,7 @@
     if (st.settings.mascot) {
       hero.appendChild(el("img", { class: "home-mascot", src: st.settings.mascot, alt: "" }));
     } else {
-      hero.appendChild(el("div", { class: "home-mascot-fallback", text: "🐶" }));
+      hero.appendChild(el("div", { class: "home-mascot-fallback", html: STALL_SVG }));
     }
     hero.appendChild(el("div", { class: "home-shop-name", text: st.settings.shopName || t("app_name") }));
     const evName = ev.name || t("no_event");

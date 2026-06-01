@@ -49,7 +49,7 @@
       renderMascot();
     }
     renderMascot();
-    main.appendChild(BOO.ui.field("🐶 看板娘 / Mascot", mascotWrap));
+    main.appendChild(BOO.ui.field("攤位圖示 / Logo（選填）", mascotWrap));
 
     // currency + language row
     const curSel = el("select");
