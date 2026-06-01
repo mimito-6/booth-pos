@@ -292,6 +292,35 @@ main {
   margin: 22px auto 0;
   padding: 0 20px;
 }
+
+/* language switcher on home (native names; discoverable without reading UI) */
+.lang-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: 560px;
+  margin: 22px auto 0;
+  padding: 0 20px;
+}
+.lang-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  padding: 9px 18px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: transform 0.1s;
+}
+.lang-btn:active {
+  transform: scale(0.96);
+}
+.lang-btn.active {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
 .update-log-box {
   background: var(--surface);
   border: 1px solid var(--border);
