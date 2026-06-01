@@ -127,7 +127,7 @@
       el("div", { class: "update-log-box", style: "margin-bottom:24px" }, [
         el("div", { html: "<b>BOO-POS</b> · 開源擺攤收銀台 · v0.1" }),
         el("div", { style: "margin-top:6px", html: "MIT License · 100% 離線 · 資料只存在你的裝置" }),
-        el("a", { href: "https://github.com", target: "_blank", rel: "noopener", style: "color:var(--accent);display:inline-block;margin-top:8px", text: "GitHub →" }),
+        el("a", { href: "https://github.com/mimito-6/booth-pos", target: "_blank", rel: "noopener", style: "color:var(--accent);display:inline-block;margin-top:8px", text: "GitHub →" }),
       ])
     );
 
