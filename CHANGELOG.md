@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to BOO-POS are documented here.
+All notable changes to OpenBooth are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
 ## [0.1.0] — 2026-06

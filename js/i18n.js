@@ -1,16 +1,16 @@
 /* ============================================================
-   BOO-POS — i18n
+   OpenBooth — i18n
    Lightweight, offline, no framework. t(key, params) looks up
    the active locale, falls back to zh-Hant, then to the key.
    User data (product/category names) is stored as-entered and
    is NOT translated here.
    ============================================================ */
 (function () {
-  window.BOO = window.BOO || {};
+  window.OB = window.OB || {};
 
   const DICT = {
     "zh-Hant": {
-      app_name: "BOO-POS",
+      app_name: "OpenBooth",
       // nav / screens
       nav_front: "開賣前台",
       nav_stock: "庫存管理",
@@ -197,7 +197,7 @@
     },
 
     ja: {
-      app_name: "BOO-POS",
+      app_name: "OpenBooth",
       nav_front: "販売フロント",
       nav_stock: "在庫管理",
       nav_pay: "支払い設定",
@@ -372,7 +372,7 @@
     },
 
     en: {
-      app_name: "BOO-POS",
+      app_name: "OpenBooth",
       nav_front: "Front Desk",
       nav_stock: "Inventory",
       nav_pay: "Payment",
@@ -570,6 +570,6 @@
     return s;
   }
 
-  BOO.i18n = { DICT, setLocale, getLocale, detect, t, locales: Object.keys(DICT) };
+  OB.i18n = { DICT, setLocale, getLocale, detect, t, locales: Object.keys(DICT) };
   window.t = t;
 })();

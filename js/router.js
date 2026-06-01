@@ -1,11 +1,11 @@
 /* ============================================================
-   BOO-POS — Router
+   OpenBooth — Router
    Minimal view switcher. Views register a render(root, params)
    fn. Transient nodes (sheets/overlays) are appended to body
    with class .boo-transient and cleaned up on navigation.
    ============================================================ */
 (function () {
-  window.BOO = window.BOO || {};
+  window.OB = window.OB || {};
   const routes = {};
   let currentName = null;
   let currentParams = {};
@@ -60,5 +60,5 @@
     return currentName;
   }
 
-  BOO.router = { register, go, back, refresh, current };
+  OB.router = { register, go, back, refresh, current };
 })();

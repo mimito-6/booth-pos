@@ -1,19 +1,19 @@
 /* ============================================================
-   BOO-POS — PAY view (custom payment methods + QR)
+   OpenBooth — PAY view (custom payment methods + QR)
    ============================================================ */
 (function () {
-  window.BOO = window.BOO || {};
-  const U = BOO.util;
+  window.OB = window.OB || {};
+  const U = OB.util;
   const { el, esc, toast, confirmDialog } = U;
   const t = window.t;
 
   function render(root) {
-    const st = BOO.store.get();
+    const st = OB.store.get();
     const view = el("div", { class: "view active" });
     view.appendChild(
-      BOO.ui.header({
+      OB.ui.header({
         title: t("nav_pay"),
-        onBack: () => BOO.router.go("home"),
+        onBack: () => OB.router.go("home"),
         right: [{ icon: "＋", label: t("add_payment"), onClick: () => edit(null) }],
       })
     );
@@ -34,7 +34,7 @@
             el("div", { class: "list-sub", text: m.type === "cash" ? t("type_cash") : t("type_external") }),
           ])
         );
-        row.appendChild(BOO.ui.toggle(m.enabled, (on) => { m.enabled = on; BOO.store.upsertPayment(m); }));
+        row.appendChild(OB.ui.toggle(m.enabled, (on) => { m.enabled = on; OB.store.upsertPayment(m); }));
         main.appendChild(row);
       });
 
@@ -45,16 +45,16 @@
   function edit(m) {
     const isNew = !m;
     const data = m ? Object.assign({}, m) : { name: "", type: "external", enabled: true, isDefault: false, note: "", qr: null };
-    const sh = BOO.ui.sheet({ title: isNew ? t("add_payment") : t("nav_pay") });
+    const sh = OB.ui.sheet({ title: isNew ? t("add_payment") : t("nav_pay") });
 
-    const nameI = BOO.ui.input({ value: data.name, placeholder: "Line Pay / PayPay / 街口…" });
+    const nameI = OB.ui.input({ value: data.name, placeholder: "Line Pay / PayPay / 街口…" });
     const typeSel = el("select");
     [["external", t("type_external")], ["cash", t("type_cash")]].forEach(([v, label]) => {
       const o = el("option", { value: v, text: label });
       if (v === data.type) o.selected = true;
       typeSel.appendChild(o);
     });
-    const noteI = BOO.ui.input({ value: data.note || "" });
+    const noteI = OB.ui.input({ value: data.note || "" });
 
     const qrWrap = el("div", { style: "display:flex;gap:10px;align-items:center" });
     function renderQr() {
@@ -72,18 +72,18 @@
     renderQr();
 
     const defToggleWrap = el("div", { class: "settings-item" }, [el("span", { class: "si-label", text: t("set_default") })]);
-    const defTg = BOO.ui.toggle(data.isDefault, (on) => (data.isDefault = on));
+    const defTg = OB.ui.toggle(data.isDefault, (on) => (data.isDefault = on));
     defToggleWrap.appendChild(defTg);
 
-    sh.body.appendChild(BOO.ui.field(t("method_name"), nameI));
-    sh.body.appendChild(BOO.ui.field(t("method_type"), typeSel));
-    sh.body.appendChild(BOO.ui.field(t("qr_image"), qrWrap));
-    sh.body.appendChild(BOO.ui.field(t("about"), noteI));
+    sh.body.appendChild(OB.ui.field(t("method_name"), nameI));
+    sh.body.appendChild(OB.ui.field(t("method_type"), typeSel));
+    sh.body.appendChild(OB.ui.field(t("qr_image"), qrWrap));
+    sh.body.appendChild(OB.ui.field(t("about"), noteI));
     sh.body.appendChild(defToggleWrap);
 
     const saveBtn = el("button", { class: "btn btn-primary", text: t("save"), onclick: save });
     const actions = el("div", { class: "actions" }, [saveBtn]);
-    if (!isNew && BOO.store.get().paymentMethods.length > 1) {
+    if (!isNew && OB.store.get().paymentMethods.length > 1) {
       actions.insertBefore(el("button", { class: "btn btn-secondary", text: t("delete"), onclick: del }), saveBtn);
     }
     sh.footer.appendChild(actions);
@@ -96,18 +96,18 @@
       data.name = nameI.value.trim();
       data.type = typeSel.value;
       data.note = noteI.value.trim();
-      BOO.store.upsertPayment(data);
+      OB.store.upsertPayment(data);
       sh.close();
       toast(t("save") + " ✓", "success");
     }
     function del() {
       confirmDialog(t("confirm_delete", { name: data.name }), { danger: true }).then((ok) => {
         if (!ok) return;
-        BOO.store.deletePayment(data.id);
+        OB.store.deletePayment(data.id);
         sh.close();
       });
     }
   }
 
-  BOO.router.register("pay", render);
+  OB.router.register("pay", render);
 })();

@@ -1,9 +1,9 @@
 /* ============================================================
-   BOO-POS — FRONT view (sell) + cart + checkout flow
+   OpenBooth — FRONT view (sell) + cart + checkout flow
    ============================================================ */
 (function () {
-  window.BOO = window.BOO || {};
-  const U = BOO.util;
+  window.OB = window.OB || {};
+  const U = OB.util;
   const { el, esc, fmtMoney, uuid, toast, confirmDialog } = U;
   const t = window.t;
 
@@ -11,19 +11,19 @@
   let search = "";
 
   function render(root) {
-    const st = BOO.store.get();
-    const ev = BOO.store.currentEvent();
+    const st = OB.store.get();
+    const ev = OB.store.currentEvent();
     activeTab = "all";
     search = "";
 
     const view = el("div", { class: "view active" });
 
     view.appendChild(
-      BOO.ui.header({
+      OB.ui.header({
         title: st.settings.shopName || t("nav_front"),
         subtitle: (ev.name || t("no_event")) + (ev.date ? " · " + ev.date : ""),
-        onBack: () => BOO.router.go("home"),
-        right: [{ icon: "🏠", label: t("home"), onClick: () => BOO.router.go("home") }],
+        onBack: () => OB.router.go("home"),
+        right: [{ icon: "🏠", label: t("home"), onClick: () => OB.router.go("home") }],
       })
     );
 
@@ -65,9 +65,9 @@
 
     function renderTabs() {
       tabBar.innerHTML = "";
-      const cats = BOO.store.activeCategories();
+      const cats = OB.store.activeCategories();
       const tabs = [{ id: "all", name: t("tab_all") }].concat(cats.map((c) => ({ id: c.id, name: c.name })));
-      if (st.settings.enableCombos && BOO.store.activeCombos().length) tabs.push({ id: "__combo", name: t("nav_front") === "Front Desk" ? "Combos" : "套組" });
+      if (st.settings.enableCombos && OB.store.activeCombos().length) tabs.push({ id: "__combo", name: t("nav_front") === "Front Desk" ? "Combos" : "套組" });
       tabs.forEach((tb) => {
         tabBar.appendChild(
           el("button", {
@@ -84,8 +84,8 @@
     }
 
     function productCard(p) {
-      const cart = BOO.store.getCart();
-      const rem = BOO.inventory.remaining(st, null, p.id);
+      const cart = OB.store.getCart();
+      const rem = OB.inventory.remaining(st, null, p.id);
       const inCart = cart.lines.filter((l) => l.kind === "product" && l.refId === p.id).reduce((s, l) => s + l.qty, 0);
       const remAfter = rem - inCart;
       const low = isFinite(rem) && remAfter <= st.settings.lowStockThreshold && remAfter > 0;
@@ -110,9 +110,9 @@
     }
 
     function comboCard(c) {
-      const cart = BOO.store.getCart();
+      const cart = OB.store.getCart();
       const inCart = cart.lines.filter((l) => l.kind === "combo" && l.refId === c.id).reduce((s, l) => s + l.qty, 0);
-      const canSell = BOO.inventory.canAddCombo(st, cart, c.id);
+      const canSell = OB.inventory.canAddCombo(st, cart, c.id);
       const card = el("div", {
         class: "item-card combo" + (inCart ? " has-qty" : "") + (!canSell && !inCart ? " sold-out" : ""),
         onclick: () => addCombo(c.id),
@@ -129,8 +129,8 @@
 
     function updateGrid() {
       gridEl.innerHTML = "";
-      let prods = BOO.store.activeProducts();
-      let combos = st.settings.enableCombos ? BOO.store.activeCombos() : [];
+      let prods = OB.store.activeProducts();
+      let combos = st.settings.enableCombos ? OB.store.activeCombos() : [];
       if (search) {
         prods = prods.filter((p) => p.name.toLowerCase().includes(search));
         combos = combos.filter((c) => c.name.toLowerCase().includes(search));
@@ -142,11 +142,11 @@
         combos = [];
       }
       if (!prods.length && !combos.length) {
-        const hasAny = BOO.store.activeProducts().length > 0;
+        const hasAny = OB.store.activeProducts().length > 0;
         const box = el("div", { style: "grid-column:1/-1" });
-        box.appendChild(hasAny ? BOO.ui.emptyState("🔍", "—") : BOO.ui.emptyState("📦", t("no_products")));
+        box.appendChild(hasAny ? OB.ui.emptyState("🔍", "—") : OB.ui.emptyState("📦", t("no_products")));
         if (!hasAny) {
-          box.appendChild(el("button", { class: "btn btn-primary btn-block", text: "＋ " + t("add_product"), onclick: () => BOO.router.go("stock") }));
+          box.appendChild(el("button", { class: "btn btn-primary btn-block", text: "＋ " + t("add_product"), onclick: () => OB.router.go("stock") }));
         }
         gridEl.appendChild(box);
         updateBar();
@@ -163,7 +163,7 @@
     }
 
     function updateBar() {
-      const sale = BOO.pricing.calcSale(st, BOO.store.getCart());
+      const sale = OB.pricing.calcSale(st, OB.store.getCart());
       const barEl = document.querySelector(".sale-bar");
       if (!barEl) return;
       if (sale.itemCount === 0) {
@@ -176,31 +176,31 @@
     }
 
     function addProduct(id) {
-      const cart = BOO.store.getCart();
-      if (!BOO.inventory.canAddProduct(st, cart, id)) {
+      const cart = OB.store.getCart();
+      if (!OB.inventory.canAddProduct(st, cart, id)) {
         toast(t("stock_short"), "danger");
         return;
       }
       let line = cart.lines.find((l) => l.kind === "product" && l.refId === id && !l.isTokuten && l.manualUnitPrice == null);
       if (line) line.qty++;
       else cart.lines.push({ uid: uuid(), kind: "product", refId: id, qty: 1, isTokuten: false, manualUnitPrice: null });
-      BOO.store.setCart(cart);
+      OB.store.setCart(cart);
       updateGrid();
     }
     function addCombo(id) {
-      const cart = BOO.store.getCart();
-      if (!BOO.inventory.canAddCombo(st, cart, id)) {
+      const cart = OB.store.getCart();
+      if (!OB.inventory.canAddCombo(st, cart, id)) {
         toast(t("stock_short"), "danger");
         return;
       }
       let line = cart.lines.find((l) => l.kind === "combo" && l.refId === id && !l.isTokuten && l.manualUnitPrice == null);
       if (line) line.qty++;
       else cart.lines.push({ uid: uuid(), kind: "combo", refId: id, qty: 1, isTokuten: false, manualUnitPrice: null });
-      BOO.store.setCart(cart);
+      OB.store.setCart(cart);
       updateGrid();
     }
 
-    BOO.app.frontUpdate = updateGrid; // expose for sheet callbacks
+    OB.app.frontUpdate = updateGrid; // expose for sheet callbacks
 
     renderTabs();
     updateGrid();
@@ -209,33 +209,33 @@
 
   // ---------- sale sheet (cart → checkout) ----------
   function openSaleSheet() {
-    const st = BOO.store.get();
-    const cart = BOO.store.getCart();
-    const sale = BOO.pricing.calcSale(st, cart);
+    const st = OB.store.get();
+    const cart = OB.store.getCart();
+    const sale = OB.pricing.calcSale(st, cart);
     if (sale.itemCount === 0) {
       toast(t("no_items"), "danger");
       return;
     }
-    const sh = BOO.ui.sheet({ title: t("sale_detail"), tall: true });
+    const sh = OB.ui.sheet({ title: t("sale_detail"), tall: true });
     let step = 1;
-    let chosenPayment = BOO.store.defaultPayment();
+    let chosenPayment = OB.store.defaultPayment();
     let cashReceived = null;
 
     function recalc() {
-      return BOO.pricing.calcSale(BOO.store.get(), BOO.store.getCart());
+      return OB.pricing.calcSale(OB.store.get(), OB.store.getCart());
     }
 
     function changeQty(uid, delta) {
-      const c = BOO.store.getCart();
+      const c = OB.store.getCart();
       const line = c.lines.find((l) => l.uid === uid);
       if (!line) return;
       if (delta > 0) {
         // re-check stock
-        if (line.kind === "product" && !BOO.inventory.canAddProduct(st, c, line.refId)) {
+        if (line.kind === "product" && !OB.inventory.canAddProduct(st, c, line.refId)) {
           toast(t("stock_short"), "danger");
           return;
         }
-        if (line.kind === "combo" && !BOO.inventory.canAddCombo(st, c, line.refId)) {
+        if (line.kind === "combo" && !OB.inventory.canAddCombo(st, c, line.refId)) {
           toast(t("stock_short"), "danger");
           return;
         }
@@ -244,45 +244,45 @@
         line.qty--;
         if (line.qty <= 0) c.lines = c.lines.filter((l) => l.uid !== uid);
       }
-      BOO.store.setCart(c);
-      if (BOO.app.frontUpdate) BOO.app.frontUpdate();
+      OB.store.setCart(c);
+      if (OB.app.frontUpdate) OB.app.frontUpdate();
       renderStep1();
     }
 
     function toggleTokuten(uid) {
-      const c = BOO.store.getCart();
+      const c = OB.store.getCart();
       const line = c.lines.find((l) => l.uid === uid);
       if (!line) return;
       line.isTokuten = !line.isTokuten;
       if (line.isTokuten) line.manualUnitPrice = null;
-      BOO.store.setCart(c);
+      OB.store.setCart(c);
       renderStep1();
     }
 
     function setLinePrice(uid) {
-      const c = BOO.store.getCart();
+      const c = OB.store.getCart();
       const line = c.lines.find((l) => l.uid === uid);
       if (!line) return;
-      const cur = line.manualUnitPrice != null ? line.manualUnitPrice : line.kind === "product" ? (BOO.store.product(line.refId) || {}).price : (BOO.store.combo(line.refId) || {}).price;
+      const cur = line.manualUnitPrice != null ? line.manualUnitPrice : line.kind === "product" ? (OB.store.product(line.refId) || {}).price : (OB.store.combo(line.refId) || {}).price;
       const v = prompt(t("set_price"), cur);
       if (v == null) return;
       const n = Math.round(Number(v));
       if (isNaN(n) || n < 0) return;
       line.manualUnitPrice = n;
       line.isTokuten = false;
-      BOO.store.setCart(c);
+      OB.store.setCart(c);
       renderStep1();
     }
 
     function roundTotal() {
-      const c = BOO.store.getCart();
-      const s = BOO.pricing.calcSale(st, c);
+      const c = OB.store.getCart();
+      const s = OB.pricing.calcSale(st, c);
       const v = prompt(t("manual_adjust") + " — " + t("total_due"), s.grandTotal);
       if (v == null) return;
       const finalT = Math.round(Number(v));
       if (isNaN(finalT) || finalT < 0) return;
       c.discount = Math.max(0, s.subtotal - finalT);
-      BOO.store.setCart(c);
+      OB.store.setCart(c);
       renderStep1();
     }
 
@@ -344,8 +344,8 @@
     function cancelSale() {
       confirmDialog(t("confirm_cancel_sale")).then((ok) => {
         if (!ok) return;
-        BOO.store.clearCart();
-        if (BOO.app.frontUpdate) BOO.app.frontUpdate();
+        OB.store.clearCart();
+        if (OB.app.frontUpdate) OB.app.frontUpdate();
         sh.close();
         toast(t("sale_canceled"));
       });
@@ -359,7 +359,7 @@
 
     function renderStep2() {
       const s = recalc();
-      const st2 = BOO.store.get();
+      const st2 = OB.store.get();
       sh.body.innerHTML = "";
       sh.footer.innerHTML = "";
 
@@ -402,7 +402,7 @@
           class: "mini-btn",
           style: "margin:10px auto;display:block",
           text: "📱 " + t("customer_display"),
-          onclick: () => BOO.app.showCustomerDisplay(s.grandTotal, isCash ? null : chosenPayment && chosenPayment.qr),
+          onclick: () => OB.app.showCustomerDisplay(s.grandTotal, isCash ? null : chosenPayment && chosenPayment.qr),
         })
       );
 
@@ -462,8 +462,8 @@
     }
 
     function complete(s) {
-      const st2 = BOO.store.get();
-      const cart = BOO.store.getCart();
+      const st2 = OB.store.get();
+      const cart = OB.store.getCart();
       const isCash = chosenPayment && chosenPayment.type === "cash";
       const tx = {
         lines: s.lines.map((l) => ({
@@ -480,7 +480,7 @@
         discount: s.discount,
         bundleSaved: s.bundleSaved,
         grandTotal: s.grandTotal,
-        stockUse: BOO.inventory.computeStockUse(st2, cart.lines),
+        stockUse: OB.inventory.computeStockUse(st2, cart.lines),
         paymentMethodId: chosenPayment ? chosenPayment.id : null,
         paymentMethodName: chosenPayment ? chosenPayment.name : "—",
         paymentType: chosenPayment ? chosenPayment.type : "external",
@@ -488,18 +488,18 @@
         changeGiven: isCash && cashReceived != null ? cashReceived - s.grandTotal : null,
         giftNote: s.gifts.map((g) => g.rewardText).join(", "),
       };
-      BOO.store.addTransaction(tx);
-      BOO.store.clearCart();
+      OB.store.addTransaction(tx);
+      OB.store.clearCart();
       sh.close();
-      BOO.app.hideCustomerDisplay();
-      if (BOO.router.current() === "front" && BOO.app.frontUpdate) BOO.app.frontUpdate();
+      OB.app.hideCustomerDisplay();
+      if (OB.router.current() === "front" && OB.app.frontUpdate) OB.app.frontUpdate();
       toast(t("sale_done", { amount: fmtMoney(s.grandTotal) }), "success");
     }
 
     renderStep1();
   }
 
-  BOO.router.register("front", render);
-  BOO.app = BOO.app || {};
-  BOO.app.openSaleSheet = openSaleSheet;
+  OB.router.register("front", render);
+  OB.app = OB.app || {};
+  OB.app.openSaleSheet = openSaleSheet;
 })();

@@ -1,8 +1,8 @@
 /* ============================================================
-   BOO-POS — Utilities
+   OpenBooth — Utilities
    ============================================================ */
 (function () {
-  window.BOO = window.BOO || {};
+  window.OB = window.OB || {};
   const t = window.t;
 
   // ---- DOM ----
@@ -43,7 +43,7 @@
 
   // ---- Money (integer-only; no floats) ----
   function fmtMoney(n) {
-    const s = window.BOO.store ? window.BOO.store.get().settings : null;
+    const s = window.OB.store ? window.OB.store.get().settings : null;
     const symbol = s ? s.currencySymbol : "NT$";
     const code = s ? s.currencyCode : "TWD";
     const v = Math.round(Number(n) || 0);
@@ -58,7 +58,7 @@
 
   // common denominations by currency, used for cash quick-keys
   function denominations() {
-    const s = window.BOO.store ? window.BOO.store.get().settings : null;
+    const s = window.OB.store ? window.OB.store.get().settings : null;
     const code = s ? s.currencyCode : "TWD";
     if (code === "JPY") return [100, 500, 1000, 5000, 10000];
     if (code === "USD") return [1, 5, 10, 20, 50, 100];
@@ -73,7 +73,7 @@
 
   // ---- dates ----
   function fmtTime(ts) {
-    const loc = window.BOO.i18n.getLocale();
+    const loc = window.OB.i18n.getLocale();
     const map = { "zh-Hant": "zh-TW", ja: "ja-JP", en: "en-US" };
     try {
       return new Date(ts).toLocaleTimeString(map[loc] || "zh-TW", {
@@ -85,7 +85,7 @@
     }
   }
   function fmtDate(ts) {
-    const loc = window.BOO.i18n.getLocale();
+    const loc = window.OB.i18n.getLocale();
     const map = { "zh-Hant": "zh-TW", ja: "ja-JP", en: "en-US" };
     try {
       return new Date(ts).toLocaleDateString(map[loc] || "zh-TW");
@@ -276,7 +276,7 @@
     });
   }
 
-  BOO.util = {
+  OB.util = {
     $,
     $$,
     el,

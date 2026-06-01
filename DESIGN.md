@@ -1,4 +1,4 @@
-# BOO-POS — 設計文件 (Design Doc)
+# OpenBooth — 設計文件 (Design Doc)
 
 本文件是專案的設計單一真實來源。記錄定位、架構決策、資料模型與藍圖，供開發與貢獻者參考。
 
@@ -28,7 +28,7 @@
 
 | 決策 | 選擇 | 理由 |
 |---|---|---|
-| 前端 | 原生 Vanilla JS，`BOO` 全域命名空間，classic `<script>` | 可雙擊 `index.html` 離線跑，也可上 Pages。無框架 = fork 即改 |
+| 前端 | 原生 Vanilla JS，`OB` 全域命名空間，classic `<script>` | 可雙擊 `index.html` 離線跑，也可上 Pages。無框架 = fork 即改 |
 | 建置 | **無建置** | 不引入 vite/webpack。`npm install` 會殺死「fork 即改」的開源賣點 |
 | 儲存 | `localStorage`（圖片 dataURL，已壓縮降尺寸） | 5MB 夠用；圖片壓到 360px。未來圖片量大再升 IndexedDB（已預留 store 抽象） |
 | 離線 | PWA（manifest + service worker，cache-first 預快取 app shell） | 會場無網路冷啟動。降級：直接 `file://` 開單檔 |
@@ -52,7 +52,7 @@
 
 ## 4. 資料模型 (Data model)
 
-`localStorage["boopos_v3"]`，帶 `schemaVersion` 驅動遷移；`boopos_cart_v3` 單獨存購物車（防當機）。
+`localStorage["openbooth_v3"]`，帶 `schemaVersion` 驅動遷移；`openbooth_cart_v3` 單獨存購物車（防當機）。
 
 ```
 ShopSettings   shopName, currencyCode/Symbol, locale, theme, lowStockThreshold,

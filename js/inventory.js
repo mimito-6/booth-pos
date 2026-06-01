@@ -1,5 +1,5 @@
 /* ============================================================
-   BOO-POS — Inventory (derived stock)
+   OpenBooth — Inventory (derived stock)
    Stock is GLOBAL (shared across events): remaining =
    stockInitial − sum(stockUse over non-voided transactions)
    − current cart projection. Sales STATS are per-event
@@ -8,7 +8,7 @@
    later combo edits never corrupt historical stock math.
    ============================================================ */
 (function () {
-  window.BOO = window.BOO || {};
+  window.OB = window.OB || {};
 
   // Expand a set of cart lines into {productId: qtyConsumed}.
   function computeStockUse(state, lines) {
@@ -68,7 +68,7 @@
     return soldGlobal(state)[productId] || 0;
   }
 
-  BOO.inventory = {
+  OB.inventory = {
     computeStockUse,
     soldGlobal,
     remaining,

@@ -1,6 +1,6 @@
 {
-  "name": "BOO-POS 擺攤收銀台",
-  "short_name": "BOO-POS",
+  "name": "OpenBooth 擺攤收銀台",
+  "short_name": "OpenBooth",
   "description": "開源、離線優先、可自訂的同人/手作擺攤收銀台 POS。",
   "start_url": ".",
   "scope": ".",

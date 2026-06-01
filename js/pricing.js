@@ -1,11 +1,11 @@
 /* ============================================================
-   BOO-POS — Pricing engine (pure functions, integer money)
+   OpenBooth — Pricing engine (pure functions, integer money)
    Pipeline: base price → bundle tiers → manual override →
              tokuten(free) → cart discount → gift thresholds.
    No floats: all amounts are integers in the smallest unit.
    ============================================================ */
 (function () {
-  window.BOO = window.BOO || {};
+  window.OB = window.OB || {};
 
   // Greedy bundle pricing for a single product line.
   // rules: [{qty, price, label}] ; returns {total, note}
@@ -102,5 +102,5 @@
     return { lines, originalTotal, subtotal, bundleSaved, discount, grandTotal, itemCount, gifts };
   }
 
-  BOO.pricing = { calcSale, applyBundle };
+  OB.pricing = { calcSale, applyBundle };
 })();
