@@ -74,18 +74,6 @@
       grid.appendChild(card);
     });
 
-    const log = el("div", { class: "update-log" }, [
-      el("div", { class: "update-log-box" }, [
-        el("h4", { text: t("update_log") }),
-        el("ul", {
-          html:
-            "<li><b>v0.1</b> · 商品/分類/套組可自訂 · 多場次 · 現金找零 · 滿額禮 · 特典</li>" +
-            "<li>預購名單 CSV 匯入 · 自訂付款方式 · 收攤對帳 · 資料備份</li>" +
-            "<li>離線可用 (PWA) · 繁中/日文/English · 主題色自訂</li>",
-        }),
-      ]),
-    ]);
-
     // language switcher — each button shows its own language's name, so
     // a visitor who can't read the current UI can still find their language.
     const LANGS = [
@@ -113,7 +101,7 @@
     });
 
     const view = el("div", { class: "view active" });
-    view.append(hero, openBtn, statWrap, grid, log, langRow);
+    view.append(hero, openBtn, statWrap, grid, langRow);
     root.appendChild(view);
   }
 
