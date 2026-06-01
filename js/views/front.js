@@ -1,0 +1,505 @@
+/* ============================================================
+   BOO-POS — FRONT view (sell) + cart + checkout flow
+   ============================================================ */
+(function () {
+  window.BOO = window.BOO || {};
+  const U = BOO.util;
+  const { el, esc, fmtMoney, uuid, toast, confirmDialog } = U;
+  const t = window.t;
+
+  let activeTab = "all";
+  let search = "";
+
+  function render(root) {
+    const st = BOO.store.get();
+    const ev = BOO.store.currentEvent();
+    activeTab = "all";
+    search = "";
+
+    const view = el("div", { class: "view active" });
+
+    view.appendChild(
+      BOO.ui.header({
+        title: st.settings.shopName || t("nav_front"),
+        subtitle: (ev.name || t("no_event")) + (ev.date ? " · " + ev.date : ""),
+        onBack: () => BOO.router.go("home"),
+        right: [{ icon: "🏠", label: t("home"), onClick: () => BOO.router.go("home") }],
+      })
+    );
+
+    // tabs
+    const tabBar = el("div", { class: "tab-bar" });
+    view.appendChild(tabBar);
+
+    // search
+    const searchWrap = el("div", { style: "padding:0 16px 8px" }, [
+      el("div", { class: "search-box" }, [
+        el("input", {
+          type: "search",
+          placeholder: t("search_products"),
+          oninput: (e) => {
+            search = e.target.value.trim().toLowerCase();
+            updateGrid();
+          },
+        }),
+      ]),
+    ]);
+    view.appendChild(searchWrap);
+
+    const gridWrap = el("main");
+    const gridEl = el("div", { class: "item-grid", id: "frontGrid" });
+    gridWrap.appendChild(el("section", { class: "section" }, [gridEl]));
+    view.appendChild(gridWrap);
+
+    root.appendChild(view);
+
+    // floating bar
+    const bar = el("div", { class: "sale-bar boo-transient", onclick: openSaleSheet }, [
+      el("div", { class: "sale-bar-left" }, [
+        el("div", { class: "sale-bar-count", id: "barCount" }),
+        el("div", { class: "sale-bar-total", id: "barTotal" }),
+      ]),
+      el("div", { class: "sale-bar-cta", text: t("view_detail") }),
+    ]);
+    document.body.appendChild(bar);
+
+    function renderTabs() {
+      tabBar.innerHTML = "";
+      const cats = BOO.store.activeCategories();
+      const tabs = [{ id: "all", name: t("tab_all") }].concat(cats.map((c) => ({ id: c.id, name: c.name })));
+      if (st.settings.enableCombos && BOO.store.activeCombos().length) tabs.push({ id: "__combo", name: t("nav_front") === "Front Desk" ? "Combos" : "套組" });
+      tabs.forEach((tb) => {
+        tabBar.appendChild(
+          el("button", {
+            class: "tab" + (activeTab === tb.id ? " active" : ""),
+            text: tb.name,
+            onclick: () => {
+              activeTab = tb.id;
+              renderTabs();
+              updateGrid();
+            },
+          })
+        );
+      });
+    }
+
+    function productCard(p) {
+      const cart = BOO.store.getCart();
+      const rem = BOO.inventory.remaining(st, null, p.id);
+      const inCart = cart.lines.filter((l) => l.kind === "product" && l.refId === p.id).reduce((s, l) => s + l.qty, 0);
+      const remAfter = rem - inCart;
+      const low = isFinite(rem) && remAfter <= st.settings.lowStockThreshold && remAfter > 0;
+      const soldOut = isFinite(rem) && remAfter <= 0;
+      const bundle = (p.bundleRules && p.bundleRules[0]) ? p.bundleRules[0].label || p.bundleRules[0].qty + "→" + p.bundleRules[0].price : "";
+      const card = el("div", {
+        class: "item-card" + (inCart ? " has-qty" : "") + (soldOut ? " sold-out" : ""),
+        onclick: () => addProduct(p.id),
+      });
+      if (inCart) card.appendChild(el("span", { class: "qty-badge", text: inCart }));
+      if (p.image) card.appendChild(el("img", { class: "item-thumb", src: p.image, alt: "" }));
+      card.appendChild(el("div", { class: "item-name", text: p.name }));
+      card.appendChild(bundle ? el("div", { class: "item-bundle", text: bundle }) : el("div", { class: "item-bundle" }));
+      const bottom = el("div", { class: "item-bottom" }, [
+        el("div", { class: "item-price", html: esc(fmtMoney(p.price)) }),
+      ]);
+      if (st.settings.showStock && isFinite(rem)) {
+        bottom.appendChild(el("div", { class: "item-stock" + (low ? " low" : ""), text: t("remain", { n: Math.max(0, remAfter) }) }));
+      }
+      card.appendChild(bottom);
+      return card;
+    }
+
+    function comboCard(c) {
+      const cart = BOO.store.getCart();
+      const inCart = cart.lines.filter((l) => l.kind === "combo" && l.refId === c.id).reduce((s, l) => s + l.qty, 0);
+      const canSell = BOO.inventory.canAddCombo(st, cart, c.id);
+      const card = el("div", {
+        class: "item-card combo" + (inCart ? " has-qty" : "") + (!canSell && !inCart ? " sold-out" : ""),
+        onclick: () => addCombo(c.id),
+      });
+      if (inCart) card.appendChild(el("span", { class: "qty-badge", text: inCart }));
+      const nameLine = el("div", { class: "item-name" });
+      nameLine.appendChild(el("span", { class: "combo-letter", text: "組" }));
+      nameLine.appendChild(document.createTextNode(c.name));
+      card.appendChild(nameLine);
+      card.appendChild(el("div", { class: "combo-desc", text: c.description || "" }));
+      card.appendChild(el("div", { class: "item-bottom" }, [el("div", { class: "item-price", html: esc(fmtMoney(c.price)) })]));
+      return card;
+    }
+
+    function updateGrid() {
+      gridEl.innerHTML = "";
+      let prods = BOO.store.activeProducts();
+      let combos = st.settings.enableCombos ? BOO.store.activeCombos() : [];
+      if (search) {
+        prods = prods.filter((p) => p.name.toLowerCase().includes(search));
+        combos = combos.filter((c) => c.name.toLowerCase().includes(search));
+      }
+      if (activeTab === "__combo") {
+        prods = [];
+      } else if (activeTab !== "all") {
+        prods = prods.filter((p) => p.categoryId === activeTab);
+        combos = [];
+      }
+      if (!prods.length && !combos.length) {
+        const hasAny = BOO.store.activeProducts().length > 0;
+        const box = el("div", { style: "grid-column:1/-1" });
+        box.appendChild(hasAny ? BOO.ui.emptyState("🔍", "—") : BOO.ui.emptyState("📦", t("no_products")));
+        if (!hasAny) {
+          box.appendChild(el("button", { class: "btn btn-primary btn-block", text: "＋ " + t("add_product"), onclick: () => BOO.router.go("stock") }));
+        }
+        gridEl.appendChild(box);
+        updateBar();
+        return;
+      }
+      prods.forEach((p) => gridEl.appendChild(productCard(p)));
+      if (activeTab === "all" && combos.length) {
+        // combos appended after products
+        combos.forEach((c) => gridEl.appendChild(comboCard(c)));
+      } else if (activeTab === "__combo") {
+        combos.forEach((c) => gridEl.appendChild(comboCard(c)));
+      }
+      updateBar();
+    }
+
+    function updateBar() {
+      const sale = BOO.pricing.calcSale(st, BOO.store.getCart());
+      const barEl = document.querySelector(".sale-bar");
+      if (!barEl) return;
+      if (sale.itemCount === 0) {
+        barEl.classList.remove("show");
+        return;
+      }
+      barEl.classList.add("show");
+      document.getElementById("barCount").textContent = t("cart_count", { n: sale.itemCount });
+      document.getElementById("barTotal").textContent = fmtMoney(sale.grandTotal);
+    }
+
+    function addProduct(id) {
+      const cart = BOO.store.getCart();
+      if (!BOO.inventory.canAddProduct(st, cart, id)) {
+        toast(t("stock_short"), "danger");
+        return;
+      }
+      let line = cart.lines.find((l) => l.kind === "product" && l.refId === id && !l.isTokuten && l.manualUnitPrice == null);
+      if (line) line.qty++;
+      else cart.lines.push({ uid: uuid(), kind: "product", refId: id, qty: 1, isTokuten: false, manualUnitPrice: null });
+      BOO.store.setCart(cart);
+      updateGrid();
+    }
+    function addCombo(id) {
+      const cart = BOO.store.getCart();
+      if (!BOO.inventory.canAddCombo(st, cart, id)) {
+        toast(t("stock_short"), "danger");
+        return;
+      }
+      let line = cart.lines.find((l) => l.kind === "combo" && l.refId === id && !l.isTokuten && l.manualUnitPrice == null);
+      if (line) line.qty++;
+      else cart.lines.push({ uid: uuid(), kind: "combo", refId: id, qty: 1, isTokuten: false, manualUnitPrice: null });
+      BOO.store.setCart(cart);
+      updateGrid();
+    }
+
+    BOO.app.frontUpdate = updateGrid; // expose for sheet callbacks
+
+    renderTabs();
+    updateGrid();
+    updateBar();
+  }
+
+  // ---------- sale sheet (cart → checkout) ----------
+  function openSaleSheet() {
+    const st = BOO.store.get();
+    const cart = BOO.store.getCart();
+    const sale = BOO.pricing.calcSale(st, cart);
+    if (sale.itemCount === 0) {
+      toast(t("no_items"), "danger");
+      return;
+    }
+    const sh = BOO.ui.sheet({ title: t("sale_detail"), tall: true });
+    let step = 1;
+    let chosenPayment = BOO.store.defaultPayment();
+    let cashReceived = null;
+
+    function recalc() {
+      return BOO.pricing.calcSale(BOO.store.get(), BOO.store.getCart());
+    }
+
+    function changeQty(uid, delta) {
+      const c = BOO.store.getCart();
+      const line = c.lines.find((l) => l.uid === uid);
+      if (!line) return;
+      if (delta > 0) {
+        // re-check stock
+        if (line.kind === "product" && !BOO.inventory.canAddProduct(st, c, line.refId)) {
+          toast(t("stock_short"), "danger");
+          return;
+        }
+        if (line.kind === "combo" && !BOO.inventory.canAddCombo(st, c, line.refId)) {
+          toast(t("stock_short"), "danger");
+          return;
+        }
+        line.qty++;
+      } else {
+        line.qty--;
+        if (line.qty <= 0) c.lines = c.lines.filter((l) => l.uid !== uid);
+      }
+      BOO.store.setCart(c);
+      if (BOO.app.frontUpdate) BOO.app.frontUpdate();
+      renderStep1();
+    }
+
+    function toggleTokuten(uid) {
+      const c = BOO.store.getCart();
+      const line = c.lines.find((l) => l.uid === uid);
+      if (!line) return;
+      line.isTokuten = !line.isTokuten;
+      if (line.isTokuten) line.manualUnitPrice = null;
+      BOO.store.setCart(c);
+      renderStep1();
+    }
+
+    function setLinePrice(uid) {
+      const c = BOO.store.getCart();
+      const line = c.lines.find((l) => l.uid === uid);
+      if (!line) return;
+      const cur = line.manualUnitPrice != null ? line.manualUnitPrice : line.kind === "product" ? (BOO.store.product(line.refId) || {}).price : (BOO.store.combo(line.refId) || {}).price;
+      const v = prompt(t("set_price"), cur);
+      if (v == null) return;
+      const n = Math.round(Number(v));
+      if (isNaN(n) || n < 0) return;
+      line.manualUnitPrice = n;
+      line.isTokuten = false;
+      BOO.store.setCart(c);
+      renderStep1();
+    }
+
+    function roundTotal() {
+      const c = BOO.store.getCart();
+      const s = BOO.pricing.calcSale(st, c);
+      const v = prompt(t("manual_adjust") + " — " + t("total_due"), s.grandTotal);
+      if (v == null) return;
+      const finalT = Math.round(Number(v));
+      if (isNaN(finalT) || finalT < 0) return;
+      c.discount = Math.max(0, s.subtotal - finalT);
+      BOO.store.setCart(c);
+      renderStep1();
+    }
+
+    function renderStep1() {
+      const s = recalc();
+      sh.body.innerHTML = "";
+      sh.footer.innerHTML = "";
+      if (!s.lines.length) {
+        sh.close();
+        return;
+      }
+      s.lines.forEach((L) => {
+        const meta = el("div", { class: "sale-line-meta" });
+        meta.appendChild(document.createTextNode(fmtMoney(L.basePrice) + " × " + L.qty));
+        if (L.bundleNote) meta.appendChild(el("span", { class: "saved", text: " · " + L.bundleNote }));
+
+        const nameEl = el("div", { class: "sale-line-name" }, [document.createTextNode(L.name)]);
+        if (L.isTokuten) nameEl.appendChild(el("span", { class: "tag tag-tokuten", text: t("mark_tokuten") }));
+        if (L.manual) nameEl.appendChild(el("span", { class: "tag tag-gift", text: t("set_price") }));
+
+        const lineActions = el("div", { class: "line-actions" }, [
+          el("button", { class: "mini-btn" + (L.isTokuten ? " active" : ""), text: t("mark_tokuten"), onclick: () => toggleTokuten(L.uid) }),
+          el("button", { class: "mini-btn", text: t("set_price"), onclick: () => setLinePrice(L.uid) }),
+        ]);
+
+        const info = el("div", { class: "sale-line-info" }, [nameEl, meta, lineActions]);
+        const qc = el("div", { class: "qty-controls" }, [
+          el("button", { class: "qty-btn", html: "−", onclick: () => changeQty(L.uid, -1) }),
+          el("span", { class: "qty-num", text: L.qty }),
+          el("button", { class: "qty-btn", html: "+", onclick: () => changeQty(L.uid, 1) }),
+        ]);
+        const tot = el("div", { class: "sale-line-total", text: fmtMoney(L.lineTotal) });
+        sh.body.appendChild(el("div", { class: "sale-line" }, [info, qc, tot]));
+      });
+
+      // summary
+      if (s.bundleSaved > 0) {
+        sh.footer.appendChild(summaryRow(t("original_total"), fmtMoney(s.originalTotal)));
+        sh.footer.appendChild(summaryRow(t("bundle_saved"), "−" + fmtMoney(s.bundleSaved), "saved"));
+      }
+      if (s.discount > 0) sh.footer.appendChild(summaryRow(t("discount"), "−" + fmtMoney(s.discount), "saved"));
+      sh.footer.appendChild(summaryRow(t("total_due"), fmtMoney(s.grandTotal), "total"));
+
+      const adjustBtn = el("button", { class: "mini-btn", style: "margin-top:8px", text: "🧮 " + t("manual_adjust"), onclick: roundTotal });
+      sh.footer.appendChild(el("div", {}, [adjustBtn]));
+
+      sh.footer.appendChild(
+        el("div", { class: "actions" }, [
+          el("button", { class: "btn btn-secondary", text: t("cancel"), onclick: cancelSale }),
+          el("button", { class: "btn btn-primary", text: t("checkout") + " →", onclick: goStep2 }),
+        ])
+      );
+    }
+
+    function summaryRow(label, val, cls) {
+      return el("div", { class: "summary-row " + (cls || "") }, [el("span", { text: label }), el("span", { text: val })]);
+    }
+
+    function cancelSale() {
+      confirmDialog(t("confirm_cancel_sale")).then((ok) => {
+        if (!ok) return;
+        BOO.store.clearCart();
+        if (BOO.app.frontUpdate) BOO.app.frontUpdate();
+        sh.close();
+        toast(t("sale_canceled"));
+      });
+    }
+
+    function goStep2() {
+      step = 2;
+      cashReceived = null;
+      renderStep2();
+    }
+
+    function renderStep2() {
+      const s = recalc();
+      const st2 = BOO.store.get();
+      sh.body.innerHTML = "";
+      sh.footer.innerHTML = "";
+
+      sh.body.appendChild(el("div", { class: "summary-row total", style: "border:none", html: "<span>" + esc(t("total_due")) + "</span><span>" + esc(fmtMoney(s.grandTotal)) + "</span>" }));
+
+      // gift banner
+      s.gifts.forEach((g) => {
+        sh.body.appendChild(el("div", { class: "gift-banner", text: t("gift_reach", { amount: fmtMoney(g.minAmount), reward: g.rewardText }) }));
+      });
+
+      // payment methods
+      sh.body.appendChild(el("div", { class: "section-title", text: t("payment_method") }));
+      const methods = st2.paymentMethods.filter((m) => m.enabled);
+      const pm = el("div", { class: "pay-methods" });
+      methods.forEach((m) => {
+        pm.appendChild(
+          el("div", {
+            class: "pay-chip" + (chosenPayment && chosenPayment.id === m.id ? " active" : ""),
+            text: m.name,
+            onclick: () => {
+              chosenPayment = m;
+              renderStep2();
+            },
+          })
+        );
+      });
+      sh.body.appendChild(pm);
+
+      const isCash = chosenPayment && chosenPayment.type === "cash";
+      if (isCash && st2.settings.requireCash) {
+        renderCashPad(s.grandTotal);
+      } else if (!isCash && chosenPayment && chosenPayment.qr) {
+        sh.body.appendChild(el("img", { src: chosenPayment.qr, style: "width:180px;height:180px;display:block;margin:14px auto;border-radius:12px", alt: "QR" }));
+        if (chosenPayment.note) sh.body.appendChild(el("div", { style: "text-align:center;color:var(--text-secondary);font-size:13px", text: chosenPayment.note }));
+      }
+
+      // customer display button
+      sh.body.appendChild(
+        el("button", {
+          class: "mini-btn",
+          style: "margin:10px auto;display:block",
+          text: "📱 " + t("customer_display"),
+          onclick: () => BOO.app.showCustomerDisplay(s.grandTotal, isCash ? null : chosenPayment && chosenPayment.qr),
+        })
+      );
+
+      const short = isCash && st2.settings.requireCash && (cashReceived == null || cashReceived < s.grandTotal);
+      sh.footer.appendChild(
+        el("div", { class: "actions" }, [
+          el("button", { class: "btn btn-secondary", html: "‹ " + esc(t("back")), onclick: () => { step = 1; renderStep1(); } }),
+          el("button", { class: "btn btn-success", text: t("complete_sale"), disabled: short ? "true" : null, onclick: () => complete(s) }),
+        ])
+      );
+    }
+
+    function renderCashPad(total) {
+      const pad = el("div", { class: "cash-confirm" });
+      const input = el("input", {
+        class: "cash-input",
+        type: "number",
+        inputmode: "numeric",
+        placeholder: "0",
+        value: cashReceived != null ? cashReceived : "",
+      });
+      input.addEventListener("input", () => {
+        cashReceived = input.value === "" ? null : Math.round(Number(input.value));
+        updateChange();
+      });
+      pad.appendChild(el("div", { class: "cash-row" }, [el("span", { class: "lbl", text: t("cash_received") }), input]));
+
+      const changeRow = el("div", { class: "cash-row change" }, [el("span", { class: "lbl", text: t("change_due") }), el("span", { class: "val", id: "changeVal", text: fmtMoney(0) })]);
+      pad.appendChild(changeRow);
+
+      const denoms = el("div", { class: "denoms" });
+      U.denominations().forEach((d) => {
+        denoms.appendChild(el("button", { class: "denom-btn", text: "+" + d, onclick: () => { cashReceived = (cashReceived || 0) + d; input.value = cashReceived; updateChange(); } }));
+      });
+      denoms.appendChild(el("button", { class: "denom-btn", text: t("exact"), onclick: () => { cashReceived = total; input.value = total; updateChange(); } }));
+      pad.appendChild(denoms);
+      sh.body.appendChild(pad);
+
+      function updateChange() {
+        const diff = (cashReceived || 0) - total;
+        const row = changeRow;
+        const val = document.getElementById("changeVal");
+        if (diff < 0) {
+          row.classList.add("short");
+          row.querySelector(".lbl").textContent = t("short_amount");
+          val.textContent = fmtMoney(-diff);
+        } else {
+          row.classList.remove("short");
+          row.querySelector(".lbl").textContent = t("change_due");
+          val.textContent = fmtMoney(diff);
+        }
+        // toggle complete button
+        const completeBtn = sh.footer.querySelector(".btn-success");
+        if (completeBtn) completeBtn.disabled = diff < 0;
+      }
+      updateChange();
+    }
+
+    function complete(s) {
+      const st2 = BOO.store.get();
+      const cart = BOO.store.getCart();
+      const isCash = chosenPayment && chosenPayment.type === "cash";
+      const tx = {
+        lines: s.lines.map((l) => ({
+          kind: l.kind,
+          refId: l.refId,
+          name: l.name,
+          unitPrice: l.unitPrice,
+          basePrice: l.basePrice,
+          qty: l.qty,
+          lineTotal: l.lineTotal,
+          isTokuten: l.isTokuten,
+        })),
+        subtotal: s.subtotal,
+        discount: s.discount,
+        bundleSaved: s.bundleSaved,
+        grandTotal: s.grandTotal,
+        stockUse: BOO.inventory.computeStockUse(st2, cart.lines),
+        paymentMethodId: chosenPayment ? chosenPayment.id : null,
+        paymentMethodName: chosenPayment ? chosenPayment.name : "—",
+        paymentType: chosenPayment ? chosenPayment.type : "external",
+        cashReceived: isCash ? cashReceived : null,
+        changeGiven: isCash && cashReceived != null ? cashReceived - s.grandTotal : null,
+        giftNote: s.gifts.map((g) => g.rewardText).join(", "),
+      };
+      BOO.store.addTransaction(tx);
+      BOO.store.clearCart();
+      sh.close();
+      BOO.app.hideCustomerDisplay();
+      if (BOO.router.current() === "front" && BOO.app.frontUpdate) BOO.app.frontUpdate();
+      toast(t("sale_done", { amount: fmtMoney(s.grandTotal) }), "success");
+    }
+
+    renderStep1();
+  }
+
+  BOO.router.register("front", render);
+  BOO.app = BOO.app || {};
+  BOO.app.openSaleSheet = openSaleSheet;
+})();
