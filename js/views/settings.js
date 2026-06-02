@@ -11,6 +11,7 @@
     { code: "TWD", symbol: "NT$" },
     { code: "JPY", symbol: "¥" },
     { code: "USD", symbol: "$" },
+    { code: "KRW", symbol: "₩" },
     { code: "CNY", symbol: "¥" },
     { code: "HKD", symbol: "HK$" },
   ];
@@ -134,16 +135,15 @@
     action(t("export_share"), exportShare);
     action(t("share_link"), shareLink);
     action(t("load_demo"), loadDemo);
-    if (OB.store.hasLegacy()) action("匯入舊版 (booth_register) 資料", importLegacy);
     action(t("clear_all"), clearAll, true);
     main.appendChild(dataSec);
 
-    // about
+    // about (no version string — keep this stable across releases)
     main.appendChild(el("h2", { class: "section-title", text: t("about") }));
     main.appendChild(
       el("div", { class: "update-log-box", style: "margin-bottom:24px" }, [
-        el("div", { html: "<b>OpenBooth</b> · 開源擺攤收銀台 · v0.1" }),
-        el("div", { style: "margin-top:6px", html: "MIT License · 100% 離線 · 資料只存在你的裝置" }),
+        el("div", {}, [el("b", { text: "OpenBooth" }), document.createTextNode(" · " + t("about_tagline"))]),
+        el("div", { style: "margin-top:6px", text: t("about_privacy") }),
         el("a", { href: "https://github.com/mimito-6/openbooth", target: "_blank", rel: "noopener", style: "color:var(--accent);display:inline-block;margin-top:8px", text: "GitHub →" }),
       ])
     );
@@ -219,10 +219,6 @@
       OB.store.setLocked(true);
       toast(t("locked"), "success");
       OB.router.go("front");
-    }
-    function importLegacy() {
-      // best-effort import of old prototype transactions as generic records
-      toast("舊資料偵測到，請用桌機開啟舊檔匯出 CSV 後再匯入（保留原始）", "");
     }
     function clearAll() {
       confirmDialog(t("confirm_clear"), { danger: true }).then((ok) => {

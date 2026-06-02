@@ -124,7 +124,7 @@
       });
       if (inCart) card.appendChild(el("span", { class: "qty-badge", text: inCart }));
       const nameLine = el("div", { class: "item-name" });
-      nameLine.appendChild(el("span", { class: "combo-letter", text: "組" }));
+      nameLine.appendChild(el("span", { class: "combo-letter", text: t("combo_badge") }));
       nameLine.appendChild(document.createTextNode(c.name));
       card.appendChild(nameLine);
       card.appendChild(el("div", { class: "combo-desc", text: c.description || "" }));

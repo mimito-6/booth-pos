@@ -11,6 +11,11 @@
   const DICT = {
     "zh-Hant": {
       app_name: "OpenBooth",
+      about_tagline: "開源擺攤收銀台",
+      about_privacy: "MIT License · 100% 離線 · 資料只存在你的裝置",
+      combo_badge: "組",
+      combos: "套組",
+      new_category: "新分類",
       // nav / screens
       nav_front: "開賣前台",
       nav_stock: "庫存管理",
@@ -224,6 +229,11 @@
 
     ja: {
       app_name: "OpenBooth",
+      about_tagline: "オープンソース即売レジ",
+      about_privacy: "MIT License · 100% オフライン · データは端末内のみ",
+      combo_badge: "セ",
+      combos: "セット",
+      new_category: "新しいカテゴリ",
       nav_front: "販売フロント",
       nav_stock: "在庫管理",
       nav_pay: "支払い設定",
@@ -425,6 +435,11 @@
 
     en: {
       app_name: "OpenBooth",
+      about_tagline: "Open-source booth register",
+      about_privacy: "MIT License · 100% offline · data stays on your device",
+      combo_badge: "C",
+      combos: "Combos",
+      new_category: "New category",
       nav_front: "Front Desk",
       nav_stock: "Inventory",
       nav_pay: "Payment",
@@ -626,6 +641,11 @@
 
     ko: {
       app_name: "OpenBooth",
+      about_tagline: "오픈소스 부스 계산대",
+      about_privacy: "MIT License · 100% 오프라인 · 데이터는 기기에만 저장",
+      combo_badge: "콤",
+      combos: "콤보",
+      new_category: "새 카테고리",
       nav_front: "판매대",
       nav_stock: "재고 관리",
       nav_pay: "결제 설정",

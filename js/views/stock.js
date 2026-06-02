@@ -44,7 +44,7 @@
     if (st.settings.enableCombos) {
       const combos = OB.store.activeCombos();
       if (combos.length) {
-        const cs = el("section", { class: "section" }, [el("h2", { class: "section-title", text: "套組" })]);
+        const cs = el("section", { class: "section" }, [el("h2", { class: "section-title", text: t("combos") })]);
         combos.forEach((c) => cs.appendChild(comboRow(c)));
         main.appendChild(cs);
       }
@@ -282,7 +282,7 @@
         );
       });
       sh.body.appendChild(
-        el("button", { class: "btn btn-primary btn-block btn-sm", text: "＋ " + t("category_name"), onclick: () => { OB.store.upsertCategory({ name: "新分類", color: "#c46b43" }); renderList(); } })
+        el("button", { class: "btn btn-primary btn-block btn-sm", text: "＋ " + t("category_name"), onclick: () => { OB.store.upsertCategory({ name: t("new_category"), color: "#c46b43" }); renderList(); } })
       );
     }
     renderList();
