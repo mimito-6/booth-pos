@@ -1,0 +1,54 @@
+name: 🎪 Share a stall preset
+description: Submit a stall config others can import with one click.
+title: "[preset] <stall type — language>"
+labels: [preset]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for sharing! In the app, **Settings → Export stall preset** gives you a JSON file.
+        ⚠️ **Do not include third-party IP (fan-work) assets** in a public preset.
+        商品名稱與圖片若涉及二創角色,請改成原創或泛用名稱再投稿。
+  - type: input
+    id: name
+    attributes:
+      label: Stall name
+      placeholder: e.g. Watercolor postcards · Mini acrylic charms ...
+    validations:
+      required: true
+  - type: dropdown
+    id: locale
+    attributes:
+      label: Primary locale
+      options: ["zh-Hant", "ja", "en", "ko"]
+    validations:
+      required: true
+  - type: dropdown
+    id: license
+    attributes:
+      label: License for this preset
+      options: ["CC0 (public domain)", "CC BY 4.0", "CC BY-SA 4.0"]
+    validations:
+      required: true
+  - type: textarea
+    id: json
+    attributes:
+      label: Preset JSON
+      description: Paste the contents of your exported preset file.
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: Screenshot
+      description: Drag-drop a screenshot of your booth (optional but encouraged).
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Confirmations
+      options:
+        - label: I confirm this preset contains no third-party IP (fan-work) assets.
+          required: true
+        - label: I'm OK with this preset being included in the community gallery under the license I chose.
+          required: true

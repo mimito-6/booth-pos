@@ -1,0 +1,48 @@
+name: 🐞 Bug report
+description: Something broke or behaved unexpectedly.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a bug! 一支手機壞掉一場營收 — your report helps us prevent the next one.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: 描述你看到什麼、和你預期不同的地方。
+      placeholder: e.g. 結帳完成後庫存沒有遞減 / cash change shows wrong amount...
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Settings → Load demo
+        2. Open Stall → add 2× sticker
+        3. Checkout with cash → enter 100
+        4. ...
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Browser / device
+      placeholder: iPhone 15 Safari · Chrome 120 Windows · ...
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where do you see it?
+      options:
+        - "Live demo (mimito-6.github.io/openbooth)"
+        - "Self-hosted"
+        - "Opened index.html directly (file://)"
+    validations:
+      required: true
+  - type: textarea
+    id: console
+    attributes:
+      label: Browser console errors (optional)
+      description: Open DevTools (F12) → Console — paste any red lines.
+      render: text

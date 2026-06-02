@@ -1,0 +1,28 @@
+name: ✨ Feature request
+description: Suggest a feature — please describe the booth situation, not just the feature.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Best proposals describe a real **situation at a booth**, not just a feature in isolation.
+  - type: textarea
+    id: situation
+    attributes:
+      label: The situation at the booth
+      description: 你在攤位上想解決什麼?(例如:幫忙顧攤的朋友不小心改到我的商品)
+      placeholder: e.g. When my friend helps at the booth, ...
+    validations:
+      required: true
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would help?
+      placeholder: e.g. A quick way to lock the back-office so only checkout works...
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What you do today
+      description: 目前如何 work around?

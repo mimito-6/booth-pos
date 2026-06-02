@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 💬 Discussions
+    url: https://github.com/mimito-6/openbooth/discussions
+    about: Questions, ideas, or "show your booth" posts go here.
+  - name: ▶ Live Demo
+    url: https://mimito-6.github.io/openbooth/
+    about: Try it in your browser before filing an issue.

@@ -8,6 +8,11 @@
 
 [繁體中文](README.md) · [**English**](README.en.md) · [日本語](README.ja.md)
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-c46b43.svg)](LICENSE)
+[![Live demo](https://img.shields.io/badge/▶-Live%20demo-c46b43)](https://mimito-6.github.io/openbooth/)
+[![ci](https://github.com/mimito-6/openbooth/actions/workflows/ci.yml/badge.svg)](https://github.com/mimito-6/openbooth/actions/workflows/ci.yml)
+[![PRs welcome](https://img.shields.io/badge/PRs-welcome-4a8b5c.svg)](CONTRIBUTING.md)
+
 [**▶ Live Demo**](https://mimito-6.github.io/openbooth/) · [Quick start](#-quick-start) · [Features](#-features) · [Design](DESIGN.md) · [Contributing](CONTRIBUTING.md)
 
 </div>

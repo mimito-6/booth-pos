@@ -1,0 +1,57 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: pricing tests + syntax check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: JS syntax check (all .js files)
+        run: |
+          set -e
+          fail=0
+          while IFS= read -r f; do
+            node --check "$f" || { echo "::error file=$f::syntax error"; fail=1; }
+          done < <(find . -name '*.js' -not -path './node_modules/*' -not -path './.git/*')
+          exit $fail
+
+      - name: Run zero-dependency pricing tests
+        run: node tests/pricing.test.js
+
+      - name: Verify i18n key alignment across all 4 locales
+        run: |
+          awk '
+          /^    "zh-Hant": \{/ { locale="zh"; next }
+          /^    ja: \{/        { locale="ja"; next }
+          /^    en: \{/        { locale="en"; next }
+          /^    ko: \{/        { locale="ko"; next }
+          /^    \},?$/         { locale="" }
+          locale && /^      [a-z_][a-z_0-9]*:/ { count[locale]++ }
+          END {
+            ref = count["zh"]
+            ok = 1
+            for (l in count) if (count[l] != ref) { ok = 0; printf "::error::locale %s has %d keys, expected %d\n", l, count[l], ref }
+            if (ok) printf "All 4 locales have %d keys.\n", ref
+            exit ok ? 0 : 1
+          }
+          ' js/i18n.js
+
+      - name: Validate presets/*.json
+        run: |
+          for f in presets/*.json; do
+            echo "→ $f"
+            node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))"
+          done

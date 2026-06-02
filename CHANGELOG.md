@@ -3,6 +3,39 @@
 All notable changes to OpenBooth are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [Unreleased]
+
+### Added
+- Korean (`ko`) UI locale; native-name language switch on Home (繁體中文 / 日本語 / English / 한국어).
+- New built-in theme: **ocean** (cool palette).
+- **Helper lock (PIN)** mode — lock back-office, hide revenue & history, keep only the sell flow available; unlock with 4-digit PIN.
+- Post-sale **thank-you card** (Settings → "Show thank-you card after sale").
+- **Per-product sales CSV** export on RECORD.
+- Korean Won (`KRW`, ₩) added to the currency list.
+- Zero-dependency **pricing tests** (`node tests/pricing.test.js`).
+- `AGENTS.md` for human + AI contributors; GitHub Actions CI (syntax check, pricing tests, locale alignment, preset JSON validation); issue / PR templates; `SECURITY.md`; `CODE_OF_CONDUCT.md`.
+
+### Changed
+- Home: native-name language switcher replaces the old single-locale label.
+- Settings → About: dropped the hardcoded version string; tagline now goes through i18n.
+- Demo stall: replaced author's pricing with neutral round numbers (5 / 10 / 100); removed 緞帶吊飾; gift threshold lowered to NT$100.
+- Cash pad: removed redundant "Exact" shortcut.
+
+### Fixed
+- Stray empty files (`OB`, `HTTP`, etc.) cleaned out of the repo root.
+
+## [0.1.2] — 2026-06
+
+Multilingual polish.
+
+### Added
+- In-app **language switcher on the home screen** — buttons show each language's native name, so visitors who can't read the current UI can still find theirs.
+
+### Changed
+- Project renamed to **OpenBooth** with a clean flat market-stall icon.
+- Home tiles no longer show grey English code labels under each icon.
+- Removed the hardcoded Chinese changelog block from Home (it didn't follow the language switch).
+
 ## [0.1.0] — 2026-06
 
 First open-source release. Rebuilt from a hardcoded single-file prototype into a
