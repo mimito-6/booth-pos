@@ -122,6 +122,21 @@
     helperSec.appendChild(el("button", { class: "btn btn-secondary btn-block", text: t("lock_now"), onclick: lockNow }));
     main.appendChild(helperSec);
 
+    // --- pre-order notification template ---
+    main.appendChild(el("h2", { class: "section-title", text: t("notify_template_setting") }));
+    const tplArea = el("textarea", { rows: 3, placeholder: t("notify_template_default_hint"), style: "font-family:inherit" });
+    tplArea.value = s.notifyTemplate || "";
+    tplArea.addEventListener("change", () => { s.notifyTemplate = tplArea.value; OB.store.commit(); });
+    main.appendChild(OB.ui.field(t("notify_template_setting"), tplArea, t("notify_template_hint")));
+    main.appendChild(el("div", { style: "margin-top:-4px;margin-bottom:14px;display:flex;gap:8px" }, [
+      el("button", { class: "mini-btn", text: t("preview"), onclick: () => {
+        const sample = (s.notifyTemplate || "").trim() || t("notify_template", { items: "{items}", amount: "{amount}" });
+        const filled = sample.replace(/\{items\}/g, t("notify_template_sample_items")).replace(/\{amount\}/g, OB.util.fmtMoney(120));
+        OB.util.confirmDialog(filled, { yes: t("save"), no: t("cancel") });
+      } }),
+      el("button", { class: "mini-btn", text: t("reset_default"), onclick: () => { s.notifyTemplate = ""; OB.store.commit(); } }),
+    ]));
+
     // --- data backup ---
     main.appendChild(el("h2", { class: "section-title", text: t("data_backup") }));
     main.appendChild(el("div", { class: "gift-banner", style: "background:var(--accent-light);color:var(--accent-dark)", text: t("backup_reminder") }));

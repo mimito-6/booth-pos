@@ -39,6 +39,7 @@
         requireCash: true,
         showReceipt: false,
         helperPin: "",
+        notifyTemplate: "",
         mascot: null,
       },
       categories: [],
