@@ -448,9 +448,8 @@
     const c = (name, color) => ({ id: uuid(), name, color, sortOrder: state.categories.length + 0, archived: false });
     const cat = {
       sticker: c("貼紙", "#c46b43"),
-      acrylic: c("壓克力", "#6b5b95"),
-      charm: c("吊飾", "#4a8b5c"),
       print: c("明信片", "#c98a1e"),
+      acrylic: c("壓克力", "#6b5b95"),
     };
     state.categories = Object.values(cat);
     let so = 0;
@@ -466,26 +465,26 @@
       sortOrder: so++,
       archived: false,
     });
+    // Generic demo items with round prices (5 / 10 / 100) so the sample doesn't
+    // reflect any specific seller's pricing.
     const prods = [
-      p("原創角色貼紙 A", cat.sticker.id, 40, 100, [{ qty: 3, price: 100, label: "3張100" }]),
-      p("原創角色貼紙 B", cat.sticker.id, 40, 100, [{ qty: 3, price: 100, label: "3張100" }]),
-      p("透明小貼紙", cat.sticker.id, 30, 120, []),
-      p("壓克力吊飾", cat.acrylic.id, 150, 40, []),
-      p("壓克力立牌", cat.acrylic.id, 250, 30, []),
-      p("緞帶吊飾", cat.charm.id, 120, 50, []),
-      p("珠光明信片", cat.print.id, 30, 200, [{ qty: 4, price: 100, label: "4張100" }]),
-      p("特殊工藝明信片", cat.print.id, 50, 80, [{ qty: 3, price: 130, label: "3張130" }]),
+      p("小貼紙",       cat.sticker.id,   5, 200, []),
+      p("角色貼紙",     cat.sticker.id,  10, 100, []),
+      p("透卡明信片",   cat.print.id,    10, 100, []),
+      p("珠光明信片",   cat.print.id,    10, 100, []),
+      p("壓克力吊飾",   cat.acrylic.id, 100,  40, []),
+      p("壓克力立牌",   cat.acrylic.id, 100,  30, []),
     ];
     state.products = prods;
     state.combos = [
       {
         id: uuid(),
-        name: "明信片全收組",
-        description: "珠光 + 特殊工藝各 1",
-        price: 70,
+        name: "明信片組",
+        description: "透卡 + 珠光 各 1",
+        price: 10,
         uses: [
-          { productId: prods[6].id, qty: 1 },
-          { productId: prods[7].id, qty: 1 },
+          { productId: prods[2].id, qty: 1 },
+          { productId: prods[3].id, qty: 1 },
         ],
         image: null,
         sortOrder: 0,
@@ -495,17 +494,17 @@
         id: uuid(),
         name: "壓克力組合",
         description: "吊飾 + 立牌",
-        price: 360,
+        price: 100,
         uses: [
-          { productId: prods[3].id, qty: 1 },
           { productId: prods[4].id, qty: 1 },
+          { productId: prods[5].id, qty: 1 },
         ],
         image: null,
         sortOrder: 1,
         archived: false,
       },
     ];
-    state.giftThresholds = [{ id: uuid(), minAmount: 500, rewardText: "限定小卡 ×1", enabled: true }];
+    state.giftThresholds = [{ id: uuid(), minAmount: 100, rewardText: "小禮物 ×1", enabled: true }];
     if (!state.settings.shopName || state.settings.shopName === "OpenBooth") state.settings.shopName = "我的攤位";
     commit();
   }
