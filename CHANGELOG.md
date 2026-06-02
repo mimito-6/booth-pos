@@ -3,25 +3,30 @@
 All notable changes to OpenBooth are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
-## [Unreleased]
+## [0.1.3] — 2026-06
+
+Internationalisation, pre-order UX, and OSS-repo polish.
 
 ### Added
-- Korean (`ko`) UI locale; native-name language switch on Home (繁體中文 / 日本語 / English / 한국어).
-- New built-in theme: **ocean** (cool palette).
-- **Helper lock (PIN)** mode — lock back-office, hide revenue & history, keep only the sell flow available; unlock with 4-digit PIN.
-- Post-sale **thank-you card** (Settings → "Show thank-you card after sale").
-- **Per-product sales CSV** export on RECORD.
-- Korean Won (`KRW`, ₩) added to the currency list.
-- Zero-dependency **pricing tests** (`node tests/pricing.test.js`).
-- `AGENTS.md` for human + AI contributors; GitHub Actions CI (syntax check, pricing tests, locale alignment, preset JSON validation); issue / PR templates; `SECURITY.md`; `CODE_OF_CONDUCT.md`.
+- **Korean (`ko`) UI locale** — full translation; home-screen language switch now shows native names: 繁體中文 / 日本語 / English / 한국어.
+- **Korean Won (`KRW`, ₩)** added to the currency list.
+- New built-in **ocean** theme (cool palette).
+- **Helper-lock (PIN) mode** — lock the back-office, hide revenue & history, keep only the sell flow available; unlock with a 4-digit PIN. Survives reload.
+- **Post-sale thank-you card** (Settings → "Show thank-you card after sale").
+- **Per-product sales CSV** export on the RECORD screen.
+- PICKUP: **reversible 3-segment status toggle** ([待取 ｜ 已通知 ｜ 已取貨]) — any state to any state, not just one-way.
+- PICKUP: **customisable pre-order notification template** (Settings) with `{items}` / `{amount}` variables; edit screen shows a **live preview** that updates as you type, plus a one-tap "copy to clipboard" button.
+- Zero-dependency **pricing tests** (`node tests/pricing.test.js`) — covers bundles, combos, freebies, manual override, discount, gift-threshold.
+- Repo polish for OSS: **`AGENTS.md`**, GitHub Actions **CI** (JS syntax, pricing tests, 4-locale alignment, preset JSON validation), issue & PR templates, **`SECURITY.md`**, **`CODE_OF_CONDUCT.md`**, social preview image.
 
 ### Changed
 - Home: native-name language switcher replaces the old single-locale label.
-- Settings → About: dropped the hardcoded version string; tagline now goes through i18n.
-- Demo stall: replaced author's pricing with neutral round numbers (5 / 10 / 100); removed 緞帶吊飾; gift threshold lowered to NT$100.
-- Cash pad: removed redundant "Exact" shortcut.
+- Settings → About: dropped the hardcoded version string; tagline now goes through i18n (no manual edit per release).
+- Demo stall rewritten with **neutral round prices (5 / 10 / 100)**; removed 緞帶吊飾; gift threshold lowered to NT$100 so it triggers with the new tiers.
+- Cash pad: removed redundant "Exact" shortcut — typing the amount or "+denom" buttons handle the same case.
 
 ### Fixed
+- Code of Conduct: removed public email address (private GitHub channels only) to avoid scraping.
 - Stray empty files (`OB`, `HTTP`, etc.) cleaned out of the repo root.
 
 ## [0.1.2] — 2026-06
