@@ -21,6 +21,7 @@
         onBack: () => OB.router.go("home"),
         right: [
           { icon: "📊", label: t("cashup"), onClick: openCashup },
+          { icon: "🧾", label: t("product_sales_csv"), onClick: exportProductSalesCsv },
           { icon: "📤", label: t("export_csv"), onClick: exportCsv },
         ],
       })
@@ -144,6 +145,35 @@
         ]);
       });
       const fname = (ev.name || "event").replace(/[^\w一-龥]+/g, "_") + "_" + (ev.date || "") + ".csv";
+      U.downloadFile(fname, U.toCSV(rows), "text/csv");
+      toast(t("exported"), "success");
+    }
+
+    function exportProductSalesCsv() {
+      const productIds = Object.keys(stats.byProduct);
+      if (!productIds.length) {
+        toast(t("no_records"), "danger");
+        return;
+      }
+      const revenueByProduct = {};
+      const unitByProduct = {};
+      stats.txs.forEach((tx) => {
+        (tx.lines || []).forEach((line) => {
+          if (line.kind !== "product") return;
+          unitByProduct[line.refId] = line.unitPrice;
+          revenueByProduct[line.refId] = (revenueByProduct[line.refId] || 0) + line.qty * line.unitPrice;
+        });
+      });
+      const rows = [[t("product_name"), t("qty_sold"), t("remaining_stock"), t("unit_price"), t("revenue")]];
+      productIds
+        .map((pid) => ({ product: OB.store.product(pid), qty: stats.byProduct[pid] || 0 }))
+        .filter((row) => row.product)
+        .sort((a, b) => b.qty - a.qty || a.product.name.localeCompare(b.product.name))
+        .forEach(({ product, qty }) => {
+          const unit = unitByProduct[product.id] != null ? unitByProduct[product.id] : product.price;
+          rows.push([product.name, qty, OB.inventory.committedRemaining(st, product.id), unit, revenueByProduct[product.id] != null ? revenueByProduct[product.id] : qty * unit]);
+        });
+      const fname = (ev.name || "event").replace(/[^\w一-龥]+/g, "_") + "_product_sales_" + (ev.date || OB.store.todayISO()) + ".csv";
       U.downloadFile(fname, U.toCSV(rows), "text/csv");
       toast(t("exported"), "success");
     }

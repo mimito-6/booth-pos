@@ -17,6 +17,7 @@
   const THEMES = [
     { id: "warm", dots: ["#c46b43", "#faf6f0", "#6b5b95"] },
     { id: "sakura", dots: ["#e0688a", "#fdf3f5", "#8a6bc4"] },
+    { id: "ocean", dots: ["#087f8c", "#eef8f8", "#356da8"] },
     { id: "mono", dots: ["#1c1c1a", "#f5f5f4", "#6e6e69"] },
     { id: "night", dots: ["#e08a5c", "#1b1916", "#a48fd6"] },
   ];
@@ -67,7 +68,7 @@
     });
 
     const langSel = el("select");
-    [["zh-Hant", "繁體中文"], ["ja", "日本語"], ["en", "English"]].forEach(([v, label]) => {
+    [["zh-Hant", "繁體中文"], ["ja", "日本語"], ["en", "English"], ["ko", "한국어"]].forEach(([v, label]) => {
       const o = el("option", { value: v, text: label });
       if (v === s.locale) o.selected = true;
       langSel.appendChild(o);
@@ -97,12 +98,28 @@
 
     // toggles
     const togSec = el("section", { class: "section settings-list" });
-    [["showStock", "show_stock"], ["enableCombos", "enable_combos"], ["requireCash", "require_cash"]].forEach(([key, label]) => {
+    [["showStock", "show_stock"], ["enableCombos", "enable_combos"], ["requireCash", "require_cash"], ["showReceipt", "show_receipt"]].forEach(([key, label]) => {
       const item = el("div", { class: "settings-item" }, [el("span", { class: "si-label", text: t(label) })]);
       item.appendChild(OB.ui.toggle(s[key], (on) => { s[key] = on; OB.store.commit(); }));
       togSec.appendChild(item);
     });
     main.appendChild(togSec);
+
+    // helper lock
+    main.appendChild(el("h2", { class: "section-title", text: t("helper_lock") }));
+    const helperSec = el("section", { class: "settings-list" });
+    const pinInput = OB.ui.input({ type: "password", inputmode: "numeric", maxlength: "4", value: s.helperPin || "", placeholder: "0000" });
+    pinInput.addEventListener("input", () => {
+      pinInput.value = pinInput.value.replace(/\D/g, "").slice(0, 4);
+    });
+    helperSec.appendChild(OB.ui.field(t("helper_pin"), pinInput, t("helper_pin_hint")));
+    const helperActions = el("div", { class: "actions", style: "margin-bottom:12px" }, [
+      el("button", { class: "btn btn-primary", text: t("set_helper_pin"), onclick: savePin }),
+      el("button", { class: "btn btn-secondary", text: t("clear_helper_pin"), onclick: clearPin }),
+    ]);
+    helperSec.appendChild(helperActions);
+    helperSec.appendChild(el("button", { class: "btn btn-secondary btn-block", text: t("lock_now"), onclick: lockNow }));
+    main.appendChild(helperSec);
 
     // --- data backup ---
     main.appendChild(el("h2", { class: "section-title", text: t("data_backup") }));
@@ -176,6 +193,32 @@
         toast("✓", "success");
         OB.router.go("home");
       });
+    }
+    function savePin() {
+      const pin = pinInput.value.trim();
+      if (!/^\d{4}$/.test(pin)) {
+        toast(t("pin_must_be_4_digits"), "danger");
+        return;
+      }
+      s.helperPin = pin;
+      OB.store.commit();
+      toast(t("pin_saved"), "success");
+    }
+    function clearPin() {
+      s.helperPin = "";
+      OB.store.setLocked(false);
+      OB.store.commit();
+      pinInput.value = "";
+      toast(t("pin_cleared"), "success");
+    }
+    function lockNow() {
+      if (!s.helperPin) {
+        toast(t("lock_requires_pin"), "danger");
+        return;
+      }
+      OB.store.setLocked(true);
+      toast(t("locked"), "success");
+      OB.router.go("front");
     }
     function importLegacy() {
       // best-effort import of old prototype transactions as generic records

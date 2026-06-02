@@ -28,6 +28,7 @@
     const st = OB.store.get();
     const ev = OB.store.currentEvent();
     const stats = OB.stats.eventStats(st);
+    const locked = OB.store.isLocked && OB.store.isLocked();
 
     const hero = el("div", { class: "home-hero" });
     if (st.settings.mascot) {
@@ -53,20 +54,31 @@
     hero.appendChild(ready);
 
     const openBtn = el("button", { class: "open-stall-btn", text: t("open_stall"), onclick: () => OB.router.go("front") });
+    const unlockBtn = locked
+      ? el("button", { class: "btn btn-secondary btn-block home-unlock", text: t("unlock"), onclick: () => OB.app.unlockHelper() })
+      : null;
 
-    const stat = OB.ui.statsRow([
+    const stat = locked ? null : OB.ui.statsRow([
       { label: t("stat_revenue"), value: fmtMoney(stats.revenue) },
       { label: t("stat_tx"), value: stats.count, unit: t("unit_tx"), small: true },
       { label: t("stat_items"), value: stats.pieces, unit: t("unit_pcs"), small: true },
     ]);
-    const statWrap = el("div", { style: "padding:14px 16px 0;max-width:560px;margin:0 auto" }, [stat]);
+    const statWrap = locked
+      ? el("div", { class: "locked-home-note", text: t("hidden_while_locked") })
+      : el("div", { style: "padding:14px 16px 0;max-width:560px;margin:0 auto" }, [stat]);
 
     const grid = el("div", { class: "nav-grid" });
     const pendingPre = st.preorders.filter((p) => p.status === "pending").length;
     NAV.forEach((n) => {
       const card = el("div", {
         class: "nav-card" + (n.badge && pendingPre ? " badge-wrap" : ""),
-        onclick: () => OB.router.go(n.route),
+        onclick: () => {
+          if (locked && n.route !== "front") {
+            OB.router.go(n.route);
+            return;
+          }
+          OB.router.go(n.route);
+        },
       });
       if (n.badge && pendingPre) card.appendChild(el("span", { class: "nav-badge", text: pendingPre }));
       card.appendChild(el("span", { class: "nav-emoji", text: n.emoji }));
@@ -80,6 +92,7 @@
       { code: "zh-Hant", label: "繁體中文" },
       { code: "ja", label: "日本語" },
       { code: "en", label: "English" },
+      { code: "ko", label: "한국어" },
     ];
     const cur = OB.i18n.getLocale();
     const langRow = el("div", { class: "lang-row" });
@@ -101,7 +114,9 @@
     });
 
     const view = el("div", { class: "view active" });
-    view.append(hero, openBtn, statWrap, grid, langRow);
+    view.append(hero, openBtn);
+    if (unlockBtn) view.appendChild(el("div", { style: "padding:0 20px;max-width:560px;margin:0 auto" }, [unlockBtn]));
+    view.append(statWrap, grid, langRow);
     root.appendChild(view);
   }
 

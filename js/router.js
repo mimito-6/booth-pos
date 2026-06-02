@@ -24,6 +24,11 @@
     if (!root) return;
     cleanTransient();
     root.innerHTML = "";
+    if (window.OB.store && OB.store.isLocked && OB.store.isLocked() && currentName !== "front" && currentName !== "home") {
+      renderLocked(root);
+      window.scrollTo(0, 0);
+      return;
+    }
     const fn = routes[currentName] || routes["home"];
     fn(root, currentParams);
     window.scrollTo(0, 0);
@@ -58,6 +63,31 @@
   }
   function current() {
     return currentName;
+  }
+
+  function renderLocked(root) {
+    const t = window.t;
+    const U = window.OB.util;
+    const view = U.el("div", { class: "view active" });
+    view.appendChild(
+      OB.ui.header({
+        title: t("helper_lock"),
+        subtitle: t("locked_title"),
+        onBack: () => go("home", {}, { replace: true }),
+        right: [{ icon: "🔓", label: t("unlock"), onClick: () => OB.app.unlockHelper() }],
+      })
+    );
+    view.appendChild(
+      U.el("main", {}, [
+        U.el("section", { class: "section locked-notice" }, [
+          U.el("div", { class: "locked-icon", text: "🔒" }),
+          U.el("h2", { text: t("locked_title") }),
+          U.el("p", { text: t("locked_notice") }),
+          U.el("button", { class: "btn btn-primary btn-block", text: t("unlock"), onclick: () => OB.app.unlockHelper() }),
+        ]),
+      ])
+    );
+    root.appendChild(view);
   }
 
   OB.router = { register, go, back, refresh, current };

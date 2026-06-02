@@ -23,7 +23,12 @@
         title: st.settings.shopName || t("nav_front"),
         subtitle: (ev.name || t("no_event")) + (ev.date ? " · " + ev.date : ""),
         onBack: () => OB.router.go("home"),
-        right: [{ icon: "🏠", label: t("home"), onClick: () => OB.router.go("home") }],
+        right: (OB.store.isLocked && OB.store.isLocked())
+          ? [
+              { icon: "🔓", label: t("unlock"), onClick: () => OB.app.unlockHelper() },
+              { icon: "🏠", label: t("home"), onClick: () => OB.router.go("home") },
+            ]
+          : [{ icon: "🏠", label: t("home"), onClick: () => OB.router.go("home") }],
       })
     );
 
@@ -488,15 +493,41 @@
         changeGiven: isCash && cashReceived != null ? cashReceived - s.grandTotal : null,
         giftNote: s.gifts.map((g) => g.rewardText).join(", "),
       };
-      OB.store.addTransaction(tx);
+      const savedTx = OB.store.addTransaction(tx);
       OB.store.clearCart();
       sh.close();
       OB.app.hideCustomerDisplay();
       if (OB.router.current() === "front" && OB.app.frontUpdate) OB.app.frontUpdate();
       toast(t("sale_done", { amount: fmtMoney(s.grandTotal) }), "success");
+      if (st2.settings.showReceipt) setTimeout(() => showReceipt(savedTx), 300);
     }
 
     renderStep1();
+  }
+
+  function showReceipt(tx) {
+    const sh = OB.ui.sheet({ title: t("receipt_title") });
+    const isCash = tx.paymentType === "cash";
+    const card = el("div", { class: "receipt-card" }, [
+      el("div", { class: "receipt-shop", text: OB.store.get().settings.shopName || t("app_name") }),
+      el("div", { class: "receipt-thanks", text: t("thank_you") }),
+      el("div", { class: "receipt-meta", text: t("receipt_datetime") + ": " + new Date(tx.time).toLocaleString() }),
+    ]);
+    (tx.lines || []).forEach((l) => {
+      card.appendChild(
+        el("div", { class: "receipt-line" }, [
+          el("span", { text: l.name + " × " + l.qty }),
+          el("span", { text: fmtMoney(l.lineTotal) }),
+        ])
+      );
+    });
+    card.appendChild(el("div", { class: "receipt-line receipt-total" }, [el("span", { text: t("total_due") }), el("span", { text: fmtMoney(tx.grandTotal) })]));
+    card.appendChild(el("div", { class: "receipt-line" }, [el("span", { text: t("payment_method") }), el("span", { text: tx.paymentMethodName || "—" })]));
+    if (isCash && tx.changeGiven != null) {
+      card.appendChild(el("div", { class: "receipt-line" }, [el("span", { text: t("change_due") }), el("span", { text: fmtMoney(tx.changeGiven) })]));
+    }
+    sh.body.appendChild(card);
+    sh.footer.appendChild(el("button", { class: "btn btn-primary btn-block", text: t("yes"), onclick: sh.close }));
   }
 
   OB.router.register("front", render);

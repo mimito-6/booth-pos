@@ -79,6 +79,28 @@
   --warning: #cf942b;
 }
 
+/* ---------- Theme: ocean ---------- */
+[data-theme="ocean"] {
+  --bg: #eef8f8;
+  --surface: #ffffff;
+  --surface-2: #ddf0f2;
+  --border: #cbe4e7;
+  --border-strong: #9fcbd1;
+  --text: #17323a;
+  --text-secondary: #55717a;
+  --text-muted: #8fa8ae;
+  --accent: #087f8c;
+  --accent-dark: #05616e;
+  --accent-light: #dff4f5;
+  --on-accent: #ffffff;
+  --success: #2f8f67;
+  --success-light: #e0f2e9;
+  --combo: #356da8;
+  --combo-light: #e1edf8;
+  --danger: #c94848;
+  --warning: #b88418;
+}
+
 /* ---------- Theme: mono (minimal) ---------- */
 [data-theme="mono"] {
   --bg: #f5f5f4;

@@ -4,7 +4,7 @@
 (function () {
   window.OB = window.OB || {};
   OB.app = OB.app || {};
-  const CACHE_NAME = "openbooth-v4";
+  const CACHE_NAME = "openbooth-v5";
 
   // ---- customer-facing display ----
   let cfd = null;
@@ -34,6 +34,18 @@
   }
   function hideCustomerDisplay() {
     if (cfd) cfd.classList.remove("show");
+  }
+
+  function unlockHelper() {
+    const pin = prompt(OB.i18n.t("unlock_prompt"));
+    if (pin == null) return false;
+    if (OB.store.unlockWithPin(pin)) {
+      OB.util.toast(OB.i18n.t("unlocked"), "success");
+      OB.router.refresh();
+      return true;
+    }
+    OB.util.toast(OB.i18n.t("wrong_pin"), "danger");
+    return false;
   }
 
   // ---- offline readiness ----
@@ -80,7 +92,7 @@
   function applyChrome() {
     const s = OB.store.get().settings;
     document.documentElement.dataset.theme = s.theme || "warm";
-    document.documentElement.lang = s.locale === "ja" ? "ja" : s.locale === "en" ? "en" : "zh-Hant";
+    document.documentElement.lang = s.locale === "ja" ? "ja" : s.locale === "en" ? "en" : s.locale === "ko" ? "ko" : "zh-Hant";
     OB.i18n.setLocale(s.locale);
   }
 
@@ -107,6 +119,7 @@
   OB.app.checkOfflineReady = checkOfflineReady;
   OB.app.showCustomerDisplay = showCustomerDisplay;
   OB.app.hideCustomerDisplay = hideCustomerDisplay;
+  OB.app.unlockHelper = unlockHelper;
   OB.app.init = init;
   OB.app.CACHE_NAME = CACHE_NAME;
 

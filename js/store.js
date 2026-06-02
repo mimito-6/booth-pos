@@ -10,6 +10,7 @@
 
   const KEY = "openbooth_v3";
   const CART_KEY = "openbooth_cart_v3";
+  const LOCK_KEY = "openbooth_locked_v1";
   const LEGACY_KEY = "booth_register_v1";
   const SCHEMA_VERSION = 3;
 
@@ -36,6 +37,8 @@
         showStock: true,
         enableCombos: true,
         requireCash: true,
+        showReceipt: false,
+        helperPin: "",
         mascot: null,
       },
       categories: [],
@@ -356,6 +359,22 @@
     saveCart();
   }
 
+  // ---------- helper lock ----------
+  function isLocked() {
+    return !!(state && state.settings && state.settings.helperPin && localStorage.getItem(LOCK_KEY) === "1");
+  }
+  function setLocked(on) {
+    if (on && !(state && state.settings && state.settings.helperPin)) return false;
+    if (on) localStorage.setItem(LOCK_KEY, "1");
+    else localStorage.removeItem(LOCK_KEY);
+    notify();
+    return true;
+  }
+  function unlockWithPin(pin) {
+    if (String(pin || "") !== String(state.settings.helperPin || "")) return false;
+    return setLocked(false);
+  }
+
   // ---------- import / export ----------
   function exportAll() {
     return JSON.stringify(state, null, 2);
@@ -370,11 +389,13 @@
 
   // preset = shareable stall config WITHOUT transactions/preorders (no revenue/PII)
   function exportPreset() {
+    const settings = Object.assign({}, state.settings);
+    delete settings.helperPin;
     return {
       schemaVersion: SCHEMA_VERSION,
       kind: "openbooth-preset",
       meta: { name: state.settings.shopName, exportedAt: Date.now() },
-      settings: Object.assign({}, state.settings),
+      settings,
       categories: state.categories,
       products: state.products.map((p) => Object.assign({}, p)),
       combos: state.combos,
@@ -385,7 +406,9 @@
   function applyPreset(obj, keepData) {
     if (typeof obj === "string") obj = JSON.parse(obj);
     if (!obj) throw new Error("invalid preset");
-    state.settings = Object.assign(defaultState().settings, obj.settings || {});
+    const incomingSettings = Object.assign({}, obj.settings || {});
+    delete incomingSettings.helperPin;
+    state.settings = Object.assign(defaultState().settings, incomingSettings);
     state.categories = obj.categories || [];
     state.products = obj.products || [];
     state.combos = obj.combos || [];
@@ -414,6 +437,7 @@
     try {
       localStorage.setItem(KEY + "__backup_clear", JSON.stringify(state));
     } catch (e) {}
+    localStorage.removeItem(LOCK_KEY);
     state = defaultState();
     clearCart();
     commit();
@@ -502,6 +526,9 @@
     getCart,
     setCart,
     clearCart,
+    isLocked,
+    setLocked,
+    unlockWithPin,
     emptyCart,
     currentEvent,
     product,

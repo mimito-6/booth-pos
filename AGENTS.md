@@ -70,6 +70,7 @@ Otherwise installed PWAs keep serving the old files.
 
 ## Run & verify (no test framework yet)
 - Run: open `index.html` directly, or `npx serve .` then visit the URL.
+- Tests: run `node tests/pricing.test.js` for the zero-dependency pricing engine check.
 - Manual smoke test for any change:
   1. Settings (⚙) → **Load demo products**.
   2. Open Stall → tap items → check out with cash → confirm change is correct.
