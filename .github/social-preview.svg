@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640">
+  <!-- background -->
+  <rect width="1280" height="640" fill="#faf6f0"/>
+
+  <!-- soft accent corner -->
+  <circle cx="1180" cy="80" r="180" fill="#fbefe6"/>
+  <circle cx="120" cy="600" r="160" fill="#fbefe6"/>
+
+  <!-- left: stall icon + wordmark -->
+  <g transform="translate(96, 192)">
+    <!-- stall icon (white-on-accent rounded square) -->
+    <rect width="200" height="200" rx="44" fill="#c46b43"/>
+    <g fill="#faf6f0" transform="translate(0,0) scale(0.39)">
+      <path d="M104 134 H408 V194
+               q-25.33 30 -50.67 0
+               q-25.33 30 -50.67 0
+               q-25.33 30 -50.67 0
+               q-25.33 30 -50.67 0
+               q-25.33 30 -50.67 0
+               q-25.33 30 -50.67 0 Z"/>
+      <rect x="138" y="194" width="20" height="184" rx="6"/>
+      <rect x="354" y="194" width="20" height="184" rx="6"/>
+      <rect x="116" y="308" width="280" height="28" rx="10"/>
+    </g>
+
+    <!-- wordmark + tagline -->
+    <text x="232" y="98" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Hiragino Sans', sans-serif" font-size="92" font-weight="800" fill="#2d2a26" letter-spacing="-1">OpenBooth</text>
+    <text x="234" y="148" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Hiragino Sans', sans-serif" font-size="26" font-weight="600" fill="#847b70">Open-source booth register · offline-first · MIT</text>
+
+    <!-- 3 punchy bullets -->
+    <g transform="translate(232, 196)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Hiragino Sans', sans-serif" fill="#2d2a26">
+      <g>
+        <circle cx="12" cy="14" r="6" fill="#c46b43"/>
+        <text x="32" y="22" font-size="28" font-weight="700">Works offline · no account, no cloud</text>
+      </g>
+      <g transform="translate(0, 50)">
+        <circle cx="12" cy="14" r="6" fill="#6b5b95"/>
+        <text x="32" y="22" font-size="28" font-weight="700">Bundles · combos · gifts · 特典 · cash change</text>
+      </g>
+      <g transform="translate(0, 100)">
+        <circle cx="12" cy="14" r="6" fill="#4a8b5c"/>
+        <text x="32" y="22" font-size="28" font-weight="700">繁體中文 · 日本語 · English · 한국어</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- bottom-right: subtle url -->
+  <text x="1184" y="600" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', monospace" font-size="22" font-weight="600" fill="#b5ac9f">github.com/mimito-6/openbooth</text>
+
+  <!-- thin top accent line -->
+  <rect x="0" y="0" width="1280" height="6" fill="#c46b43"/>
+</svg>
