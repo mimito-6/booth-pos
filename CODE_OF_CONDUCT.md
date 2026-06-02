@@ -13,6 +13,6 @@ OpenBooth is built for and by indie creators — many of whom make fan-work, adu
 
 ## Reporting
 
-If someone makes the community unsafe for you, contact the maintainer privately on GitHub (`@mimito-6`) or by email at `hohoho0626 [at] gmail [dot] com`. Reports are kept confidential.
+If someone makes the community unsafe for you, contact the maintainer privately by opening a [GitHub private security advisory](https://github.com/mimito-6/openbooth/security/advisories/new) (it doubles as a private contact channel) or by sending a direct message to [`@mimito-6`](https://github.com/mimito-6) on GitHub. Reports are kept confidential.
 
 The maintainer may warn, mute, ban, or remove content at their discretion.
