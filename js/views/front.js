@@ -442,7 +442,6 @@
       U.denominations().forEach((d) => {
         denoms.appendChild(el("button", { class: "denom-btn", text: "+" + d, onclick: () => { cashReceived = (cashReceived || 0) + d; input.value = cashReceived; updateChange(); } }));
       });
-      denoms.appendChild(el("button", { class: "denom-btn", text: t("exact"), onclick: () => { cashReceived = total; input.value = total; updateChange(); } }));
       pad.appendChild(denoms);
       sh.body.appendChild(pad);
 
