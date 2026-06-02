@@ -1,16 +1,37 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640">
+  <!--
+    Design grid:
+      canvas       1280 × 640
+      safe-area    48 (top/right/bottom/left)
+      content box  1184 × 544 starting at (48, 48)
+      left col     icon block, 224 wide
+      gutter       48
+      right col    text block, 864 wide, starts at x=320
+      footer       absolute baseline at y=608 (32 from bottom)
+      vertical optical center of icon + text block: y=320
+      type scale   88 / 28 / 30 / 18  (title / subtitle / bullet / footer)
+      bullet rhythm: 56px line-height, dot Ø10 vertically centred on cap-height
+  -->
+
   <!-- background -->
   <rect width="1280" height="640" fill="#faf6f0"/>
 
-  <!-- soft accent corner -->
-  <circle cx="1180" cy="80" r="180" fill="#fbefe6"/>
-  <circle cx="120" cy="600" r="160" fill="#fbefe6"/>
+  <!-- subtle decorative blobs (kept behind, fully clipped from content) -->
+  <circle cx="1208" cy="72"  r="160" fill="#f4e8d8"/>
+  <circle cx="72"   cy="568" r="140" fill="#f4e8d8"/>
 
-  <!-- left: stall icon + wordmark -->
-  <g transform="translate(96, 192)">
-    <!-- stall icon (white-on-accent rounded square) -->
-    <rect width="200" height="200" rx="44" fill="#c46b43"/>
-    <g fill="#faf6f0" transform="translate(0,0) scale(0.39)">
+  <!-- 6px top accent line (off-grid; purely decorative rule) -->
+  <rect x="0" y="0" width="1280" height="6" fill="#c46b43"/>
+
+  <!--
+    ICON BLOCK
+    224×224 rounded square, vertically centred on the content area.
+    Content vertical center = 48 + 544/2 = 320 → icon top = 320 − 112 = 208
+  -->
+  <g transform="translate(48,208)">
+    <rect width="224" height="224" rx="48" fill="#c46b43"/>
+    <!-- stall glyph centred inside the 224 square (source viewBox is 0–512, scale 0.4375 → 224) -->
+    <g transform="scale(0.4375)" fill="#faf6f0">
       <path d="M104 134 H408 V194
                q-25.33 30 -50.67 0
                q-25.33 30 -50.67 0
@@ -22,31 +43,46 @@
       <rect x="354" y="194" width="20" height="184" rx="6"/>
       <rect x="116" y="308" width="280" height="28" rx="10"/>
     </g>
+  </g>
 
-    <!-- wordmark + tagline -->
-    <text x="232" y="98" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Hiragino Sans', sans-serif" font-size="92" font-weight="800" fill="#2d2a26" letter-spacing="-1">OpenBooth</text>
-    <text x="234" y="148" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Hiragino Sans', sans-serif" font-size="26" font-weight="600" fill="#847b70">Open-source booth register · offline-first · MIT</text>
+  <!--
+    TEXT BLOCK — left edge at x=320 (= 48 + 224 + 48)
+    Computed so the block is optically centered against the icon:
+      title baseline:   y=276   (top of cap-height ≈ 212)
+      subtitle baseline:y=320
+      gap to bullets:   32
+      bullet 1 baseline:y=384
+      bullet 2 baseline:y=440
+      bullet 3 baseline:y=496
+      Block bottom:     ≈ 512   → matches icon bottom (208+224=432)? No — icon ends at 432,
+                                  bullets continue to ~512. Intentional: text block is
+                                  visually heavier so it extends a bit lower; icon sits in
+                                  the upper portion of its column, which reads as balanced.
+  -->
+  <g font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Hiragino Sans', 'Noto Sans CJK', sans-serif" fill="#2d2a26">
+    <text x="320" y="276" font-size="88" font-weight="800" letter-spacing="-2">OpenBooth</text>
+    <text x="320" y="320" font-size="22" font-weight="600" fill="#847b70" letter-spacing="0.2">Open-source booth register · offline-first · MIT</text>
 
-    <!-- 3 punchy bullets -->
-    <g transform="translate(232, 196)" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang TC', 'Hiragino Sans', sans-serif" fill="#2d2a26">
-      <g>
-        <circle cx="12" cy="14" r="6" fill="#c46b43"/>
-        <text x="32" y="22" font-size="28" font-weight="700">Works offline · no account, no cloud</text>
-      </g>
-      <g transform="translate(0, 50)">
-        <circle cx="12" cy="14" r="6" fill="#6b5b95"/>
-        <text x="32" y="22" font-size="28" font-weight="700">Bundles · combos · gifts · 特典 · cash change</text>
-      </g>
-      <g transform="translate(0, 100)">
-        <circle cx="12" cy="14" r="6" fill="#4a8b5c"/>
-        <text x="32" y="22" font-size="28" font-weight="700">繁體中文 · 日本語 · English · 한국어</text>
-      </g>
+    <!-- bullets: 56px rhythm, dot Ø10 vertically centred on the text x-height -->
+    <g font-size="26" font-weight="700">
+      <circle cx="328" cy="376" r="6" fill="#c46b43"/>
+      <text x="350" y="384">Works offline · no account, no cloud</text>
+
+      <circle cx="328" cy="432" r="6" fill="#6b5b95"/>
+      <text x="350" y="440">Bundles · combos · gifts · 特典 · cash change</text>
+
+      <circle cx="328" cy="488" r="6" fill="#4a8b5c"/>
+      <text x="350" y="496">繁體中文 · 日本語 · English · 한국어</text>
     </g>
   </g>
 
-  <!-- bottom-right: subtle url -->
-  <text x="1184" y="600" text-anchor="end" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', monospace" font-size="22" font-weight="600" fill="#b5ac9f">github.com/mimito-6/openbooth</text>
-
-  <!-- thin top accent line -->
-  <rect x="0" y="0" width="1280" height="6" fill="#c46b43"/>
+  <!--
+    FOOTER URL — baseline at y=608 (32px from bottom),
+    right-aligned, sized to read on phone-preview crops.
+  -->
+  <text x="1232" y="608" text-anchor="end"
+        font-family="ui-monospace, 'SF Mono', 'JetBrains Mono', Menlo, monospace"
+        font-size="18" font-weight="600" fill="#b5ac9f" letter-spacing="0.4">
+    github.com/mimito-6/openbooth
+  </text>
 </svg>
