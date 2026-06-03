@@ -438,11 +438,15 @@
       const changeRow = el("div", { class: "cash-row change" }, [el("span", { class: "lbl", text: t("change_due") }), el("span", { class: "val", id: "changeVal", text: fmtMoney(0) })]);
       pad.appendChild(changeRow);
 
-      const denoms = el("div", { class: "denoms" });
-      U.denominations().forEach((d) => {
-        denoms.appendChild(el("button", { class: "denom-btn", text: "+" + d, onclick: () => { cashReceived = (cashReceived || 0) + d; input.value = cashReceived; updateChange(); } }));
+      // Just an "Exact" shortcut. The numeric keypad comes from
+      // <input type="number" inputmode="numeric"> on mobile.
+      const exactBtn = el("button", {
+        class: "btn btn-secondary btn-block btn-sm",
+        style: "margin-top:10px",
+        text: t("exact"),
+        onclick: () => { cashReceived = total; input.value = total; updateChange(); },
       });
-      pad.appendChild(denoms);
+      pad.appendChild(exactBtn);
       sh.body.appendChild(pad);
 
       function updateChange() {
@@ -499,6 +503,8 @@
       if (OB.router.current() === "front" && OB.app.frontUpdate) OB.app.frontUpdate();
       toast(t("sale_done", { amount: fmtMoney(s.grandTotal) }), "success");
       if (st2.settings.showReceipt) setTimeout(() => showReceipt(savedTx), 300);
+      // receipt-engine: render + thermal-print / share the receipt
+      if (window.OB && OB.receipt) setTimeout(() => OB.receipt.handle(savedTx), 320);
     }
 
     renderStep1();

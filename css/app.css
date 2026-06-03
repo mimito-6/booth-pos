@@ -850,6 +850,9 @@ main {
 }
 .cash-row .lbl {
   color: var(--text-secondary);
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding-right: 12px;
 }
 .cash-row .val {
   font-weight: 800;

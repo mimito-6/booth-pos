@@ -4,7 +4,7 @@
    with no network (venue Wi-Fi is unreliable). Bump CACHE on
    each release; old caches are purged on activate.
    ============================================================ */
-const CACHE = "openbooth-v10";
+const CACHE = "openbooth-v14";
 const ASSETS = [
   "./",
   "index.html",
