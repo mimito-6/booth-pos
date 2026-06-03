@@ -3,6 +3,33 @@
 All notable changes to OpenBooth are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.1.4] — 2026-06
+
+Settings & internationalisation polish.
+
+### Changed
+- **Language is now chosen in Settings**, not on the home screen. The Settings
+  language field is marked with a 🌐 globe icon and the universal word
+  "Language" (e.g. `🌐 語言 · Language`) so anyone can find it. First run still
+  auto-detects the browser locale, so non-Chinese visitors land in their own
+  language and the Settings tile is already translated. The home-screen
+  language switcher (and its CSS) were removed.
+- **Home**: removed the duplicate "Front desk" tile (the big "Open stall"
+  button already opens it) and shortened that button's label.
+- **Checkout**: simplified the cash pad to a single "Exact" button — the
+  numeric keypad and typed amount already cover everything else.
+- **Settings**: clearer data-backup button labels (which export includes
+  sales/customer data vs. which is the shareable, sales-free preset); the
+  post-sale toggle now reads "Show receipt".
+
+### Fixed
+- **Internationalisation**: localized 10 remaining hardcoded Traditional-Chinese
+  strings that a non-Chinese user could hit (full-storage save error, shared-
+  preset import dialog, invalid-link toast, mascot/logo label, preset-too-large
+  toast, image-processing error, payment-QR alt text, and the event/contact/
+  payment placeholder examples). All four locales stay aligned at 227 keys.
+- Code of Conduct now uses private GitHub channels instead of a public email.
+
 ## [0.1.3] — 2026-06
 
 Internationalisation, pre-order UX, and OSS-repo polish.
