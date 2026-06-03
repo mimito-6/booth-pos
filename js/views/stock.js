@@ -119,7 +119,7 @@
         data.image = await U.fileToScaledDataURL(f, 360, 0.8);
         renderImg();
       } catch (e) {
-        toast("圖片處理失敗", "danger");
+        toast(t("image_failed"), "danger");
       }
     }
     renderImg();

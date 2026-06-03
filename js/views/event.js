@@ -58,7 +58,7 @@
     const data = ev ? Object.assign({}, ev) : { name: "", date: OB.store.todayISO(), location: "", note: "", startFloat: 0 };
     const sh = OB.ui.sheet({ title: isNew ? t("add_event") : t("nav_event") });
 
-    const nameI = OB.ui.input({ value: data.name, placeholder: "CWT / FF / Comiket Day1…" });
+    const nameI = OB.ui.input({ value: data.name, placeholder: t("ph_event_examples") });
     const dateI = OB.ui.input({ type: "date", value: data.date });
     const locI = OB.ui.input({ value: data.location || "", placeholder: t("event_location") });
     const floatI = OB.ui.input({ type: "number", inputmode: "numeric", value: data.startFloat || 0 });

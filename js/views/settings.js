@@ -51,7 +51,7 @@
       renderMascot();
     }
     renderMascot();
-    main.appendChild(OB.ui.field("攤位圖示 / Logo（選填）", mascotWrap));
+    main.appendChild(OB.ui.field(t("mascot_label"), mascotWrap));
 
     // currency + language row
     const curSel = el("select");
@@ -80,7 +80,10 @@
       OB.store.commit();
       OB.router.refresh();
     });
-    main.appendChild(el("div", { class: "field-row" }, [OB.ui.field(t("currency"), curSel), OB.ui.field(t("language"), langSel)]));
+    // Language field: globe icon + native word + the universal English word
+    // "Language" so a visitor in any locale can recognise it at a glance.
+    const langLabel = "🌐 " + t("language") + (OB.i18n.getLocale() === "en" ? "" : " · Language");
+    main.appendChild(el("div", { class: "field-row" }, [OB.ui.field(t("currency"), curSel), OB.ui.field(langLabel, langSel)]));
 
     // theme
     const themeGrid = el("div", { class: "theme-grid" });
@@ -213,7 +216,7 @@
       const code = OB.store.encodePreset(OB.store.exportPreset());
       const url = location.origin + location.pathname + "?config=" + code;
       if (url.length > 8000) {
-        toast("設定太大，請改用「匯出設定包」檔案分享", "danger");
+        toast(t("preset_too_large"), "danger");
         return;
       }
       copyText(url).then(() => toast(t("link_copied"), "success"));

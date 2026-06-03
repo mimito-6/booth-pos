@@ -397,7 +397,7 @@
       if (isCash && st2.settings.requireCash) {
         renderCashPad(s.grandTotal);
       } else if (!isCash && chosenPayment && chosenPayment.qr) {
-        sh.body.appendChild(el("img", { src: chosenPayment.qr, style: "width:180px;height:180px;display:block;margin:14px auto;border-radius:12px", alt: "QR" }));
+        sh.body.appendChild(el("img", { src: chosenPayment.qr, style: "width:180px;height:180px;display:block;margin:14px auto;border-radius:12px", alt: t("qr_alt") }));
         if (chosenPayment.note) sh.body.appendChild(el("div", { style: "text-align:center;color:var(--text-secondary);font-size:13px", text: chosenPayment.note }));
       }
 

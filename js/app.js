@@ -4,7 +4,7 @@
 (function () {
   window.OB = window.OB || {};
   OB.app = OB.app || {};
-  const CACHE_NAME = "openbooth-v15";
+  const CACHE_NAME = "openbooth-v16";
 
   // ---- customer-facing display ----
   let cfd = null;
@@ -14,7 +14,7 @@
       OB.util.el("button", { class: "cfd-close", html: "×", onclick: hideCustomerDisplay }),
       OB.util.el("div", { class: "cfd-label", text: OB.i18n.t("total_due") }),
       OB.util.el("div", { class: "cfd-amount", id: "cfdAmount" }),
-      OB.util.el("img", { class: "cfd-qr hidden", id: "cfdQr", alt: "QR" }),
+      OB.util.el("img", { class: "cfd-qr hidden", id: "cfdQr", alt: OB.i18n.t("qr_alt") }),
     ]);
     document.body.appendChild(cfd);
     return cfd;
@@ -65,7 +65,7 @@
     try {
       const preset = OB.store.decodePreset(code);
       return OB.util
-        .confirmDialog("匯入分享的攤位設定包「" + (preset.meta && preset.meta.name ? preset.meta.name : "?") + "」？\n(會取代目前的商品設定，交易紀錄保留)")
+        .confirmDialog(OB.i18n.t("confirm_import_preset", { name: preset.meta && preset.meta.name ? preset.meta.name : "?" }))
         .then((ok) => {
           if (ok) {
             OB.store.applyPreset(preset);
@@ -75,7 +75,7 @@
           return ok;
         });
     } catch (e) {
-      OB.util.toast("⚠ 分享連結無效", "danger");
+      OB.util.toast(OB.i18n.t("share_link_invalid"), "danger");
       return Promise.resolve(false);
     }
   }

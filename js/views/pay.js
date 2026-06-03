@@ -47,7 +47,7 @@
     const data = m ? Object.assign({}, m) : { name: "", type: "external", enabled: true, isDefault: false, note: "", qr: null };
     const sh = OB.ui.sheet({ title: isNew ? t("add_payment") : t("nav_pay") });
 
-    const nameI = OB.ui.input({ value: data.name, placeholder: "Line Pay / PayPay / 街口…" });
+    const nameI = OB.ui.input({ value: data.name, placeholder: t("ph_payment_examples") });
     const typeSel = el("select");
     [["external", t("type_external")], ["cash", t("type_cash")]].forEach(([v, label]) => {
       const o = el("option", { value: v, text: label });

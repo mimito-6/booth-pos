@@ -94,7 +94,7 @@
       localStorage.setItem(KEY, JSON.stringify(state));
     } catch (e) {
       console.error("save failed", e);
-      if (U()) U().toast("⚠ 儲存失敗（容量可能已滿）", "danger");
+      if (U()) U().toast(window.t("save_failed_full"), "danger");
     }
   }
 

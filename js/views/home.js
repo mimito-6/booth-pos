@@ -87,37 +87,14 @@
       grid.appendChild(card);
     });
 
-    // language switcher — each button shows its own language's name, so
-    // a visitor who can't read the current UI can still find their language.
-    const LANGS = [
-      { code: "zh-Hant", label: "繁體中文" },
-      { code: "ja", label: "日本語" },
-      { code: "en", label: "English" },
-      { code: "ko", label: "한국어" },
-    ];
-    const cur = OB.i18n.getLocale();
-    const langRow = el("div", { class: "lang-row" });
-    LANGS.forEach((l) => {
-      langRow.appendChild(
-        el("button", {
-          class: "lang-btn" + (cur === l.code ? " active" : ""),
-          lang: l.code,
-          text: l.label,
-          onclick: () => {
-            const s = OB.store.get().settings;
-            if (s.locale === l.code) return;
-            s.locale = l.code;
-            OB.i18n.setLocale(l.code);
-            OB.store.commit(); // persists + re-renders via app subscriber
-          },
-        })
-      );
-    });
-
+    // Language is chosen in Settings (the field there is marked with a 🌐 icon
+    // and the universal word "Language"). On first run the locale auto-detects
+    // from the browser, so non-Chinese visitors land in their own language and
+    // the Settings tile is already in their language.
     const view = el("div", { class: "view active" });
     view.append(hero, openBtn);
     if (unlockBtn) view.appendChild(el("div", { style: "padding:0 20px;max-width:560px;margin:0 auto" }, [unlockBtn]));
-    view.append(statWrap, grid, langRow);
+    view.append(statWrap, grid);
     root.appendChild(view);
   }
 

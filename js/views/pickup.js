@@ -167,7 +167,7 @@
     const sh = OB.ui.sheet({ title: isNew ? t("add_preorder") : t("nav_pickup"), tall: true });
 
     const nameI = OB.ui.input({ value: data.customerName });
-    const contactI = OB.ui.input({ value: data.contact || "", placeholder: "Twitter / Plurk / Line…" });
+    const contactI = OB.ui.input({ value: data.contact || "", placeholder: t("ph_contact_examples") });
     const itemsI = el("textarea", { rows: 2 });
     itemsI.value = data.itemsText || "";
     const amountI = OB.ui.input({ type: "number", inputmode: "numeric", value: data.amount });
