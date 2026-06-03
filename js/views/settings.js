@@ -137,6 +137,23 @@
       el("button", { class: "mini-btn", text: t("reset_default"), onclick: () => { s.notifyTemplate = ""; OB.store.commit(); } }),
     ]));
 
+    // --- receipt-engine (optional, only when the receipt module is loaded) ---
+    if (window.OB && OB.receipt && typeof OB.receipt.openSettings === "function") {
+      main.appendChild(el("h2", { class: "section-title", text: "🧾 " + t("receipt_section") }));
+      const hasTpl = typeof OB.receipt.getTemplate === "function" && !!OB.receipt.getTemplate();
+      const statusLine = el("div", { class: "field-hint", style: "color:" + (hasTpl ? "var(--success)" : "var(--text-muted)") + ";margin-bottom:8px",
+        text: hasTpl ? t("receipt_template_loaded") : t("receipt_template_not_loaded") });
+      main.appendChild(statusLine);
+      const recSec = el("section", { class: "settings-list" });
+      const recItem = el("div", { class: "settings-item", onclick: () => OB.receipt.openSettings() }, [
+        el("span", { class: "si-label", text: t("receipt_settings_open") }),
+        el("span", { class: "si-val", text: "→" }),
+      ]);
+      recSec.appendChild(recItem);
+      main.appendChild(recSec);
+      main.appendChild(el("div", { class: "field-hint", style: "margin-bottom:14px", text: t("receipt_hint") }));
+    }
+
     // --- data backup ---
     main.appendChild(el("h2", { class: "section-title", text: t("data_backup") }));
     main.appendChild(el("div", { class: "gift-banner", style: "background:var(--accent-light);color:var(--accent-dark)", text: t("backup_reminder") }));
