@@ -14,8 +14,9 @@
     '<rect x="116" y="308" width="280" height="28" rx="10"/>' +
     "</svg>";
 
+  // FRONT is not in this list — the big "開攤" button above is the front-desk
+  // entry point. No need to duplicate it as a small tile.
   const NAV = [
-    { name: "nav_front", code: "FRONT", emoji: "🛒", route: "front", accent: true },
     { name: "nav_stock", code: "STOCK", emoji: "📦", route: "stock" },
     { name: "nav_pay", code: "PAY", emoji: "💳", route: "pay" },
     { name: "nav_event", code: "EVENT", emoji: "📅", route: "event" },
