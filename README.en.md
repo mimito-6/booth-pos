@@ -33,6 +33,7 @@ OpenBooth is a point-of-sale for sellers at doujin / fan conventions and craft m
 | Bundles / batch deals / freebies (特典) / spend-gifts | ✅ | ❌ | ❌ |
 | Per-session books (Day1/Day2) | ✅ | ❌ | 😵 |
 | Pre-order list CSV import & check-off | ✅ | ❌ | 😵 |
+| Receipt print / share (optional) | ✅ free | ⚠️ hardware / fee | ❌ |
 | No payment footprint (fan-work / 18+ friendly) | ✅ local-only | ❌ uploads | ✅ |
 | Monthly fee / commission | free & open | 💸 | free |
 
@@ -43,12 +44,26 @@ The seven tiles on the home screen:
 - **🛒 Front Desk (FRONT)** — category tabs, quick-tap grid, live cart total
 - **🧾 Checkout** — custom payment methods, **cash change calculator**, spend-gift prompts, **freebie (特典) tagging**, on-the-fly price override / rounding
 - **📦 Inventory (STOCK)** — product / category / combo CRUD, product images, bundle-pricing rules, live derived stock
-- **📅 Events (EVENT)** — switch between sessions (CWT Day1 / Day2…), separate books per session
+- **📅 Events (EVENT)** — switch between sessions (CWT Day1 / Day2…), booth number, separate books per session
 - **📋 Pre-orders (PICKUP)** — list management, **CSV import**, pending / notified / picked-up, one-tap notice copy
 - **💳 Payment (PAY)** — custom methods (cash / Line Pay / PayPay / …) + payment QR image
 - **📊 Records (RECORD)** — transactions, void/refund, product ranking, **cash-up reconciliation (starting float → expected vs counted)**, CSV export
 
-Plus: full JSON backup / restore, **one-link stall preset sharing**, customer-facing display, 繁中 / 日本語 / English, 4 themes, installable offline PWA.
+Plus: full JSON backup / restore, **one-link stall preset sharing**, customer-facing display, 繁中 / 日本語 / English / 한국어, 5 themes, installable offline PWA.
+
+## 🧾 Receipt print / share (optional)
+
+After a sale you can **print, share, or download** a receipt. The three outputs have different requirements:
+
+| Output | Needs | Who can use it |
+|---|---|---|
+| **Download image** | nothing | everyone (phone / desktop) |
+| **Share** | nothing | most phones (opens the native share sheet → LINE, save to Photos) |
+| **Bluetooth print** | a Bluetooth thermal receipt printer + a Web-Bluetooth browser (Chrome / Edge) | ⚠️ not iPhone / Safari — but download / share still work |
+
+- **Customizable layout**: in **Settings → 🧾 Receipt → Import template config**, upload a JSON and the receipt looks the way you designed it; **there's a default layout if you don't**. The config is stored locally, never in the cloud.
+- **Privacy note**: the colour layout fetches web fonts from `fonts.googleapis.com` on its first render; offline or on failure it falls back to system fonts. Thermal printing (B&W) and the rest of the app stay fully offline.
+- The receipt engine is an **optional add-on**; its bundled third-party components (all MIT) are listed in [RECEIPT-THIRD-PARTY.md](RECEIPT-THIRD-PARTY.md).
 
 ## 🚀 Quick start
 

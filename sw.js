@@ -4,7 +4,7 @@
    with no network (venue Wi-Fi is unreliable). Bump CACHE on
    each release; old caches are purged on activate.
    ============================================================ */
-const CACHE = "openbooth-v16";
+const CACHE = "openbooth-v17";
 const ASSETS = [
   "./",
   "index.html",
@@ -29,6 +29,9 @@ const ASSETS = [
   "js/views/record.js",
   "js/views/settings.js",
   "js/app.js",
+  // optional receipt add-on — precache so offline checkout can still render/print
+  "js/openbooth-receipt-bridge.global.js",
+  "js/openbooth-receipt.js",
 ];
 
 self.addEventListener("install", (e) => {

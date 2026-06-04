@@ -3,6 +3,32 @@
 All notable changes to OpenBooth are documented here.
 Format loosely follows [Keep a Changelog](https://keepachangelog.com/).
 
+## [0.2.0] — 2026-06
+
+Receipt printing / sharing, and booth numbers.
+
+### Added
+- **Receipt engine (optional add-on).** After a sale you can now print, share,
+  or download a receipt image:
+  - **Download image** and **Share** work everywhere (the share button opens the
+    OS share sheet on phones; desktop falls back to download).
+  - **Bluetooth thermal printing** to a 58/80mm receipt printer via Web Bluetooth
+    (Chrome / Edge). iPhone / Safari don't support Web Bluetooth, so those fall
+    back to download / share — the rest of the app is unaffected.
+  - **Customizable layout**: import a template-config JSON in
+    **Settings → 🧾 Receipt**; a default layout is used if none is imported.
+  - Fully localized (繁中 / 日本語 / English / 한국어) and precached by the
+    service worker so it works offline. The optional colour layout fetches web
+    fonts from Google Fonts on first render and falls back to system fonts
+    offline — see [RECEIPT-THIRD-PARTY.md](RECEIPT-THIRD-PARTY.md) for the
+    bundled MIT components (qrcode-generator, Zod) and the font-fetch note.
+- **Booth number** field on events, shown alongside the location in the event
+  list. Localized in all four locales.
+
+### Changed
+- Receipt scripts now live under `js/` with the rest of the app code and are
+  part of the service-worker precache (cache bumped to `openbooth-v17`).
+
 ## [0.1.4] — 2026-06
 
 Settings & internationalisation polish.
