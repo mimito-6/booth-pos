@@ -5,6 +5,9 @@ The optional receipt feature ships a pre-bundled engine
 third-party open-source components. All are MIT-licensed and compatible with
 OpenBooth's own MIT license.
 
+> **Source / 原始碼:** the engine is built from the open-source **receipt-engine**
+> project — https://github.com/mimito-6/receipt-engine (MIT).
+
 > ⚠️ This file documents the **receipt add-on only**. The core OpenBooth app has
 > **no runtime dependencies** (see the main README). The receipt files
 > (`openbooth-receipt-bridge.global.js`, `openbooth-receipt.js`) are an optional
@@ -37,5 +40,6 @@ OpenBooth's own MIT license.
 
 ---
 
-If you redistribute the bundle, keep this notice with it. To regenerate the
-bundle from source, see the receipt-engine project it was built from.
+If you redistribute the bundle, keep this notice with it. The engine is built
+from the open-source **receipt-engine** project — regenerate the bundle from
+there: https://github.com/mimito-6/receipt-engine

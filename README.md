@@ -64,7 +64,7 @@ OpenBooth 是給 CWT / FF / Comiket / 各種市集擺攤賣家用的收銀台。
 
 - **版型可自訂**：到「設定 → 🧾 收據 → 匯入版型設定檔」上傳一份 JSON，收據就長你設計的樣子；**不上傳也有預設版型**。設定存在本機，不碰雲端。
 - **隱私說明**：彩色版型第一次算圖時會向 `fonts.googleapis.com` 抓字型；離線或抓取失敗會自動退回系統字。熱感列印（黑白）與 App 其餘部分完全離線。
-- 收據引擎為**選用外掛**，內含的第三方元件（皆 MIT）見 [RECEIPT-THIRD-PARTY.md](RECEIPT-THIRD-PARTY.md)。
+- 收據引擎為**選用外掛**，原始碼開源於 **[receipt-engine](https://github.com/mimito-6/receipt-engine)**；內含的第三方元件（皆 MIT）見 [RECEIPT-THIRD-PARTY.md](RECEIPT-THIRD-PARTY.md)。
 
 ## 🚀 快速開始
 

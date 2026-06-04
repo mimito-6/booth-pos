@@ -63,7 +63,7 @@ After a sale you can **print, share, or download** a receipt. The three outputs 
 
 - **Customizable layout**: in **Settings → 🧾 Receipt → Import template config**, upload a JSON and the receipt looks the way you designed it; **there's a default layout if you don't**. The config is stored locally, never in the cloud.
 - **Privacy note**: the colour layout fetches web fonts from `fonts.googleapis.com` on its first render; offline or on failure it falls back to system fonts. Thermal printing (B&W) and the rest of the app stay fully offline.
-- The receipt engine is an **optional add-on**; its bundled third-party components (all MIT) are listed in [RECEIPT-THIRD-PARTY.md](RECEIPT-THIRD-PARTY.md).
+- The receipt engine is an **optional add-on**, open-source at **[receipt-engine](https://github.com/mimito-6/receipt-engine)**; its bundled third-party components (all MIT) are listed in [RECEIPT-THIRD-PARTY.md](RECEIPT-THIRD-PARTY.md).
 
 ## 🚀 Quick start
 
