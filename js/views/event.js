@@ -31,7 +31,7 @@
             document.createTextNode(ev.name || t("no_event")),
             isCurrent ? el("span", { class: "badge notified", text: t("current_event") }) : null,
           ]),
-          el("div", { class: "list-sub", text: (ev.date || "") + (ev.location ? " · " + ev.location : "") + " · " + fmtMoney(stats.revenue) + " / " + stats.count + t("unit_tx") }),
+          el("div", { class: "list-sub", text: (ev.date || "") + (ev.location ? " · " + ev.location : "") + (ev.boothNumber ? " · " + ev.boothNumber : "") + " · " + fmtMoney(stats.revenue) + " / " + stats.count + t("unit_tx") }),
         ]);
         row.appendChild(main2);
         if (!isCurrent) {
@@ -55,17 +55,18 @@
 
   function edit(ev) {
     const isNew = !ev;
-    const data = ev ? Object.assign({}, ev) : { name: "", date: OB.store.todayISO(), location: "", note: "", startFloat: 0 };
+    const data = ev ? Object.assign({}, ev) : { name: "", date: OB.store.todayISO(), location: "", boothNumber: "", note: "", startFloat: 0 };
     const sh = OB.ui.sheet({ title: isNew ? t("add_event") : t("nav_event") });
 
     const nameI = OB.ui.input({ value: data.name, placeholder: t("ph_event_examples") });
     const dateI = OB.ui.input({ type: "date", value: data.date });
     const locI = OB.ui.input({ value: data.location || "", placeholder: t("event_location") });
+    const boothI = OB.ui.input({ value: data.boothNumber || "", placeholder: t("event_booth") });
     const floatI = OB.ui.input({ type: "number", inputmode: "numeric", value: data.startFloat || 0 });
 
     sh.body.appendChild(OB.ui.field(t("event_name"), nameI));
     sh.body.appendChild(el("div", { class: "field-row" }, [OB.ui.field(t("event_date"), dateI), OB.ui.field(t("start_float"), floatI)]));
-    sh.body.appendChild(OB.ui.field(t("event_location"), locI));
+    sh.body.appendChild(el("div", { class: "field-row" }, [OB.ui.field(t("event_location"), locI), OB.ui.field(t("event_booth"), boothI)]));
 
     const saveBtn = el("button", { class: "btn btn-primary", text: t("save"), onclick: save });
     const actions = el("div", { class: "actions" }, [saveBtn]);
@@ -78,6 +79,7 @@
       data.name = nameI.value.trim();
       data.date = dateI.value;
       data.location = locI.value.trim();
+      data.boothNumber = boothI.value.trim();
       data.startFloat = Math.max(0, Math.round(Number(floatI.value)) || 0);
       OB.store.upsertEvent(data);
       sh.close();

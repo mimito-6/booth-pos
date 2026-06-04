@@ -45,7 +45,7 @@
       categories: [],
       products: [],
       combos: [],
-      events: [{ id: evId, name: "", date: todayISO(), location: "", note: "", startFloat: 0, createdAt: Date.now(), archived: false }],
+      events: [{ id: evId, name: "", date: todayISO(), location: "", boothNumber: "", note: "", startFloat: 0, createdAt: Date.now(), archived: false }],
       currentEventId: evId,
       paymentMethods: defaultPaymentMethods(),
       giftThresholds: [],
