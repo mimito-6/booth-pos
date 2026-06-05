@@ -4,7 +4,7 @@
    with no network (venue Wi-Fi is unreliable). Bump CACHE on
    each release; old caches are purged on activate.
    ============================================================ */
-const CACHE = "openbooth-v17";
+const CACHE = "openbooth-v18";
 const ASSETS = [
   "./",
   "index.html",
@@ -12,8 +12,14 @@ const ASSETS = [
   "icons/icon.svg",
   "css/tokens.css",
   "css/app.css",
+  "css/theme-press.css",
+  "css/theme-cotton.css",
+  "css/theme-market.css",
+  "fonts/space-grotesk-latin.woff2",
+  "fonts/fraunces-latin.woff2",
   "js/i18n.js",
   "js/util.js",
+  "js/icons.js",
   "js/components.js",
   "js/store.js",
   "js/pricing.js",

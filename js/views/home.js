@@ -17,12 +17,12 @@
   // FRONT is not in this list — the big "開攤" button above is the front-desk
   // entry point. No need to duplicate it as a small tile.
   const NAV = [
-    { name: "nav_stock", code: "STOCK", emoji: "📦", route: "stock" },
-    { name: "nav_pay", code: "PAY", emoji: "💳", route: "pay" },
-    { name: "nav_event", code: "EVENT", emoji: "📅", route: "event" },
-    { name: "nav_pickup", code: "PICKUP", emoji: "📋", route: "pickup", badge: "preorders" },
-    { name: "nav_record", code: "RECORD", emoji: "🧾", route: "record" },
-    { name: "nav_settings", code: "SET", emoji: "⚙️", route: "settings" },
+    { name: "nav_stock", code: "STOCK", icon: "box", route: "stock" },
+    { name: "nav_pay", code: "PAY", icon: "credit-card", route: "pay" },
+    { name: "nav_event", code: "EVENT", icon: "calendar", route: "event" },
+    { name: "nav_pickup", code: "PICKUP", icon: "clipboard", route: "pickup", badge: "preorders" },
+    { name: "nav_record", code: "RECORD", icon: "receipt", route: "record" },
+    { name: "nav_settings", code: "SET", icon: "settings", route: "settings" },
   ];
 
   function render(root) {
@@ -39,7 +39,9 @@
     }
     hero.appendChild(el("div", { class: "home-shop-name", text: st.settings.shopName || t("app_name") }));
     const evName = ev.name || t("no_event");
-    hero.appendChild(el("div", { class: "home-event-line", text: "📅 " + evName + (ev.date ? "  ·  " + ev.date : "") }));
+    hero.appendChild(
+      el("div", { class: "home-event-line", html: '<span class="ob-ico-inline">' + OB.icon("calendar", 15) + "</span> " + esc(evName + (ev.date ? "  ·  " + ev.date : "")) })
+    );
 
     // offline-ready chip
     const ready = el("div", { class: "ready-chip", style: "margin-top:10px" }, [
@@ -82,7 +84,7 @@
         },
       });
       if (n.badge && pendingPre) card.appendChild(el("span", { class: "nav-badge", text: pendingPre }));
-      card.appendChild(el("span", { class: "nav-emoji", text: n.emoji }));
+      card.appendChild(el("span", { class: "nav-emoji nav-ico", html: OB.icon(n.icon) }));
       card.appendChild(el("span", { class: "nav-name", text: t(n.name) }));
       grid.appendChild(card);
     });

@@ -21,6 +21,10 @@
     { id: "ocean", dots: ["#087f8c", "#eef8f8", "#356da8"] },
     { id: "mono", dots: ["#1c1c1a", "#f5f5f4", "#6e6e69"] },
     { id: "night", dots: ["#e08a5c", "#1b1916", "#a48fd6"] },
+    // prototype design themes (big visual overhauls) — try & compare
+    { id: "press", dots: ["#d81b60", "#f1e7d4", "#2b241b"] },
+    { id: "cotton", dots: ["#9c3d2e", "#f3ecdf", "#5b5191"] },
+    { id: "market", dots: ["#e03e2f", "#fdf3d9", "#1a1a18"] },
   ];
 
   function render(root) {

@@ -20,9 +20,9 @@
         subtitle: ev.name || t("no_event"),
         onBack: () => OB.router.go("home"),
         right: [
-          { icon: "📊", label: t("cashup"), onClick: openCashup },
-          { icon: "🧾", label: t("product_sales_csv"), onClick: exportProductSalesCsv },
-          { icon: "📤", label: t("export_csv"), onClick: exportCsv },
+          { icon: OB.icon("bar-chart"), label: t("cashup"), onClick: openCashup },
+          { icon: OB.icon("receipt"), label: t("product_sales_csv"), onClick: exportProductSalesCsv },
+          { icon: OB.icon("upload"), label: t("export_csv"), onClick: exportCsv },
         ],
       })
     );

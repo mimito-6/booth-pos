@@ -74,13 +74,13 @@
         title: t("helper_lock"),
         subtitle: t("locked_title"),
         onBack: () => go("home", {}, { replace: true }),
-        right: [{ icon: "🔓", label: t("unlock"), onClick: () => OB.app.unlockHelper() }],
+        right: [{ icon: OB.icon("lock-open"), label: t("unlock"), onClick: () => OB.app.unlockHelper() }],
       })
     );
     view.appendChild(
       U.el("main", {}, [
         U.el("section", { class: "section locked-notice" }, [
-          U.el("div", { class: "locked-icon", text: "🔒" }),
+          U.el("div", { class: "locked-icon", html: OB.icon("lock", 44) }),
           U.el("h2", { text: t("locked_title") }),
           U.el("p", { text: t("locked_notice") }),
           U.el("button", { class: "btn btn-primary btn-block", text: t("unlock"), onclick: () => OB.app.unlockHelper() }),

@@ -2,6 +2,28 @@
    OpenBooth — Component styles
    ============================================================ */
 
+/* Self-hosted variable display fonts for the design themes.
+   Only fetched when a [data-theme] that references them is active
+   (the 5 default themes never reference these, so never download). */
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("../fonts/space-grotesk-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+2074, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Fraunces";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("../fonts/fraunces-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+2000-206F, U+2074, U+20AC,
+    U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -31,6 +53,20 @@ button {
   cursor: pointer;
 }
 
+/* display face — no-op for the 5 default themes (--font-display = --font-sans) */
+.home-shop-name,
+.title,
+.section-title,
+.stat-value,
+.open-stall-btn,
+.sale-bar-total {
+  font-family: var(--font-display);
+}
+
+/* sale-complete "print" flourish — only the press theme renders it */
+.print-flourish {
+  display: none;
+}
 .hidden {
   display: none !important;
 }
@@ -86,6 +122,43 @@ button {
 .back-btn:active,
 .icon-btn:active {
   background: var(--border);
+}
+/* ---- inline SVG icons (shared across all themes) ---- */
+.ob-ico {
+  display: block;
+}
+.icon-btn .ob-ico {
+  width: 22px;
+  height: 22px;
+}
+.nav-card .nav-ico {
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+.nav-card .nav-ico .ob-ico {
+  width: 30px;
+  height: 30px;
+}
+.home-event-line .ob-ico-inline {
+  display: inline-flex;
+  vertical-align: middle;
+  color: var(--text-muted);
+}
+.home-event-line .ob-ico-inline .ob-ico {
+  width: 15px;
+  height: 15px;
+}
+.empty-state .ob-ico {
+  width: 38px;
+  height: 38px;
+  margin: 0 auto;
+  color: var(--text-muted);
+}
+.locked-icon .ob-ico {
+  margin: 0 auto;
 }
 .title {
   font-size: 18px;

@@ -28,9 +28,9 @@
         title: t("nav_pickup"),
         onBack: () => OB.router.go("home"),
         right: [
-          { icon: "＋", label: t("add_preorder"), onClick: () => edit(null) },
-          { icon: "📥", label: t("import_csv"), onClick: importCsv },
-          { icon: "📤", label: t("export_csv"), onClick: exportCsv },
+          { icon: OB.icon("plus"), label: t("add_preorder"), onClick: () => edit(null) },
+          { icon: OB.icon("download"), label: t("import_csv"), onClick: importCsv },
+          { icon: OB.icon("upload"), label: t("export_csv"), onClick: exportCsv },
         ],
       })
     );

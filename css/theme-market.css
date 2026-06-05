@@ -1,0 +1,141 @@
+/* ============================================================
+   OpenBooth — Theme "market" (Market Brutalist)
+   Bold grotesk, heavy black borders, hard offset shadows.
+   All selectors scoped to [data-theme="market"].
+   ============================================================ */
+
+/* bold tabular figures on money */
+[data-theme="market"] .stat-value,
+[data-theme="market"] .item-price,
+[data-theme="market"] .sale-bar-total,
+[data-theme="market"] .sale-line-total,
+[data-theme="market"] .summary-row.total,
+[data-theme="market"] .receipt-total {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+  font-weight: 700;
+}
+
+/* loud uppercase chrome */
+[data-theme="market"] .section-title,
+[data-theme="market"] .stat-label,
+[data-theme="market"] .sale-bar-cta,
+[data-theme="market"] .open-stall-btn {
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+}
+[data-theme="market"] .home-shop-name {
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+
+/* ---- nav tiles: thick black border + hard offset, accent icon ---- */
+[data-theme="market"] .nav-card {
+  border: 2.5px solid var(--border-strong);
+  box-shadow: var(--shadow-card);
+  border-radius: var(--r-md);
+  background: var(--surface);
+}
+[data-theme="market"] .nav-card:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--border-strong);
+  background: var(--accent-light);
+}
+[data-theme="market"] .nav-card .nav-ico {
+  color: var(--accent);
+}
+[data-theme="market"] .nav-card .nav-ico .ob-ico {
+  width: 32px;
+  height: 32px;
+  stroke-width: 2.5;
+}
+[data-theme="market"] .nav-card .nav-name {
+  font-weight: 700;
+}
+
+/* stat cards */
+[data-theme="market"] .stat {
+  border: 2.5px solid var(--border-strong);
+  box-shadow: var(--shadow-card);
+}
+
+/* ---- category pills: black-bordered tags ---- */
+[data-theme="market"] .tab {
+  border: 2px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  font-weight: 700;
+  background: var(--surface);
+  color: var(--text);
+}
+[data-theme="market"] .tab.active {
+  background: var(--accent);
+  color: var(--on-accent);
+  box-shadow: 2px 2px 0 var(--border-strong);
+}
+
+/* ---- product tiles: price-tag energy ---- */
+[data-theme="market"] .item-card {
+  border: 2.5px solid var(--border-strong);
+  box-shadow: var(--shadow-card);
+  border-radius: var(--r-sm);
+}
+[data-theme="market"] .item-card:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--border-strong);
+}
+[data-theme="market"] .item-card.has-qty {
+  background: var(--accent-light);
+  border-color: var(--accent);
+  box-shadow: 3px 3px 0 var(--accent);
+}
+[data-theme="market"] .item-price {
+  font-weight: 700;
+}
+
+/* ---- hero button + primary: big block, hard shadow, press-down ---- */
+[data-theme="market"] .open-stall-btn {
+  border: 3px solid var(--border-strong);
+  border-radius: var(--r-md);
+  box-shadow: 5px 5px 0 var(--border-strong);
+}
+[data-theme="market"] .open-stall-btn:active {
+  transform: translate(5px, 5px);
+  box-shadow: 0 0 0 var(--border-strong);
+}
+[data-theme="market"] .btn-primary {
+  border: 2.5px solid var(--border-strong);
+  box-shadow: 3px 3px 0 var(--border-strong);
+  border-radius: var(--r-sm);
+}
+[data-theme="market"] .btn-primary:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--border-strong);
+}
+[data-theme="market"] .btn-secondary {
+  border: 2.5px solid var(--border-strong);
+  border-radius: var(--r-sm);
+}
+
+/* ---- sale bar: black top border + hard ---- */
+[data-theme="market"] .sale-bar {
+  border-top: 3px solid var(--border-strong);
+  box-shadow: 0 -5px 0 var(--border-strong);
+}
+
+/* ---- sheet + badges: sticker treatment ---- */
+[data-theme="market"] .sheet {
+  border: 2.5px solid var(--border-strong);
+  border-bottom: none;
+}
+[data-theme="market"] .badge,
+[data-theme="market"] .nav-badge {
+  border: 2px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  box-shadow: 1.5px 1.5px 0 var(--border-strong);
+  font-weight: 700;
+}
+[data-theme="market"] .sale-line {
+  border-bottom: 2px solid var(--border-strong);
+}

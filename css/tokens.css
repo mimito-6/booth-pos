@@ -8,6 +8,8 @@
   /* type */
   --font-sans: -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei",
     "Hiragino Sans", "Noto Sans TC", "Noto Sans JP", sans-serif;
+  /* display face for headings / prices / totals — themes may override */
+  --font-display: var(--font-sans);
 
   /* radius */
   --r-sm: 8px;
@@ -166,4 +168,106 @@
     --danger: #e2675f;
     --warning: #d9a441;
   }
+}
+
+/* ============================================================
+   PROTOTYPE DESIGN THEMES (big visual overhauls)
+   These override structural tokens too (font/radius/shadow),
+   plus a scoped css/theme-*.css for signature treatments.
+   The 5 themes above stay byte-identical.
+   ============================================================ */
+
+/* ---------- Theme: press — Thermal Press (mono receipt / ink on paper) ---------- */
+[data-theme="press"] {
+  --bg: #f1e7d4;
+  --surface: #fbf6ea;
+  --surface-2: #ebe0cc;
+  --border: #d9cdb6;
+  --border-strong: #2b241b; /* ink line — 13:1 on paper */
+  --text: #211c16; /* 14.4:1 */
+  --text-secondary: #5c5347; /* 6.4:1 */
+  --text-muted: #8a8072; /* 3.3:1 — decoration/hints only */
+  --accent: #d81b60; /* money + primary action only */
+  --accent-dark: #b01050;
+  --accent-light: #fce3ec;
+  --on-accent: #fbf6ea;
+  --success: #1f6b43;
+  --success-light: #e2efe6;
+  --combo: #234ba0;
+  --combo-light: #e2e8f6;
+  --danger: #c0392b;
+  --warning: #8a5a0f;
+  /* structural overrides — flat ink-line look, hard offset shadow */
+  --font-sans: "Space Grotesk", -apple-system, BlinkMacSystemFont, "PingFang TC",
+    "Hiragino Sans", "Noto Sans TC", "Noto Sans JP", sans-serif;
+  --font-display: "Space Grotesk", -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+  --r-sm: 3px;
+  --r-md: 4px;
+  --r-lg: 5px;
+  --r-xl: 7px;
+  --shadow-card: none;
+  --shadow-float: 3px 3px 0 rgba(43, 36, 27, 0.92);
+  --shadow-sheet: 0 -6px 30px rgba(43, 36, 27, 0.18);
+}
+
+/* ---------- Theme: cotton — Letterpress Craft (serif, cream, debossed) ---------- */
+[data-theme="cotton"] {
+  --bg: #f3ecdf;
+  --surface: #fbf7ee;
+  --surface-2: #ede3d1;
+  --border: #e0d5c0;
+  --border-strong: #c9bca2;
+  --text: #2a2018;
+  --text-secondary: #6b5e4e;
+  --text-muted: #a99c86;
+  --accent: #9c3d2e; /* warm brick ink */
+  --accent-dark: #7e2f22;
+  --accent-light: #f3e0d8;
+  --on-accent: #fbf7ee;
+  --success: #4a7c59;
+  --success-light: #e7efe6;
+  --combo: #5b5191;
+  --combo-light: #ece9f4;
+  --danger: #b23a2e;
+  --warning: #9a6b1e;
+  --font-display: "Fraunces", Georgia, "Songti TC", "PingFang TC", serif;
+  --r-sm: 6px;
+  --r-md: 9px;
+  --r-lg: 13px;
+  --r-xl: 18px;
+  --shadow-card: 0 1px 2px rgba(60, 45, 30, 0.07);
+  --shadow-float: 0 8px 22px rgba(60, 45, 30, 0.16);
+  --shadow-sheet: 0 -6px 30px rgba(60, 45, 30, 0.16);
+}
+
+/* ---------- Theme: market — Market Brutalist (bold grotesk, hard black shadows) ---------- */
+[data-theme="market"] {
+  --bg: #fdf3d9;
+  --surface: #ffffff;
+  --surface-2: #fbe9c0;
+  --border: #1a1a18;
+  --border-strong: #1a1a18; /* heavy black borders */
+  --text: #161512;
+  --text-secondary: #4a463e;
+  --text-muted: #807a6e;
+  --accent: #e03e2f; /* vermillion — money + action */
+  --accent-dark: #b82a1e;
+  --accent-light: #fbe0dc;
+  --on-accent: #ffffff;
+  --success: #1e7a3e;
+  --success-light: #ddf0e1;
+  --combo: #6b3fd4;
+  --combo-light: #eae2fb;
+  --danger: #c0271b;
+  --warning: #b06f0c;
+  --font-sans: "Space Grotesk", -apple-system, BlinkMacSystemFont, "PingFang TC",
+    "Hiragino Sans", "Noto Sans TC", "Noto Sans JP", sans-serif;
+  --font-display: "Space Grotesk", -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+  --r-sm: 2px;
+  --r-md: 3px;
+  --r-lg: 4px;
+  --r-xl: 6px;
+  --shadow-card: 3px 3px 0 #1a1a18;
+  --shadow-float: 5px 5px 0 #1a1a18;
+  --shadow-sheet: 0 -6px 0 #1a1a18;
 }

@@ -1,0 +1,112 @@
+/* ============================================================
+   OpenBooth — Theme "cotton" (Letterpress Craft)
+   Warm cream paper, Fraunces serif display, soft debossed depth.
+   All selectors scoped to [data-theme="cotton"].
+   ============================================================ */
+
+/* elegant serif numerals on money + display surfaces */
+[data-theme="cotton"] .item-price,
+[data-theme="cotton"] .sale-bar-total,
+[data-theme="cotton"] .sale-line-total,
+[data-theme="cotton"] .summary-row.total,
+[data-theme="cotton"] .receipt-total,
+[data-theme="cotton"] .home-shop-name,
+[data-theme="cotton"] .title {
+  font-family: var(--font-display);
+  letter-spacing: 0.005em;
+}
+[data-theme="cotton"] .home-shop-name {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+/* section titles: small-caps engraved rule */
+[data-theme="cotton"] .section-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+/* ---- nav tiles: soft letterpress cards on cream ---- */
+[data-theme="cotton"] .nav-card {
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: 0 1px 2px rgba(60, 45, 30, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+[data-theme="cotton"] .nav-card:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 1px 3px rgba(60, 45, 30, 0.16);
+  background: var(--surface-2);
+  border-color: var(--border-strong);
+}
+[data-theme="cotton"] .nav-card .nav-ico {
+  color: var(--accent);
+}
+[data-theme="cotton"] .nav-card .nav-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+/* stat cards: paper with top highlight */
+[data-theme="cotton"] .stat {
+  box-shadow: 0 1px 2px rgba(60, 45, 30, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* ---- category pills ---- */
+[data-theme="cotton"] .tab {
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border);
+}
+[data-theme="cotton"] .tab.active {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
+}
+
+/* ---- product tiles ---- */
+[data-theme="cotton"] .item-card {
+  border-radius: var(--r-lg);
+  box-shadow: 0 1px 2px rgba(60, 45, 30, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+[data-theme="cotton"] .item-card.has-qty {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+[data-theme="cotton"] .item-price {
+  font-weight: 600;
+}
+
+/* ---- hero button: refined, debossable ---- */
+[data-theme="cotton"] .open-stall-btn {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  border-radius: var(--r-xl);
+  box-shadow: 0 8px 22px rgba(156, 61, 46, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+[data-theme="cotton"] .open-stall-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 4px 12px rgba(156, 61, 46, 0.3), inset 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* ---- sale bar + grand total: debossed into the paper ---- */
+[data-theme="cotton"] .sale-bar-total {
+  font-weight: 600;
+}
+[data-theme="cotton"] .summary-row.total,
+[data-theme="cotton"] .receipt-total {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* primary buttons: warm, rounded */
+[data-theme="cotton"] .btn-primary {
+  border-radius: var(--r-md);
+  box-shadow: 0 3px 10px rgba(156, 61, 46, 0.22);
+}
+
+/* refined dividers */
+[data-theme="cotton"] .sale-line {
+  border-bottom: 1px solid var(--border);
+}

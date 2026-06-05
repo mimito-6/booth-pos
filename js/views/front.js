@@ -25,10 +25,10 @@
         onBack: () => OB.router.go("home"),
         right: (OB.store.isLocked && OB.store.isLocked())
           ? [
-              { icon: "🔓", label: t("unlock"), onClick: () => OB.app.unlockHelper() },
-              { icon: "🏠", label: t("home"), onClick: () => OB.router.go("home") },
+              { icon: OB.icon("lock-open"), label: t("unlock"), onClick: () => OB.app.unlockHelper() },
+              { icon: OB.icon("home"), label: t("home"), onClick: () => OB.router.go("home") },
             ]
-          : [{ icon: "🏠", label: t("home"), onClick: () => OB.router.go("home") }],
+          : [{ icon: OB.icon("home"), label: t("home"), onClick: () => OB.router.go("home") }],
       })
     );
 
@@ -502,12 +502,29 @@
       OB.app.hideCustomerDisplay();
       if (OB.router.current() === "front" && OB.app.frontUpdate) OB.app.frontUpdate();
       toast(t("sale_done", { amount: fmtMoney(s.grandTotal) }), "success");
+      printFlourish(fmtMoney(s.grandTotal));
       if (st2.settings.showReceipt) setTimeout(() => showReceipt(savedTx), 300);
       // receipt-engine: render + thermal-print / share the receipt
       if (window.OB && OB.receipt) setTimeout(() => OB.receipt.handle(savedTx), 320);
     }
 
     renderStep1();
+  }
+
+  // Press-theme signature: a tiny receipt "prints" down and tears off on each
+  // completed sale. Visible only under [data-theme="press"] (CSS-gated); other
+  // themes never render it. Auto-removes itself.
+  function printFlourish(amountText) {
+    const wrap = el("div", { class: "print-flourish" }, [
+      el("div", { class: "pf-paper" }, [
+        el("div", { class: "pf-check", html: OB.icon("check", 30) }),
+        el("div", { class: "pf-amt", text: amountText }),
+        el("div", { class: "pf-msg", text: "thank you" }),
+      ]),
+    ]);
+    document.body.appendChild(wrap);
+    setTimeout(() => wrap.classList.add("tear"), 950);
+    setTimeout(() => wrap.remove(), 1550);
   }
 
   function showReceipt(tx) {

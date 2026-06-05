@@ -1,0 +1,250 @@
+/* ============================================================
+   OpenBooth — Theme "press" (Thermal Press)
+   Scoped signature treatments. Every selector is prefixed
+   [data-theme="press"] so nothing leaks to other themes.
+   ============================================================ */
+
+/* tabular, non-reflowing figures on every money/number surface */
+[data-theme="press"] .stat-value,
+[data-theme="press"] .item-price,
+[data-theme="press"] .sale-bar-total,
+[data-theme="press"] .sale-bar-count,
+[data-theme="press"] .sale-line-total,
+[data-theme="press"] .summary-row,
+[data-theme="press"] .receipt-total,
+[data-theme="press"] .cash-confirm,
+[data-theme="press"] input[inputmode="numeric"] {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1, "zero" 1;
+}
+
+/* section labels / chrome: tracked uppercase "receipt header" voice */
+[data-theme="press"] .section-title,
+[data-theme="press"] .stat-label,
+[data-theme="press"] .sale-bar-cta {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+/* DISCIPLINE: hot-pink accent is for money + commit only.
+   Nav icons stay ink, not accent. */
+[data-theme="press"] .nav-card .nav-ico {
+  color: var(--text);
+}
+
+/* ---- HOME nav tiles -> flat ink-bordered ticket stubs ---- */
+[data-theme="press"] .nav-card {
+  border: 1.5px solid var(--border-strong);
+  box-shadow: none;
+  background: var(--surface);
+  border-radius: var(--r-md);
+}
+[data-theme="press"] .nav-card:active {
+  transform: scale(0.97);
+  background: var(--accent-light);
+  border-color: var(--border-strong);
+}
+/* perforation notch on the left edge of each ticket */
+[data-theme="press"] .nav-card {
+  position: relative;
+}
+[data-theme="press"] .nav-card::before {
+  content: "";
+  position: absolute;
+  left: -1.5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 18px;
+  background: var(--bg);
+  border-right: 1.5px solid var(--border-strong);
+  border-radius: 0 9px 9px 0;
+}
+
+/* ---- stat cards: ink-line ---- */
+[data-theme="press"] .stat {
+  border: 1.5px solid var(--border-strong);
+  box-shadow: none;
+}
+
+/* ---- category pills -> paper chip / ink-fill when active ---- */
+[data-theme="press"] .tab {
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 700;
+}
+[data-theme="press"] .tab.active {
+  background: var(--border-strong);
+  color: var(--surface);
+}
+
+/* ---- product tile -> flat, ink hairline, price in tabular ---- */
+[data-theme="press"] .item-card {
+  border: 1.5px solid var(--border-strong);
+  box-shadow: none;
+  border-radius: var(--r-md);
+}
+[data-theme="press"] .item-card:active {
+  transform: translate(1px, 1px);
+}
+[data-theme="press"] .item-card.has-qty {
+  background: var(--accent-light);
+  border-color: var(--accent);
+}
+[data-theme="press"] .item-price {
+  font-weight: 700;
+}
+
+/* ---- the hero: open-stall button + sale bar ---- */
+[data-theme="press"] .open-stall-btn {
+  border: 2px solid var(--border-strong);
+  border-radius: var(--r-md);
+  box-shadow: 3px 3px 0 var(--border-strong);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+[data-theme="press"] .open-stall-btn:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--border-strong);
+}
+[data-theme="press"] .sale-bar {
+  border: 1.5px solid var(--border-strong);
+  border-bottom: none;
+  box-shadow: 0 -3px 0 var(--border-strong);
+}
+[data-theme="press"] .sale-bar-total {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* ---- primary buttons: ink border + hard offset ---- */
+[data-theme="press"] .btn-primary {
+  border: 2px solid var(--border-strong);
+  box-shadow: 3px 3px 0 var(--border-strong);
+  border-radius: var(--r-sm);
+}
+[data-theme="press"] .btn-primary:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 0 var(--border-strong);
+}
+[data-theme="press"] .btn-secondary {
+  border: 1.5px solid var(--border-strong);
+  border-radius: var(--r-sm);
+}
+
+/* ---- cart sheet -> receipt paper-tape with dashed tear-rules ---- */
+[data-theme="press"] .sheet {
+  border: 1.5px solid var(--border-strong);
+}
+[data-theme="press"] .sale-line {
+  border-bottom: 1.5px dashed var(--border-strong);
+}
+/* grand total pressed into the paper (letterpress two-shadow) */
+[data-theme="press"] .summary-row.total,
+[data-theme="press"] .receipt-total {
+  font-family: var(--font-display);
+  font-weight: 700;
+  border-top: 2px dashed var(--border-strong);
+  padding-top: 8px;
+}
+
+/* badges -> rubber stamp */
+[data-theme="press"] .badge,
+[data-theme="press"] .nav-badge {
+  border-radius: var(--r-sm);
+  letter-spacing: 0.04em;
+}
+
+/* ---- faint thermal-paper grain (decorative, reduced-motion safe) ---- */
+[data-theme="press"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="press"] body::after {
+    display: none;
+  }
+}
+
+/* ---- "it prints": sale-complete receipt feed (press-only signature) ---- */
+[data-theme="press"] .print-flourish {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9000;
+  pointer-events: none;
+}
+[data-theme="press"] .pf-paper {
+  width: 208px;
+  background: var(--surface);
+  border: 1.5px solid var(--border-strong);
+  border-top: none;
+  padding: 16px 16px 20px;
+  text-align: center;
+  box-shadow: 3px 6px 0 rgba(43, 36, 27, 0.28);
+  font-family: var(--font-display);
+  /* perforated tear-line along the bottom edge */
+  -webkit-mask: radial-gradient(circle 5px at 9px 100%, transparent 98%, #000) repeat-x;
+  mask: radial-gradient(circle 5px at 9px 100%, transparent 98%, #000) repeat-x;
+  -webkit-mask-size: 18px 100%;
+  mask-size: 18px 100%;
+  animation: pf-feed 0.46s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+[data-theme="press"] .print-flourish.tear .pf-paper {
+  animation: pf-tear 0.5s ease-in both;
+}
+[data-theme="press"] .pf-check {
+  color: var(--success);
+  margin: 0 auto 8px;
+  width: 30px;
+  height: 30px;
+}
+[data-theme="press"] .pf-check .ob-ico {
+  width: 30px;
+  height: 30px;
+  stroke-width: 3;
+}
+[data-theme="press"] .pf-amt {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+[data-theme="press"] .pf-msg {
+  margin-top: 4px;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+@keyframes pf-feed {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes pf-tear {
+  to {
+    transform: translateY(-130%) rotate(-1.5deg);
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="press"] .pf-paper,
+  [data-theme="press"] .print-flourish.tear .pf-paper {
+    animation: none;
+  }
+}
