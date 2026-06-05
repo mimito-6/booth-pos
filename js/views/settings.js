@@ -22,6 +22,7 @@
     { id: "mono", dots: ["#1c1c1a", "#f5f5f4", "#6e6e69"] },
     { id: "night", dots: ["#e08a5c", "#1b1916", "#a48fd6"] },
     // prototype design themes (big visual overhauls) — try & compare
+    { id: "koishi", dots: ["#b86c44", "#e9decb", "#6e6196"] },
     { id: "press", dots: ["#d81b60", "#f1e7d4", "#2b241b"] },
     { id: "cotton", dots: ["#9c3d2e", "#f3ecdf", "#5b5191"] },
     { id: "market", dots: ["#e03e2f", "#fdf3d9", "#1a1a18"] },

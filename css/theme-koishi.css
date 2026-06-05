@@ -1,0 +1,232 @@
+/* ============================================================
+   OpenBooth — Theme "koishi" (小石 · pebble clay)
+   Warm plaster, soft claymorphic depth, pebble-round forms,
+   Japanese cozy-minimal. Tactile material + gentle motion.
+   All selectors scoped to [data-theme="koishi"].
+   ============================================================ */
+
+/* rounded display face on headings + money */
+[data-theme="koishi"] .home-shop-name,
+[data-theme="koishi"] .title,
+[data-theme="koishi"] .section-title,
+[data-theme="koishi"] .stat-value,
+[data-theme="koishi"] .item-price,
+[data-theme="koishi"] .sale-bar-total,
+[data-theme="koishi"] .summary-row.total,
+[data-theme="koishi"] .receipt-total,
+[data-theme="koishi"] .open-stall-btn {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+[data-theme="koishi"] .home-shop-name {
+  font-weight: 700;
+}
+
+/* smooth, spring-ish feel on everything tappable */
+[data-theme="koishi"] .nav-card,
+[data-theme="koishi"] .item-card,
+[data-theme="koishi"] .tab,
+[data-theme="koishi"] .stat,
+[data-theme="koishi"] .btn,
+[data-theme="koishi"] .open-stall-btn,
+[data-theme="koishi"] .sale-bar {
+  transition: transform 0.22s cubic-bezier(0.2, 0.9, 0.3, 1.2),
+    box-shadow 0.22s ease, background 0.2s ease;
+}
+
+/* ---- warm plaster body: grain + soft overhead light ---- */
+[data-theme="koishi"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(120% 60% at 50% -10%, rgba(255, 252, 245, 0.7), transparent 60%);
+}
+[data-theme="koishi"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  opacity: 0.06;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="koishi"] body::after {
+    display: none;
+  }
+}
+
+/* ---- HOME nav tiles: raised clay pebbles, icon in a pressed well ---- */
+[data-theme="koishi"] .nav-card {
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-card);
+  background: var(--surface);
+  padding: 18px 10px;
+}
+[data-theme="koishi"] .nav-card:active {
+  transform: scale(0.96);
+  box-shadow: inset 5px 5px 11px rgba(150, 124, 90, 0.42),
+    inset -4px -4px 10px rgba(255, 251, 243, 0.85);
+  background: var(--surface-2);
+}
+[data-theme="koishi"] .nav-card .nav-ico {
+  color: var(--accent);
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  box-shadow: inset 3px 3px 7px rgba(150, 124, 90, 0.38),
+    inset -3px -3px 7px rgba(255, 251, 243, 0.85);
+}
+[data-theme="koishi"] .nav-card .nav-ico .ob-ico {
+  width: 26px;
+  height: 26px;
+}
+[data-theme="koishi"] .nav-card .nav-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+/* gentle settle-in cascade */
+[data-theme="koishi"] .view.active .nav-card {
+  animation: koishi-settle 0.5s cubic-bezier(0.2, 0.9, 0.3, 1) both;
+}
+[data-theme="koishi"] .nav-card:nth-child(2) {
+  animation-delay: 0.04s;
+}
+[data-theme="koishi"] .nav-card:nth-child(3) {
+  animation-delay: 0.08s;
+}
+[data-theme="koishi"] .nav-card:nth-child(4) {
+  animation-delay: 0.12s;
+}
+[data-theme="koishi"] .nav-card:nth-child(5) {
+  animation-delay: 0.16s;
+}
+[data-theme="koishi"] .nav-card:nth-child(6) {
+  animation-delay: 0.2s;
+}
+@keyframes koishi-settle {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="koishi"] .view.active .nav-card {
+    animation: none;
+  }
+}
+
+/* ---- hero mascot: soft pebble disc ---- */
+[data-theme="koishi"] .home-mascot-fallback {
+  width: 116px;
+  height: 116px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 46% 54% 52% 48% / 50% 48% 52% 50%;
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+/* ---- stat cards: raised clay ---- */
+[data-theme="koishi"] .stat {
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  border-radius: var(--r-lg);
+}
+
+/* ---- category pills: soft pebble chips ---- */
+[data-theme="koishi"] .tab {
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  box-shadow: 3px 3px 7px rgba(150, 124, 90, 0.28), -3px -3px 7px rgba(255, 251, 243, 0.8);
+}
+[data-theme="koishi"] .tab.active {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
+  box-shadow: inset 2px 2px 5px rgba(120, 70, 40, 0.35), inset -2px -2px 5px rgba(255, 220, 200, 0.4);
+}
+
+/* ---- product tiles: clay pebbles, press to squish ---- */
+[data-theme="koishi"] .item-card {
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-card);
+}
+[data-theme="koishi"] .item-card:active {
+  transform: scale(0.97);
+  box-shadow: inset 4px 4px 10px rgba(150, 124, 90, 0.4), inset -4px -4px 9px rgba(255, 251, 243, 0.82);
+}
+[data-theme="koishi"] .item-card.has-qty {
+  background: var(--accent-light);
+  border-color: var(--accent);
+}
+[data-theme="koishi"] .item-price {
+  font-weight: 700;
+}
+
+/* ---- hero button + primary: big clay pill, squish on press ---- */
+[data-theme="koishi"] .open-stall-btn {
+  border-radius: var(--r-pill);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  box-shadow: 7px 9px 20px rgba(150, 100, 64, 0.36), -5px -6px 14px rgba(255, 250, 242, 0.6),
+    inset 0 1px 0 rgba(255, 240, 225, 0.4);
+}
+[data-theme="koishi"] .open-stall-btn:active {
+  transform: scale(0.97) translateY(1px);
+  box-shadow: inset 5px 5px 12px rgba(120, 70, 40, 0.4), inset -4px -4px 10px rgba(255, 220, 195, 0.35);
+}
+[data-theme="koishi"] .btn-primary {
+  border-radius: var(--r-pill);
+  box-shadow: 5px 6px 14px rgba(150, 100, 64, 0.32), -3px -3px 9px rgba(255, 250, 242, 0.55);
+}
+[data-theme="koishi"] .btn-primary:active {
+  transform: scale(0.98);
+  box-shadow: inset 4px 4px 10px rgba(120, 70, 40, 0.38), inset -3px -3px 8px rgba(255, 220, 195, 0.3);
+}
+[data-theme="koishi"] .btn-secondary {
+  border-radius: var(--r-pill);
+  border: 1px solid var(--border-strong);
+  box-shadow: 3px 4px 9px rgba(150, 124, 90, 0.26), -3px -3px 7px rgba(255, 251, 243, 0.7);
+}
+
+/* ---- sale bar + sheet: soft raised clay shelf ---- */
+[data-theme="koishi"] .sale-bar {
+  border: none;
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+  box-shadow: 0 -8px 26px rgba(120, 96, 64, 0.2);
+}
+[data-theme="koishi"] .sheet {
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+}
+[data-theme="koishi"] .search-box input,
+[data-theme="koishi"] input,
+[data-theme="koishi"] select,
+[data-theme="koishi"] textarea {
+  border-radius: var(--r-md);
+}
+
+/* badges: soft rounded clay */
+[data-theme="koishi"] .badge,
+[data-theme="koishi"] .nav-badge {
+  border-radius: var(--r-pill);
+}
+[data-theme="koishi"] .ready-chip {
+  border-radius: var(--r-pill);
+  box-shadow: 2px 3px 7px rgba(150, 124, 90, 0.22), -2px -2px 6px rgba(255, 251, 243, 0.7);
+}

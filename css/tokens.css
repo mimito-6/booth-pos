@@ -271,3 +271,40 @@
   --shadow-float: 5px 5px 0 #1a1a18;
   --shadow-sheet: 0 -6px 0 #1a1a18;
 }
+
+/* ---------- Theme: koishi (小石) — warm plaster / pebble clay, Japanese cozy-minimal ---------- */
+[data-theme="koishi"] {
+  --bg: #e9decb; /* warm plaster wall */
+  --surface: #f5eee0; /* raised warm clay */
+  --surface-2: #e0d4be;
+  --border: #ddd0b8; /* soft — shape comes from shadow, not edges */
+  --border-strong: #c7b89c;
+  --text: #4a4034; /* warm cocoa, not black */
+  --text-secondary: #897c68;
+  --text-muted: #a89c86;
+  --accent: #b86c44; /* warm terracotta clay */
+  --accent-dark: #9a552f;
+  --accent-light: #f2e2d4;
+  --on-accent: #fff6ee;
+  --success: #4e7e5a; /* soft sage */
+  --success-light: #e4eedd;
+  --combo: #6e6196; /* dusty lavender */
+  --combo-light: #ece7f2;
+  --danger: #bd5b47;
+  --warning: #a9762c;
+  /* rounded, soft, tactile */
+  --font-sans: "Quicksand", "Hiragino Maru Gothic ProN", "Zen Maru Gothic",
+    -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC",
+    "Noto Sans JP", sans-serif;
+  --font-display: "Quicksand", "Hiragino Maru Gothic ProN", "Zen Maru Gothic",
+    "PingFang TC", "Noto Sans TC", sans-serif;
+  /* pebble radii */
+  --r-sm: 12px;
+  --r-md: 18px;
+  --r-lg: 26px;
+  --r-xl: 34px;
+  /* claymorphic dual-soft shadows: warm cast below-right + light lift above-left */
+  --shadow-card: 6px 7px 16px rgba(150, 124, 90, 0.4), -5px -5px 12px rgba(255, 251, 243, 0.9);
+  --shadow-float: 9px 12px 26px rgba(150, 124, 90, 0.42), -6px -7px 16px rgba(255, 251, 243, 0.92);
+  --shadow-sheet: 0 -10px 36px rgba(120, 96, 64, 0.2);
+}
