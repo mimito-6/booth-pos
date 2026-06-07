@@ -22,6 +22,8 @@
     { id: "mono", dots: ["#1c1c1a", "#f5f5f4", "#6e6e69"] },
     { id: "night", dots: ["#e08a5c", "#1b1916", "#a48fd6"] },
     // prototype design themes (big visual overhauls) — try & compare
+    // wabi-sabi (錆) — muted aged-metal/stone, restrained
+    { id: "sabi", dots: ["#4e635c", "#d9d6cc", "#a39d8f"] },
     // metallic / futuristic set
     { id: "titanium", dots: ["#205aa6", "#d6dadf", "#8a929c"] },
     { id: "gunmetal", dots: ["#3ad1ff", "#14181f", "#9d8cff"] },

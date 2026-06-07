@@ -1,0 +1,160 @@
+/* ============================================================
+   OpenBooth — Theme "sabi" (錆 · wabi-sabi)
+   Aged-metal / stone, muted and matte. Maximum restraint:
+   hairline rules, whisper-soft depth, sumi ink, generous ma,
+   one quiet patina accent. All selectors scoped to [data-theme="sabi"].
+   ============================================================ */
+
+/* calm type — lighter, a touch more tracking, never shouty */
+[data-theme="sabi"] .home-shop-name {
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+[data-theme="sabi"] .title {
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+[data-theme="sabi"] .section-title {
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+[data-theme="sabi"] .stat-value,
+[data-theme="sabi"] .item-price,
+[data-theme="sabi"] .sale-bar-total,
+[data-theme="sabi"] .summary-row.total,
+[data-theme="sabi"] .receipt-total {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+/* gentle, unhurried transitions */
+[data-theme="sabi"] .nav-card,
+[data-theme="sabi"] .item-card,
+[data-theme="sabi"] .tab,
+[data-theme="sabi"] .btn,
+[data-theme="sabi"] .open-stall-btn {
+  transition: background 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+/* faint stone / washi grain — barely there */
+[data-theme="sabi"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='s'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23s)'/%3E%3C/svg%3E");
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="sabi"] body::after {
+    display: none;
+  }
+}
+
+/* ---- surfaces: flat matte stone, hairline rule, whisper shadow ---- */
+[data-theme="sabi"] .nav-card,
+[data-theme="sabi"] .stat,
+[data-theme="sabi"] .item-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+}
+[data-theme="sabi"] .nav-card {
+  padding: 22px 12px; /* more ma */
+}
+[data-theme="sabi"] .nav-card:active,
+[data-theme="sabi"] .item-card:active {
+  transform: none;
+  background: var(--surface-2);
+  border-color: var(--border-strong);
+}
+[data-theme="sabi"] .item-card.has-qty {
+  background: var(--accent-light);
+  border-color: var(--accent);
+}
+
+/* ---- icons: flat muted patina, sitting in a faint inkstone recess ---- */
+[data-theme="sabi"] .nav-card .nav-ico {
+  color: var(--accent);
+  width: 46px;
+  height: 46px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  box-shadow: inset 0 1px 2px rgba(60, 56, 48, 0.12);
+}
+[data-theme="sabi"] .nav-card .nav-ico .ob-ico {
+  width: 23px;
+  height: 23px;
+  stroke-width: 1.75;
+}
+[data-theme="sabi"] .nav-card .nav-name {
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  color: var(--text-secondary);
+}
+
+/* ---- hero / primary: solid muted patina, matte, no gloss ---- */
+[data-theme="sabi"] .open-stall-btn,
+[data-theme="sabi"] .btn-primary,
+[data-theme="sabi"] .sale-bar-cta {
+  background: var(--accent);
+  color: var(--on-accent);
+  border: none;
+  box-shadow: none;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+[data-theme="sabi"] .open-stall-btn {
+  border-radius: var(--r-md);
+}
+[data-theme="sabi"] .open-stall-btn:active,
+[data-theme="sabi"] .btn-primary:active,
+[data-theme="sabi"] .sale-bar-cta:active {
+  background: var(--accent-dark);
+}
+[data-theme="sabi"] .btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+  box-shadow: none;
+}
+
+/* ---- tabs: text + a quiet underline tick when active ---- */
+[data-theme="sabi"] .tab {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  border-radius: 0;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+[data-theme="sabi"] .tab.active {
+  background: transparent;
+  color: var(--text);
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+
+/* ---- sale bar / sheet: plain stone, hairline top ---- */
+[data-theme="sabi"] .sale-bar {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  box-shadow: var(--shadow-sheet);
+}
+[data-theme="sabi"] .sheet {
+  background: var(--surface);
+}
+
+/* ---- stat cards a touch airier ---- */
+[data-theme="sabi"] .stat {
+  background: var(--surface);
+}
+[data-theme="sabi"] .stat-label {
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}

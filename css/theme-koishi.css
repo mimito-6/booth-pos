@@ -127,19 +127,6 @@
   }
 }
 
-/* ---- hero mascot: soft pebble disc ---- */
-[data-theme="koishi"] .home-mascot-fallback {
-  width: 116px;
-  height: 116px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 46% 54% 52% 48% / 50% 48% 52% 50%;
-  background: var(--surface);
-  box-shadow: var(--shadow-card);
-}
-
 /* ---- stat cards: raised clay ---- */
 [data-theme="koishi"] .stat {
   border: 1px solid var(--border);

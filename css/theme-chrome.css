@@ -151,22 +151,6 @@
   font-weight: 600;
 }
 
-/* lathed chrome mascot disc */
-[data-theme="chrome"] .home-mascot-fallback {
-  width: 116px;
-  height: 116px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: conic-gradient(from 210deg, #7c8593, #f4f8ff, #c6cedb, #79828f, #eef2f8, #7c8593);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.7);
-}
-[data-theme="chrome"] .home-mascot-fallback svg {
-  fill: #2a3038;
-}
-
 /* ---- liquid-chrome hero + primary ---- */
 [data-theme="chrome"] .open-stall-btn,
 [data-theme="chrome"] .btn-primary,

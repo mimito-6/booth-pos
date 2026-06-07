@@ -105,20 +105,8 @@
   font-family: var(--font-display);
   font-weight: 600;
 }
-[data-theme="gunmetal"] .home-mascot-fallback {
-  width: 112px;
-  height: 112px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: linear-gradient(150deg, #2b313d, #181c24);
-  box-shadow: var(--shadow-card), inset 0 0 18px rgba(58, 209, 255, 0.12);
-}
-[data-theme="gunmetal"] .home-mascot-fallback .ob-ico,
 [data-theme="gunmetal"] .home-mascot-fallback svg {
-  filter: drop-shadow(0 0 8px rgba(58, 209, 255, 0.4));
+  filter: drop-shadow(0 0 8px rgba(58, 209, 255, 0.35));
 }
 
 /* ---- frosted glass: confined to chrome (sale bar / sheet / tabs) ---- */

@@ -111,19 +111,6 @@
   font-weight: 600;
 }
 
-/* hero mascot disc = machined billet */
-[data-theme="titanium"] .home-mascot-fallback {
-  width: 112px;
-  height: 112px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  background: linear-gradient(150deg, #eef1f4, #c2c8d0);
-  box-shadow: var(--shadow-card), inset 2px 2px 6px rgba(255, 255, 255, 0.5);
-}
-
 /* ---- the ONE polished control: hero + primary + pay ---- */
 [data-theme="titanium"] .open-stall-btn,
 [data-theme="titanium"] .btn-primary,
