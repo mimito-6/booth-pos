@@ -1,0 +1,282 @@
+/* ============================================================
+   OpenBooth — Theme "chrome" (Liquid Chrome / Mercury)
+   Dark steel + bright liquid-chrome hero ramps + a shimmering
+   "Mercury Total". All selectors scoped to [data-theme="chrome"].
+   ============================================================ */
+[data-theme="chrome"] {
+  --ch-ramp: linear-gradient(145deg, #6b7480 0%, #f4f8ff 12%, #c6cedb 30%, #79828f 50%, #c6cedb 66%, #ffffff 86%, #7c8593 100%);
+  --ch-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+}
+
+[data-theme="chrome"] .home-shop-name,
+[data-theme="chrome"] .title,
+[data-theme="chrome"] .section-title,
+[data-theme="chrome"] .open-stall-btn {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+[data-theme="chrome"] .stat-value,
+[data-theme="chrome"] .item-price {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: 0.02em;
+  font-weight: 700;
+}
+[data-theme="chrome"] .stat-value {
+  text-shadow: 0 0 12px rgba(58, 217, 240, 0.25);
+}
+[data-theme="chrome"] .stat-label,
+[data-theme="chrome"] .section-title {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+[data-theme="chrome"] .nav-card,
+[data-theme="chrome"] .item-card,
+[data-theme="chrome"] .stat,
+[data-theme="chrome"] .tab,
+[data-theme="chrome"] .btn,
+[data-theme="chrome"] .open-stall-btn {
+  transition: box-shadow 0.12s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.09s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* dark steel body + grain (so glass always samples chroma) */
+[data-theme="chrome"] body {
+  background: linear-gradient(160deg, #20262e, #14171c);
+}
+[data-theme="chrome"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: var(--ch-noise);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="chrome"] body::after {
+    display: none;
+  }
+}
+
+/* ---- SIGNATURE: the Mercury Total (clipped shimmering silver) ---- */
+[data-theme="chrome"] .sale-bar-total,
+[data-theme="chrome"] .receipt-total {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums lining-nums;
+  font-weight: 700;
+  background: var(--ch-ramp);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: ch-mercury 4s linear infinite;
+}
+@keyframes ch-mercury {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 220% 50%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="chrome"] .sale-bar-total,
+  [data-theme="chrome"] .receipt-total {
+    animation: none;
+    background-position: 40% 50%;
+  }
+}
+[data-theme="chrome"] .summary-row.total {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+}
+
+/* ---- matte steel cards + specular gradient bevel ---- */
+[data-theme="chrome"] .nav-card,
+[data-theme="chrome"] .stat,
+[data-theme="chrome"] .item-card {
+  position: relative;
+  border: 1px solid var(--border);
+  background: linear-gradient(145deg, #232a33, #1a1f26);
+  box-shadow: var(--shadow-card);
+}
+[data-theme="chrome"] .nav-card::after,
+[data-theme="chrome"] .stat::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), transparent 38%, transparent 62%, rgba(0, 0, 0, 0.45));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+[data-theme="chrome"] .item-card.has-qty {
+  background: linear-gradient(145deg, #163038, #0f2a30);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-card), inset 0 0 14px rgba(58, 217, 240, 0.18);
+}
+[data-theme="chrome"] .nav-card:active,
+[data-theme="chrome"] .item-card:active,
+[data-theme="chrome"] .stat:active {
+  transform: translateY(1px) scale(0.985);
+  box-shadow: inset 2px 2px 8px rgba(0, 0, 0, 0.6), inset -1px -1px 3px rgba(234, 242, 255, 0.06);
+}
+
+/* milled well */
+[data-theme="chrome"] .nav-card .nav-ico {
+  color: var(--accent);
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.65), inset -2px -2px 5px rgba(234, 242, 255, 0.08),
+    inset 0 0 0 1px var(--border);
+}
+[data-theme="chrome"] .nav-card .nav-ico .ob-ico {
+  width: 24px;
+  height: 24px;
+  filter: drop-shadow(0 0 6px rgba(58, 217, 240, 0.4));
+}
+[data-theme="chrome"] .nav-card .nav-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+/* lathed chrome mascot disc */
+[data-theme="chrome"] .home-mascot-fallback {
+  width: 116px;
+  height: 116px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: conic-gradient(from 210deg, #7c8593, #f4f8ff, #c6cedb, #79828f, #eef2f8, #7c8593);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+[data-theme="chrome"] .home-mascot-fallback svg {
+  fill: #2a3038;
+}
+
+/* ---- liquid-chrome hero + primary ---- */
+[data-theme="chrome"] .open-stall-btn,
+[data-theme="chrome"] .btn-primary,
+[data-theme="chrome"] .sale-bar-cta {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  color: var(--on-accent);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.55), 0 -1px 0 rgba(0, 0, 0, 0.2);
+  background-image: linear-gradient(105deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.55) 47%, rgba(255, 255, 255, 0) 55%),
+    var(--ch-ramp);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), inset 0 -2px 4px rgba(0, 0, 0, 0.25),
+    0 5px 18px rgba(0, 0, 0, 0.55);
+  letter-spacing: 0.03em;
+}
+/* cyan rim reserved ONLY for the money action (pay) */
+[data-theme="chrome"] .sale-bar-cta {
+  box-shadow: inset 0 0 0 1px var(--accent), inset 0 1px 0 rgba(255, 255, 255, 0.7),
+    0 0 16px rgba(58, 217, 240, 0.3), 0 5px 18px rgba(0, 0, 0, 0.55);
+}
+[data-theme="chrome"] .open-stall-btn::after,
+[data-theme="chrome"] .btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 38%, rgba(255, 255, 255, 0.65) 50%, transparent 62%);
+  opacity: 0;
+  transform: translateX(-120%);
+}
+[data-theme="chrome"] .open-stall-btn:active::after,
+[data-theme="chrome"] .btn-primary:active::after {
+  opacity: 1;
+  transform: translateX(120%);
+  transition: transform 0.55s ease, opacity 0.55s ease;
+}
+[data-theme="chrome"] .open-stall-btn:active,
+[data-theme="chrome"] .btn-primary:active,
+[data-theme="chrome"] .sale-bar-cta:active {
+  transform: translateY(1px);
+  box-shadow: inset 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="chrome"] .open-stall-btn::after,
+  [data-theme="chrome"] .btn-primary::after {
+    display: none;
+  }
+}
+[data-theme="chrome"] .btn-secondary {
+  border: 1px solid var(--border-strong);
+  background: linear-gradient(160deg, #272e38, #1b212a);
+  color: var(--text);
+}
+
+/* ---- glass on chrome surfaces (sale bar / sheet / tabs) ---- */
+[data-theme="chrome"] .sale-bar,
+[data-theme="chrome"] .sheet,
+[data-theme="chrome"] .tab {
+  background: rgba(225, 230, 238, 0.1);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  backdrop-filter: blur(14px) saturate(150%);
+  border: 1px solid rgba(234, 242, 255, 0.18);
+}
+[data-theme="chrome"] .sale-bar {
+  border-bottom: none;
+  box-shadow: var(--shadow-sheet);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  [data-theme="chrome"] .sale-bar,
+  [data-theme="chrome"] .sheet,
+  [data-theme="chrome"] .tab {
+    background: var(--surface-2);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  [data-theme="chrome"] .sale-bar,
+  [data-theme="chrome"] .sheet,
+  [data-theme="chrome"] .tab {
+    background: var(--surface-2);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+[data-theme="chrome"] .tab.active {
+  background: linear-gradient(160deg, #c6cedb, #8b94a1);
+  color: #1a1f26;
+  border-color: rgba(255, 255, 255, 0.4);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+/* product tile stays SOLID matte steel (legibility + scroll perf) */
+[data-theme="chrome"] .item-card {
+  background: var(--surface);
+}
+[data-theme="chrome"] .item-card::after {
+  display: none;
+}
+
+/* inputs solid */
+[data-theme="chrome"] input,
+[data-theme="chrome"] select,
+[data-theme="chrome"] textarea,
+[data-theme="chrome"] .search-box input {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+[data-theme="chrome"] input:focus,
+[data-theme="chrome"] textarea:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(58, 217, 240, 0.25);
+}

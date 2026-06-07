@@ -1,0 +1,218 @@
+/* ============================================================
+   OpenBooth — Theme "gunmetal" (Dark Tech)
+   Dark machined graphite, frosted-glass chrome surfaces, one
+   rationed electric-cyan HUD light. All selectors scoped.
+   ============================================================ */
+[data-theme="gunmetal"] {
+  --gm-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+}
+
+/* display + tabular */
+[data-theme="gunmetal"] .home-shop-name,
+[data-theme="gunmetal"] .title,
+[data-theme="gunmetal"] .section-title,
+[data-theme="gunmetal"] .open-stall-btn {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+[data-theme="gunmetal"] .stat-value,
+[data-theme="gunmetal"] .item-price,
+[data-theme="gunmetal"] .sale-bar-total,
+[data-theme="gunmetal"] .summary-row.total,
+[data-theme="gunmetal"] .receipt-total {
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: 0.02em;
+  font-weight: 700;
+}
+[data-theme="gunmetal"] .stat-value {
+  text-shadow: 0 0 12px rgba(58, 209, 255, 0.25);
+}
+[data-theme="gunmetal"] .stat-label,
+[data-theme="gunmetal"] .section-title {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+[data-theme="gunmetal"] .nav-card,
+[data-theme="gunmetal"] .item-card,
+[data-theme="gunmetal"] .stat,
+[data-theme="gunmetal"] .tab,
+[data-theme="gunmetal"] .btn,
+[data-theme="gunmetal"] .open-stall-btn {
+  transition: box-shadow 0.12s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.09s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* dark steel body + grain */
+[data-theme="gunmetal"] body {
+  background: linear-gradient(160deg, #23272e, #14161a);
+}
+[data-theme="gunmetal"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: var(--gm-noise);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="gunmetal"] body::after {
+    display: none;
+  }
+}
+
+/* ---- matte brushed billet ---- */
+[data-theme="gunmetal"] .nav-card,
+[data-theme="gunmetal"] .stat,
+[data-theme="gunmetal"] .item-card {
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  background-image: linear-gradient(180deg, rgba(234, 242, 255, 0.06), transparent 38%),
+    linear-gradient(145deg, #2b313d, #1f2530 50%, #181c24);
+  box-shadow: var(--shadow-card);
+}
+[data-theme="gunmetal"] .item-card.has-qty {
+  background-image: linear-gradient(145deg, #16323b, #0e2730);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-card), inset 0 0 12px rgba(58, 209, 255, 0.15);
+}
+[data-theme="gunmetal"] .nav-card:active,
+[data-theme="gunmetal"] .item-card:active,
+[data-theme="gunmetal"] .stat:active {
+  transform: translateY(1px) scale(0.985);
+  box-shadow: inset 2px 2px 6px rgba(0, 0, 0, 0.6), inset -1px -1px 3px rgba(234, 242, 255, 0.06);
+}
+
+/* milled icon well, cyan glyph */
+[data-theme="gunmetal"] .nav-card .nav-ico {
+  color: var(--accent);
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.6), inset -2px -2px 4px rgba(234, 242, 255, 0.07),
+    inset 0 0 0 1px var(--border);
+}
+[data-theme="gunmetal"] .nav-card .nav-ico .ob-ico {
+  width: 24px;
+  height: 24px;
+  filter: drop-shadow(0 0 6px rgba(58, 209, 255, 0.4));
+}
+[data-theme="gunmetal"] .nav-card .nav-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+[data-theme="gunmetal"] .home-mascot-fallback {
+  width: 112px;
+  height: 112px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(150deg, #2b313d, #181c24);
+  box-shadow: var(--shadow-card), inset 0 0 18px rgba(58, 209, 255, 0.12);
+}
+[data-theme="gunmetal"] .home-mascot-fallback .ob-ico,
+[data-theme="gunmetal"] .home-mascot-fallback svg {
+  filter: drop-shadow(0 0 8px rgba(58, 209, 255, 0.4));
+}
+
+/* ---- frosted glass: confined to chrome (sale bar / sheet / tabs) ---- */
+[data-theme="gunmetal"] .sale-bar,
+[data-theme="gunmetal"] .sheet,
+[data-theme="gunmetal"] .tab {
+  background: rgba(225, 230, 238, 0.1);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  backdrop-filter: blur(14px) saturate(150%);
+  border: 1px solid rgba(234, 242, 255, 0.18);
+}
+[data-theme="gunmetal"] .sale-bar {
+  border-bottom: none;
+  box-shadow: var(--shadow-sheet);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  [data-theme="gunmetal"] .sale-bar,
+  [data-theme="gunmetal"] .sheet,
+  [data-theme="gunmetal"] .tab {
+    background: var(--surface-2);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  [data-theme="gunmetal"] .sale-bar,
+  [data-theme="gunmetal"] .sheet,
+  [data-theme="gunmetal"] .tab {
+    background: var(--surface-2);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+/* ---- the one live control: chrome-rim cyan charge ---- */
+[data-theme="gunmetal"] .open-stall-btn,
+[data-theme="gunmetal"] .btn-primary,
+[data-theme="gunmetal"] .sale-bar-cta {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  color: var(--on-accent);
+  background: linear-gradient(150deg, #57daff, var(--accent) 42%, var(--accent-dark));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.2),
+    0 0 18px rgba(58, 209, 255, 0.32), 0 4px 14px rgba(0, 0, 0, 0.5);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+[data-theme="gunmetal"] .open-stall-btn::after,
+[data-theme="gunmetal"] .btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 35%, rgba(234, 242, 255, 0.45) 50%, transparent 65%);
+  opacity: 0;
+  transform: translateX(-120%);
+}
+[data-theme="gunmetal"] .open-stall-btn:active::after,
+[data-theme="gunmetal"] .btn-primary:active::after {
+  opacity: 1;
+  transform: translateX(120%);
+  transition: transform 0.55s ease, opacity 0.55s ease;
+}
+[data-theme="gunmetal"] .open-stall-btn:active,
+[data-theme="gunmetal"] .btn-primary:active {
+  transform: translateY(1px);
+  box-shadow: inset 2px 2px 8px rgba(0, 0, 0, 0.6), 0 0 12px rgba(58, 209, 255, 0.25);
+}
+[data-theme="gunmetal"] .btn-secondary {
+  border: 1px solid var(--border-strong);
+  background: linear-gradient(160deg, #262d38, #1b212a);
+  color: var(--text);
+}
+
+/* tabs (glass) active = cyan fill */
+[data-theme="gunmetal"] .tab.active {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: 0 0 14px rgba(58, 209, 255, 0.4);
+}
+
+/* inputs solid, never glass */
+[data-theme="gunmetal"] input,
+[data-theme="gunmetal"] select,
+[data-theme="gunmetal"] textarea,
+[data-theme="gunmetal"] .search-box input {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+[data-theme="gunmetal"] input:focus,
+[data-theme="gunmetal"] textarea:focus {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(58, 209, 255, 0.25);
+}

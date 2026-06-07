@@ -308,3 +308,101 @@
   --shadow-float: 9px 12px 26px rgba(150, 124, 90, 0.42), -6px -7px 16px rgba(255, 251, 243, 0.92);
   --shadow-sheet: 0 -10px 36px rgba(120, 96, 64, 0.2);
 }
+
+/* ---------- Theme: titanium — Brushed Titanium (light machined silver) ---------- */
+[data-theme="titanium"] {
+  --bg: #d6dadf;
+  --surface: #e7eaee;
+  --surface-2: #cdd2d8;
+  --border: #b3bac2;
+  --border-strong: #8a929c;
+  --text: #1a1e24;
+  --text-secondary: #4c545d;
+  --text-muted: #737b85; /* AA-large hints only */
+  --accent: #205aa6; /* cobalt-steel — money + primary only */
+  --accent-dark: #1a4885;
+  --accent-light: #dde7f3;
+  --on-accent: #f4f8fd;
+  --success: #2c734c;
+  --success-light: #dcecdf;
+  --combo: #5a4fa3;
+  --combo-light: #e6e2f3;
+  --danger: #b5362c;
+  --warning: #8d5c0e;
+  --font-sans: "Space Grotesk", -apple-system, BlinkMacSystemFont, "PingFang TC",
+    "Hiragino Sans", "Noto Sans TC", "Noto Sans JP", sans-serif;
+  --font-display: "Space Grotesk", -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+  --r-sm: 6px;
+  --r-md: 9px;
+  --r-lg: 13px;
+  --r-xl: 18px;
+  --shadow-card: inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -1px 0 rgba(20, 26, 34, 0.1),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 3px 10px rgba(20, 26, 34, 0.16);
+  --shadow-float: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 8px 24px rgba(20, 26, 34, 0.26),
+    0 2px 4px rgba(20, 26, 34, 0.18);
+  --shadow-sheet: inset 0 -1px 0 rgba(255, 255, 255, 0.5), 0 -8px 30px rgba(20, 26, 34, 0.22);
+}
+
+/* ---------- Theme: gunmetal — Dark Tech (graphite + glass + cyan HUD) ---------- */
+[data-theme="gunmetal"] {
+  --bg: #14181f;
+  --surface: #1d232c;
+  --surface-2: #262d38;
+  --border: #2f3744;
+  --border-strong: #46505e;
+  --text: #e8edf4;
+  --text-secondary: #9aa6b5;
+  --text-muted: #6e7a8a; /* AA-large hints only */
+  --accent: #3ad1ff; /* rationed electric cyan */
+  --accent-dark: #16a8d8;
+  --accent-light: #0e2730;
+  --on-accent: #04222a; /* dark ink on cyan — never white */
+  --success: #4fd6a0;
+  --success-light: #10231d;
+  --combo: #9d8cff;
+  --combo-light: #1b1830;
+  --danger: #ff6b6b;
+  --warning: #f5b13a;
+  --font-sans: "Space Grotesk", -apple-system, BlinkMacSystemFont, "PingFang TC",
+    "Hiragino Sans", "Noto Sans TC", "Noto Sans JP", sans-serif;
+  --font-display: "Space Grotesk", -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+  --r-sm: 6px;
+  --r-md: 9px;
+  --r-lg: 13px;
+  --r-xl: 18px;
+  --shadow-card: 0 1px 2px rgba(8, 11, 16, 0.5), 0 6px 16px rgba(8, 11, 16, 0.45),
+    inset 0 1px 0 rgba(234, 242, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+  --shadow-float: 0 10px 30px rgba(8, 11, 16, 0.6), inset 0 1px 0 rgba(234, 242, 255, 0.14);
+  --shadow-sheet: 0 -10px 36px rgba(8, 11, 16, 0.55);
+}
+
+/* ---------- Theme: chrome — Liquid Chrome / Mercury (dark mirror + shimmer) ---------- */
+[data-theme="chrome"] {
+  --bg: #161a20;
+  --surface: #20262e;
+  --surface-2: #272e38;
+  --border: #333c48;
+  --border-strong: #4a5564;
+  --text: #eef2f8;
+  --text-secondary: #aab4c2;
+  --text-muted: #7c8696; /* hints/decoration only */
+  --accent: #3ad9f0; /* ice-cyan */
+  --accent-dark: #1f9fb8;
+  --accent-light: #0f2a30;
+  --on-accent: #04222a;
+  --success: #3bb083;
+  --success-light: #13291f;
+  --combo: #9183e2;
+  --combo-light: #221d33;
+  --danger: #ef6863;
+  --warning: #dd9e2e;
+  /* body keeps system --font-sans for CJK legibility; only display gets grotesk */
+  --font-display: "Space Grotesk", -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-xl: 18px;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(234, 242, 255, 0.06);
+  --shadow-float: 0 10px 28px rgba(0, 0, 0, 0.55), 0 2px 6px rgba(0, 0, 0, 0.4);
+  --shadow-sheet: 0 -10px 36px rgba(0, 0, 0, 0.5);
+}

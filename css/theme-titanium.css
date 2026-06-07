@@ -1,0 +1,194 @@
+/* ============================================================
+   OpenBooth — Theme "titanium" (Brushed Titanium)
+   Light machined silver. Opaque brushed-billet surfaces, milled
+   icon wells, one polished cobalt control. NO backdrop-filter.
+   All selectors scoped to [data-theme="titanium"].
+   ============================================================ */
+[data-theme="titanium"] {
+  --ti-spec: #eaf2ff;
+  --ti-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+}
+
+/* display + tabular numerals */
+[data-theme="titanium"] .home-shop-name,
+[data-theme="titanium"] .title,
+[data-theme="titanium"] .section-title,
+[data-theme="titanium"] .open-stall-btn {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+[data-theme="titanium"] .stat-value,
+[data-theme="titanium"] .item-price,
+[data-theme="titanium"] .sale-bar-total,
+[data-theme="titanium"] .summary-row.total,
+[data-theme="titanium"] .receipt-total {
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: 0.02em;
+  font-weight: 700;
+}
+/* HUD micro-labels (Latin only — never CJK runs) */
+[data-theme="titanium"] .stat-label,
+[data-theme="titanium"] .section-title {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+/* mechanical feel — no spring */
+[data-theme="titanium"] .nav-card,
+[data-theme="titanium"] .item-card,
+[data-theme="titanium"] .stat,
+[data-theme="titanium"] .tab,
+[data-theme="titanium"] .btn,
+[data-theme="titanium"] .open-stall-btn {
+  transition: box-shadow 0.12s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.09s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* body: cool brushed grain */
+[data-theme="titanium"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: var(--ti-noise);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="titanium"] body::after {
+    display: none;
+  }
+}
+
+/* ---- brushed-billet surfaces ---- */
+[data-theme="titanium"] .nav-card,
+[data-theme="titanium"] .stat,
+[data-theme="titanium"] .item-card {
+  border: none;
+  background-color: var(--surface);
+  background-image: var(--ti-noise),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(20, 26, 34, 0.035) 0 2px, transparent 2px 5px),
+    linear-gradient(145deg, #eef1f4 0%, #dfe3e8 18%, #c8cdd4 34%, #aeb4bc 50%, #c8cdd4 66%, #e7eaee 84%, #bcc2ca 100%);
+  background-blend-mode: overlay, normal, normal, normal;
+  box-shadow: var(--shadow-card);
+}
+/* product tile = flatter matte billet (hierarchy) */
+[data-theme="titanium"] .item-card {
+  background-image: linear-gradient(160deg, #e9ecef, #d3d8de);
+}
+[data-theme="titanium"] .item-card.has-qty {
+  background-image: linear-gradient(160deg, #e4edf7, #d2e0f1);
+  box-shadow: var(--shadow-card), inset 0 0 0 1px var(--accent);
+}
+
+/* press = milled recess */
+[data-theme="titanium"] .nav-card:active,
+[data-theme="titanium"] .item-card:active,
+[data-theme="titanium"] .stat:active {
+  transform: translateY(1px);
+  box-shadow: inset 2px 2px 6px rgba(20, 26, 34, 0.3), inset -1px -1px 3px rgba(255, 255, 255, 0.55);
+}
+
+/* ---- signature: milled icon well ---- */
+[data-theme="titanium"] .nav-card .nav-ico {
+  color: var(--accent);
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 10px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  box-shadow: inset 3px 3px 7px rgba(20, 26, 34, 0.3), inset -3px -3px 6px rgba(255, 255, 255, 0.65),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+[data-theme="titanium"] .nav-card .nav-ico .ob-ico {
+  width: 24px;
+  height: 24px;
+}
+[data-theme="titanium"] .nav-card .nav-name {
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+/* hero mascot disc = machined billet */
+[data-theme="titanium"] .home-mascot-fallback {
+  width: 112px;
+  height: 112px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: linear-gradient(150deg, #eef1f4, #c2c8d0);
+  box-shadow: var(--shadow-card), inset 2px 2px 6px rgba(255, 255, 255, 0.5);
+}
+
+/* ---- the ONE polished control: hero + primary + pay ---- */
+[data-theme="titanium"] .open-stall-btn,
+[data-theme="titanium"] .btn-primary,
+[data-theme="titanium"] .sale-bar-cta {
+  position: relative;
+  overflow: hidden;
+  border: none;
+  color: var(--on-accent);
+  background: linear-gradient(145deg, #2f6fc0, var(--accent) 45%, var(--accent-dark));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+    0 4px 14px rgba(20, 26, 34, 0.32);
+  letter-spacing: 0.02em;
+}
+[data-theme="titanium"] .open-stall-btn::after,
+[data-theme="titanium"] .btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 35%, var(--ti-spec) 50%, transparent 65%);
+  opacity: 0;
+  transform: translateX(-120%);
+}
+[data-theme="titanium"] .open-stall-btn:active::after,
+[data-theme="titanium"] .btn-primary:active::after {
+  opacity: 0.5;
+  transform: translateX(120%);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+}
+[data-theme="titanium"] .open-stall-btn:active,
+[data-theme="titanium"] .btn-primary:active {
+  transform: translateY(1px);
+  box-shadow: inset 2px 2px 8px rgba(10, 30, 60, 0.5);
+}
+@media (prefers-reduced-motion: reduce) {
+  [data-theme="titanium"] .open-stall-btn::after,
+  [data-theme="titanium"] .btn-primary::after {
+    display: none;
+  }
+}
+
+[data-theme="titanium"] .btn-secondary {
+  border: 1px solid var(--border-strong);
+  background: linear-gradient(160deg, #e7eaee, #d2d7dd);
+  box-shadow: var(--shadow-card);
+}
+
+/* ---- tabs: recessed when active ---- */
+[data-theme="titanium"] .tab {
+  border: 1px solid var(--border);
+  background: linear-gradient(160deg, #e7eaee, #d6dbe1);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+[data-theme="titanium"] .tab.active {
+  background: var(--surface-2);
+  color: var(--accent);
+  border-color: var(--border-strong);
+  box-shadow: inset 2px 2px 5px rgba(20, 26, 34, 0.25), inset -1px -1px 3px rgba(255, 255, 255, 0.5);
+}
+
+/* ---- sale bar + sheet: machined panel ---- */
+[data-theme="titanium"] .sale-bar {
+  border: none;
+  background: linear-gradient(180deg, #e9ecef, #cdd3da);
+  box-shadow: var(--shadow-sheet);
+}
+[data-theme="titanium"] .sheet {
+  background: linear-gradient(180deg, #eceff2, #dde1e6);
+}

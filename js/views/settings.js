@@ -22,6 +22,11 @@
     { id: "mono", dots: ["#1c1c1a", "#f5f5f4", "#6e6e69"] },
     { id: "night", dots: ["#e08a5c", "#1b1916", "#a48fd6"] },
     // prototype design themes (big visual overhauls) — try & compare
+    // metallic / futuristic set
+    { id: "titanium", dots: ["#205aa6", "#d6dadf", "#8a929c"] },
+    { id: "gunmetal", dots: ["#3ad1ff", "#14181f", "#9d8cff"] },
+    { id: "chrome", dots: ["#3ad9f0", "#20262e", "#c6cedb"] },
+    // earlier prototypes
     { id: "koishi", dots: ["#b86c44", "#e9decb", "#6e6196"] },
     { id: "press", dots: ["#d81b60", "#f1e7d4", "#2b241b"] },
     { id: "cotton", dots: ["#9c3d2e", "#f3ecdf", "#5b5191"] },
