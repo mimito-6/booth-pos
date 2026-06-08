@@ -21,8 +21,11 @@
     { id: "ocean", dots: ["#087f8c", "#eef8f8", "#356da8"] },
     { id: "mono", dots: ["#1c1c1a", "#f5f5f4", "#6e6e69"] },
     { id: "night", dots: ["#e08a5c", "#1b1916", "#a48fd6"] },
-    // design theme — warm tactile clay (the keeper; refined)
-    { id: "koishi", dots: ["#b3704c", "#ece3d2", "#7d7363"] },
+    // design themes (taste-driven set)
+    { id: "koishi", dots: ["#b3704c", "#ece3d2", "#7d7363"] }, // warm tactile clay
+    { id: "linen", dots: ["#a3564e", "#f0ece2", "#6d6385"] }, // warm editorial minimal
+    { id: "graphite", dots: ["#4f9d80", "#17171a", "#7e8aa0"] }, // premium dark
+    { id: "sage", dots: ["#5f7d68", "#e6e8df", "#6a7088"] }, // calm natural
   ];
 
   function render(root) {

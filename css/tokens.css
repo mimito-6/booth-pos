@@ -437,3 +437,97 @@
   --shadow-float: 0 6px 20px rgba(60, 56, 48, 0.12);
   --shadow-sheet: 0 -8px 28px rgba(60, 56, 48, 0.12);
 }
+
+/* ---------- Theme: linen — warm editorial minimal (Fraunces serif) ---------- */
+[data-theme="linen"] {
+  --bg: #f0ece2;
+  --surface: #faf7f0;
+  --surface-2: #e7e1d3;
+  --border: #e3ddce;
+  --border-strong: #cfc7b5;
+  --text: #2b2824; /* off-black charcoal */
+  --text-secondary: #6e675b;
+  --text-muted: #a59d8d;
+  --accent: #a3564e; /* muted terracotta-rose — one desaturated accent */
+  --accent-dark: #874740;
+  --accent-light: #f0e2dd;
+  --on-accent: #faf7f0;
+  --success: #4f7a55;
+  --success-light: #e3ecdf;
+  --combo: #6d6385;
+  --combo-light: #ebe7f1;
+  --danger: #b1493e;
+  --warning: #9a7733;
+  --font-display: "Fraunces", Georgia, "Songti TC", "PingFang TC", serif;
+  --r-sm: 5px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --shadow-card: 0 1px 2px rgba(60, 52, 40, 0.05), 0 6px 18px rgba(60, 52, 40, 0.07);
+  --shadow-float: 0 12px 30px rgba(60, 52, 40, 0.13);
+  --shadow-sheet: 0 -8px 28px rgba(60, 52, 40, 0.12);
+}
+
+/* ---------- Theme: graphite — premium dark (zinc + muted emerald) ---------- */
+[data-theme="graphite"] {
+  --bg: #17171a; /* off-black, not pure black */
+  --surface: #202024;
+  --surface-2: #2a2a30;
+  --border: #313138;
+  --border-strong: #45454d;
+  --text: #ededf0;
+  --text-secondary: #a2a2ab;
+  --text-muted: #71717a;
+  --accent: #4f9d80; /* desaturated emerald — calm, not neon */
+  --accent-dark: #3d7d66;
+  --accent-light: #16302a;
+  --on-accent: #0e1f1a;
+  --success: #5aa98a;
+  --success-light: #16302a;
+  --combo: #7e8aa0; /* muted slate (avoids the AI-purple cliché) */
+  --combo-light: #232830;
+  --danger: #d6695f;
+  --warning: #c9a04f;
+  --font-sans: "Outfit", -apple-system, BlinkMacSystemFont, "PingFang TC",
+    "Hiragino Sans", "Noto Sans TC", "Noto Sans JP", sans-serif;
+  --font-display: "Outfit", -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+  --r-sm: 5px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.4), 0 6px 16px rgba(0, 0, 0, 0.35);
+  --shadow-float: 0 12px 30px rgba(0, 0, 0, 0.5);
+  --shadow-sheet: 0 -10px 34px rgba(0, 0, 0, 0.45);
+}
+
+/* ---------- Theme: sage — calm natural premium (warm stone + muted sage) ---------- */
+[data-theme="sage"] {
+  --bg: #e6e8df;
+  --surface: #f2f3ec;
+  --surface-2: #dadecf;
+  --border: #d6dac9;
+  --border-strong: #b6bca6;
+  --text: #33372f; /* olive-charcoal */
+  --text-secondary: #686d5e;
+  --text-muted: #9aa08c;
+  --accent: #5f7d68; /* desaturated sage/forest */
+  --accent-dark: #496150;
+  --accent-light: #e2ebe1;
+  --on-accent: #f4f7f1;
+  --success: #5a7d54;
+  --success-light: #e1ecdd;
+  --combo: #6a7088;
+  --combo-light: #e6e8f0;
+  --danger: #a85a4c;
+  --warning: #91793a;
+  --font-sans: "Outfit", -apple-system, BlinkMacSystemFont, "PingFang TC",
+    "Hiragino Sans", "Noto Sans TC", "Noto Sans JP", sans-serif;
+  --font-display: "Outfit", -apple-system, "PingFang TC", "Noto Sans TC", sans-serif;
+  --r-sm: 8px;
+  --r-md: 12px;
+  --r-lg: 18px;
+  --r-xl: 24px;
+  --shadow-card: 0 2px 5px rgba(70, 80, 60, 0.07), 0 8px 22px rgba(70, 80, 60, 0.09);
+  --shadow-float: 0 12px 30px rgba(70, 80, 60, 0.14);
+  --shadow-sheet: 0 -8px 28px rgba(70, 80, 60, 0.12);
+}

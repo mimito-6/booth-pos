@@ -1,0 +1,124 @@
+/* ============================================================
+   OpenBooth — Theme "linen" (warm editorial minimal)
+   Off-white linen, Fraunces serif display, one muted terracotta-rose
+   accent, clean flat surfaces with hairline rules + whisper shadow.
+   All selectors scoped to [data-theme="linen"].
+   ============================================================ */
+
+/* editorial serif on the display layer; body stays the calm system stack */
+[data-theme="linen"] .home-shop-name,
+[data-theme="linen"] .title,
+[data-theme="linen"] .item-price,
+[data-theme="linen"] .sale-bar-total,
+[data-theme="linen"] .summary-row.total,
+[data-theme="linen"] .receipt-total {
+  font-family: var(--font-display);
+}
+[data-theme="linen"] .home-shop-name {
+  font-weight: 600;
+  font-size: 27px;
+  letter-spacing: -0.01em;
+}
+[data-theme="linen"] .item-price,
+[data-theme="linen"] .sale-bar-total,
+[data-theme="linen"] .summary-row.total {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+[data-theme="linen"] .section-title {
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+[data-theme="linen"] .nav-card,
+[data-theme="linen"] .item-card,
+[data-theme="linen"] .tab,
+[data-theme="linen"] .btn,
+[data-theme="linen"] .open-stall-btn {
+  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.18s ease,
+    background 0.18s ease, border-color 0.18s ease;
+}
+
+/* ---- clean flat cards, hairline rule, whisper shadow ---- */
+[data-theme="linen"] .nav-card,
+[data-theme="linen"] .stat,
+[data-theme="linen"] .item-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+}
+[data-theme="linen"] .nav-card {
+  padding: 22px 12px;
+}
+[data-theme="linen"] .nav-card:active,
+[data-theme="linen"] .item-card:active {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-float);
+  border-color: var(--border-strong);
+}
+[data-theme="linen"] .item-card.has-qty {
+  background: var(--accent-light);
+  border-color: var(--accent);
+}
+
+/* ---- icons: flat, editorial, in the accent (no well) ---- */
+[data-theme="linen"] .nav-card .nav-emoji.nav-ico {
+  color: var(--accent);
+  margin-bottom: 12px;
+}
+[data-theme="linen"] .nav-card .nav-emoji.nav-ico .ob-ico {
+  width: 28px;
+  height: 28px;
+  stroke-width: 1.75;
+}
+[data-theme="linen"] .nav-card .nav-name {
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* ---- hero / primary: solid accent, clean, tactile ---- */
+[data-theme="linen"] .open-stall-btn,
+[data-theme="linen"] .btn-primary,
+[data-theme="linen"] .sale-bar-cta {
+  background: var(--accent);
+  color: var(--on-accent);
+  border: none;
+  box-shadow: 0 4px 14px rgba(122, 62, 56, 0.22);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+[data-theme="linen"] .open-stall-btn:active,
+[data-theme="linen"] .btn-primary:active,
+[data-theme="linen"] .sale-bar-cta:active {
+  transform: translateY(1px);
+  background: var(--accent-dark);
+  box-shadow: 0 2px 8px rgba(122, 62, 56, 0.24);
+}
+[data-theme="linen"] .btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+}
+
+/* ---- tabs: editorial text + accent underline ---- */
+[data-theme="linen"] .tab {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: var(--text-muted);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+[data-theme="linen"] .tab.active {
+  background: transparent;
+  color: var(--text);
+  box-shadow: inset 0 -2px 0 var(--accent);
+}
+
+/* ---- sale bar / sheet ---- */
+[data-theme="linen"] .sale-bar {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+}

@@ -1,0 +1,138 @@
+/* ============================================================
+   OpenBooth — Theme "sage" (calm natural premium)
+   Warm stone-sage, Outfit sans, one muted sage accent, soft gentle
+   depth, generous space. All selectors scoped to [data-theme="sage"].
+   ============================================================ */
+
+[data-theme="sage"] .home-shop-name,
+[data-theme="sage"] .title,
+[data-theme="sage"] .section-title,
+[data-theme="sage"] .open-stall-btn {
+  font-family: var(--font-display);
+}
+[data-theme="sage"] .home-shop-name {
+  font-weight: 600;
+  font-size: 25px;
+  letter-spacing: -0.005em;
+}
+[data-theme="sage"] .stat-value,
+[data-theme="sage"] .item-price,
+[data-theme="sage"] .sale-bar-total,
+[data-theme="sage"] .summary-row.total,
+[data-theme="sage"] .receipt-total {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+[data-theme="sage"] .section-title {
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+[data-theme="sage"] .nav-card,
+[data-theme="sage"] .item-card,
+[data-theme="sage"] .tab,
+[data-theme="sage"] .btn,
+[data-theme="sage"] .open-stall-btn {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease,
+    background 0.2s ease, border-color 0.2s ease;
+}
+
+/* soft overhead light */
+[data-theme="sage"] body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(120% 55% at 50% -10%, rgba(255, 255, 255, 0.45), transparent 60%);
+}
+
+/* ---- soft cards, gentle shadow ---- */
+[data-theme="sage"] .nav-card,
+[data-theme="sage"] .stat,
+[data-theme="sage"] .item-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
+  border-radius: var(--r-lg);
+}
+[data-theme="sage"] .nav-card {
+  padding: 22px 12px;
+}
+[data-theme="sage"] .nav-card:active,
+[data-theme="sage"] .item-card:active {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-float);
+}
+[data-theme="sage"] .item-card.has-qty {
+  background: var(--accent-light);
+  border-color: var(--accent);
+}
+
+/* ---- icons: sage glyph on a soft rounded tile ---- */
+[data-theme="sage"] .nav-card .nav-emoji.nav-ico {
+  color: var(--accent);
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 12px;
+  border-radius: 16px;
+  background: var(--accent-light);
+}
+[data-theme="sage"] .nav-card .nav-emoji.nav-ico .ob-ico {
+  width: 25px;
+  height: 25px;
+}
+[data-theme="sage"] .nav-card .nav-name {
+  font-weight: 500;
+}
+
+/* ---- hero / primary ---- */
+[data-theme="sage"] .open-stall-btn,
+[data-theme="sage"] .btn-primary,
+[data-theme="sage"] .sale-bar-cta {
+  background: var(--accent);
+  color: var(--on-accent);
+  border: none;
+  box-shadow: 0 5px 16px rgba(70, 95, 70, 0.22);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+[data-theme="sage"] .open-stall-btn {
+  border-radius: var(--r-xl);
+}
+[data-theme="sage"] .open-stall-btn:active,
+[data-theme="sage"] .btn-primary:active,
+[data-theme="sage"] .sale-bar-cta:active {
+  transform: translateY(1px);
+  background: var(--accent-dark);
+}
+[data-theme="sage"] .btn-secondary {
+  background: transparent;
+  border: 1px solid var(--border-strong);
+  color: var(--text-secondary);
+}
+
+/* ---- tabs: soft pill ---- */
+[data-theme="sage"] .tab {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-pill);
+  color: var(--text-secondary);
+}
+[data-theme="sage"] .tab.active {
+  background: var(--accent);
+  color: var(--on-accent);
+  border-color: var(--accent);
+}
+
+/* ---- sale bar / sheet ---- */
+[data-theme="sage"] .sale-bar {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+}
+[data-theme="sage"] .sheet {
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+}
