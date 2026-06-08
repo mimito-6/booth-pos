@@ -274,18 +274,18 @@
 
 /* ---------- Theme: koishi (小石) — warm plaster / pebble clay, Japanese cozy-minimal ---------- */
 [data-theme="koishi"] {
-  --bg: #e9decb; /* warm plaster wall */
-  --surface: #f5eee0; /* raised warm clay */
-  --surface-2: #e0d4be;
-  --border: #ddd0b8; /* soft — shape comes from shadow, not edges */
+  --bg: #ece3d2; /* warm plaster wall */
+  --surface: #f7f1e6; /* raised warm clay */
+  --surface-2: #e3d8c4;
+  --border: #e0d5c0; /* soft — shape comes from shadow, not edges */
   --border-strong: #c7b89c;
-  --text: #4a4034; /* warm cocoa, not black */
-  --text-secondary: #897c68;
-  --text-muted: #a89c86;
-  --accent: #b86c44; /* warm terracotta clay */
-  --accent-dark: #9a552f;
-  --accent-light: #f2e2d4;
-  --on-accent: #fff6ee;
+  --text: #423b33; /* warm cocoa, not black — deeper for hierarchy */
+  --text-secondary: #8a7f6d;
+  --text-muted: #a99d87;
+  --accent: #b3704c; /* warm terracotta clay, gently desaturated */
+  --accent-dark: #975a30;
+  --accent-light: #f2e4d6;
+  --on-accent: #fff7ef;
   --success: #4e7e5a; /* soft sage */
   --success-light: #e4eedd;
   --combo: #6e6196; /* dusty lavender */
@@ -303,10 +303,11 @@
   --r-md: 18px;
   --r-lg: 26px;
   --r-xl: 34px;
-  /* claymorphic dual-soft shadows: warm cast below-right + light lift above-left */
-  --shadow-card: 6px 7px 16px rgba(150, 124, 90, 0.4), -5px -5px 12px rgba(255, 251, 243, 0.9);
-  --shadow-float: 9px 12px 26px rgba(150, 124, 90, 0.42), -6px -7px 16px rgba(255, 251, 243, 0.92);
-  --shadow-sheet: 0 -10px 36px rgba(120, 96, 64, 0.2);
+  /* claymorphic dual-soft shadows: warm cast below-right + light lift above-left
+     (refined — softer cast, cleaner lift, tinted to the plaster) */
+  --shadow-card: 5px 6px 15px rgba(150, 120, 84, 0.28), -4px -4px 11px rgba(255, 252, 246, 0.8);
+  --shadow-float: 8px 11px 26px rgba(150, 120, 84, 0.32), -5px -6px 15px rgba(255, 252, 246, 0.85);
+  --shadow-sheet: 0 -10px 38px rgba(120, 96, 64, 0.18);
 }
 
 /* ---------- Theme: titanium — Brushed Titanium (light machined silver) ---------- */

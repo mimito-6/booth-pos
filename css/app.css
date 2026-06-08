@@ -140,14 +140,18 @@ button {
   width: 22px;
   height: 22px;
 }
-.nav-card .nav-ico {
+/* .nav-emoji.nav-ico (both classes on the span) — higher specificity than the
+   later `.nav-card .nav-emoji { display:block }` so flex-centering actually wins
+   and the glyph sits dead-center in its (themed) circular well. */
+.nav-card .nav-emoji.nav-ico {
   color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 8px;
+  line-height: 0;
 }
-.nav-card .nav-ico .ob-ico {
+.nav-card .nav-emoji.nav-ico .ob-ico {
   width: 30px;
   height: 30px;
 }

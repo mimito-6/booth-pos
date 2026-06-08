@@ -21,18 +21,8 @@
     { id: "ocean", dots: ["#087f8c", "#eef8f8", "#356da8"] },
     { id: "mono", dots: ["#1c1c1a", "#f5f5f4", "#6e6e69"] },
     { id: "night", dots: ["#e08a5c", "#1b1916", "#a48fd6"] },
-    // prototype design themes (big visual overhauls) — try & compare
-    // wabi-sabi (錆) — muted aged-metal/stone, restrained
-    { id: "sabi", dots: ["#4e635c", "#d9d6cc", "#a39d8f"] },
-    // metallic / futuristic set
-    { id: "titanium", dots: ["#205aa6", "#d6dadf", "#8a929c"] },
-    { id: "gunmetal", dots: ["#3ad1ff", "#14181f", "#9d8cff"] },
-    { id: "chrome", dots: ["#3ad9f0", "#20262e", "#c6cedb"] },
-    // earlier prototypes
-    { id: "koishi", dots: ["#b86c44", "#e9decb", "#6e6196"] },
-    { id: "press", dots: ["#d81b60", "#f1e7d4", "#2b241b"] },
-    { id: "cotton", dots: ["#9c3d2e", "#f3ecdf", "#5b5191"] },
-    { id: "market", dots: ["#e03e2f", "#fdf3d9", "#1a1a18"] },
+    // design theme — warm tactile clay (the keeper; refined)
+    { id: "koishi", dots: ["#b3704c", "#ece3d2", "#7d7363"] },
   ];
 
   function render(root) {
